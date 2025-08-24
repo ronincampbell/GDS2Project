@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bxb11c4g0nmvb"
-path="res://.godot/imported/ballTexture.png-5b2b43e159bb8c42ddce25c7bc0447b7.ctex"
+uid="uid://bs357rl5n6hti"
+path="res://.godot/imported/golfClub.png-41ae113e57a4c131f370f05a6f6cecd9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://ballTexture.png"
-dest_files=["res://.godot/imported/ballTexture.png-5b2b43e159bb8c42ddce25c7bc0447b7.ctex"]
+source_file="res://models/golf_club/golfClub.png"
+dest_files=["res://.godot/imported/golfClub.png-41ae113e57a4c131f370f05a6f6cecd9.ctex"]
 
 [params]
 

@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bihl7barlx4cv"
-path.s3tc="res://.godot/imported/ball_0.png-27e22823ec1e83f01a800a0804b94edb.s3tc.ctex"
+uid="uid://7owsso2mkyh3"
+path.s3tc="res://.godot/imported/golfClub_0.png-c107bfd832187ef0990c14881f4df15e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "5e4e8a71cf8bf297e0c694753234af55"
+"md5": "ae1c3ddb5d717cf46978a04d76bf8f1a"
 }
 
 [deps]
 
-source_file="res://ball_0.png"
-dest_files=["res://.godot/imported/ball_0.png-27e22823ec1e83f01a800a0804b94edb.s3tc.ctex"]
+source_file="res://models/golf_club/golfClub_0.png"
+dest_files=["res://.godot/imported/golfClub_0.png-c107bfd832187ef0990c14881f4df15e.s3tc.ctex"]
 
 [params]
 

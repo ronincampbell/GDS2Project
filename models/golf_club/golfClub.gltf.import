@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dssnjv438vn22"
-path="res://.godot/imported/goldClub.gltf-fb782aa6db842d68b9bf8125f07feea1.scn"
+path="res://.godot/imported/golfClub.gltf-7e17f31ddf4dbf59d30f7b9697d9295b.scn"
 
 [deps]
 
-source_file="res://goldClub.gltf"
-dest_files=["res://.godot/imported/goldClub.gltf-fb782aa6db842d68b9bf8125f07feea1.scn"]
+source_file="res://models/golf_club/golfClub.gltf"
+dest_files=["res://.godot/imported/golfClub.gltf-7e17f31ddf4dbf59d30f7b9697d9295b.scn"]
 
 [params]
 
