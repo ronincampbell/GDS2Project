@@ -1,0 +1,170 @@
+[gd_scene load_steps=16 format=3 uid="uid://cjc6h1eet1f4p"]
+
+[ext_resource type="Script" uid="uid://bq1l5kvansjop" path="res://scripts/golf_ball.gd" id="1_dkmjw"]
+[ext_resource type="PackedScene" uid="uid://c0ryf1go6lmf7" path="res://models/ball/ball.gltf" id="2_ihq4b"]
+[ext_resource type="PackedScene" uid="uid://dssnjv438vn22" path="res://models/golf_club/golfClub.gltf" id="3_w843g"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_42yok"]
+sky_material = SubResource("ProceduralSkyMaterial_pwco0")
+
+[sub_resource type="Environment" id="Environment_cabd0"]
+background_mode = 2
+sky = SubResource("Sky_42yok")
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iwxtu"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ulkd"]
+albedo_color = Color(0.2288, 0.88, 0.32648, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fn2sa"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_57l66"]
+plane = Plane(0, 0, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwco0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_p21b5"]
+size = Vector3(10, 1, 0.2)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_bdpbv"]
+radius = 0.13
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fn2sa"]
+size = Vector3(0.150024, 0.0774536, 0.029541)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_57l66"]
+size = Vector3(0.0316162, 0.931752, 0.03125)
+
+[node name="TestMap" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cabd0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_energy = 0.1
+shadow_enabled = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_iwxtu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = SubResource("StandardMaterial3D_6ulkd")
+mesh = SubResource("BoxMesh_fn2sa")
+
+[node name="Barrier" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier"]
+shape = SubResource("WorldBoundaryShape3D_57l66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Barrier"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = SubResource("StandardMaterial3D_pwco0")
+mesh = SubResource("BoxMesh_p21b5")
+
+[node name="Barrier2" type="StaticBody3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 5, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier2"]
+shape = SubResource("WorldBoundaryShape3D_57l66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Barrier2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = SubResource("StandardMaterial3D_pwco0")
+mesh = SubResource("BoxMesh_p21b5")
+
+[node name="Barrier3" type="StaticBody3D" parent="."]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 1, 5)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier3"]
+shape = SubResource("WorldBoundaryShape3D_57l66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Barrier3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = SubResource("StandardMaterial3D_pwco0")
+mesh = SubResource("BoxMesh_p21b5")
+
+[node name="Barrier4" type="StaticBody3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -5, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier4"]
+shape = SubResource("WorldBoundaryShape3D_57l66")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Barrier4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.1)
+material_override = SubResource("StandardMaterial3D_pwco0")
+mesh = SubResource("BoxMesh_p21b5")
+
+[node name="GolfBall" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41401, 0.667923, -2.318)
+can_sleep = false
+angular_damp = 3.0
+script = ExtResource("1_dkmjw")
+
+[node name="blockbench_export" parent="GolfBall" instance=ExtResource("2_ihq4b")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GolfBall"]
+shape = SubResource("SphereShape3D_bdpbv")
+
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="GolfBall"]
+remote_path = NodePath("../NoRotatePivot")
+update_rotation = false
+update_scale = false
+
+[node name="NoRotatePivot" type="Node3D" parent="GolfBall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41401, 0.667923, -2.318)
+top_level = true
+
+[node name="SpotLight3D" type="SpotLight3D" parent="GolfBall/NoRotatePivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0125139, 4.0503, -0.0223432)
+light_energy = 50.0
+light_indirect_energy = 0.0
+light_specular = 0.0
+distance_fade_begin = 3.0
+distance_fade_length = 2.0
+spot_range = 10.0
+spot_angle = 6.0
+spot_angle_attenuation = 0.000211122
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="GolfBall/NoRotatePivot"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.0125139, 4.0503, -0.0223432)
+light_energy = 50.0
+light_indirect_energy = 0.0
+light_negative = true
+light_specular = 0.0
+distance_fade_begin = 3.0
+distance_fade_length = 2.0
+spot_range = 10.0
+spot_angle = 5.0
+spot_angle_attenuation = 0.000211122
+
+[node name="GolfClub" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.560061, 0.576572, 0.41229)
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="blockbench_export2" parent="GolfClub" instance=ExtResource("3_w843g")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GolfClub"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0623169, -0.025238, 0)
+shape = SubResource("BoxShape3D_fn2sa")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="GolfClub"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57764e-05, 0.477915, 0)
+shape = SubResource("BoxShape3D_57l66")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999962, 0.00822742, -0.00279283, 0, 0.321439, 0.94693, 0.00868852, -0.946894, 0.321427, -0.0595335, 8.65543, 3.52912)
