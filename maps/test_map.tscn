@@ -48,8 +48,7 @@ size = Vector3(0.0316162, 0.931752, 0.03125)
 environment = SubResource("Environment_cabd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-light_energy = 0.1
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shadow_enabled = true
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -98,6 +97,7 @@ mesh = SubResource("BoxMesh_p21b5")
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -5, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Barrier4"]
+transform = Transform3D(0.999999, 0.000944331, 0.00106452, -0.000942318, 0.999998, -0.0019003, -0.0010663, 0.0018993, 0.999998, 0, 0, 0)
 shape = SubResource("WorldBoundaryShape3D_57l66")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Barrier4"]
