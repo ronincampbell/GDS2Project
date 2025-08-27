@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0ktesd6kpmw3"]
+
+[ext_resource type="Script" uid="uid://bbcown7sf5h4u" path="res://maps/prop.gd" id="1_o3n5q"]
+[ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="2_2bj52"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_dkmjw"]
+height = 0.615601
+radius = 0.205566
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ihq4b"]
+height = 0.511696
+radius = 0.321289
+
+[node name="PropPlant" type="RigidBody3D"]
+script = ExtResource("1_o3n5q")
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_2bj52")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245544, 0)
+shape = SubResource("CylinderShape3D_dkmjw")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493007, 0)
+shape = SubResource("CylinderShape3D_ihq4b")
