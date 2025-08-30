@@ -2,10 +2,15 @@
 
 [ext_resource type="Script" uid="uid://bq1l5kvansjop" path="res://scripts/golf_ball.gd" id="1_42yok"]
 [ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://objects/barrier.tscn" id="1_cabd0"]
+
+[ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://c0ryf1go6lmf7" path="res://models/ball/ball.gltf" id="1_pwco0"]
+[ext_resource type="Texture2D" uid="uid://ds85t07fvpvsl" path="res://placeholder_arrow.png" id="3_42yok"]
 [ext_resource type="PackedScene" uid="uid://dssnjv438vn22" path="res://models/golf_club/golfClub.gltf" id="3_cabd0"]
 [ext_resource type="Texture2D" uid="uid://dm80g02b4g7ln" path="res://models/Maps/Ground_Grass Base Color.png" id="3_k1jtb"]
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
+[ext_resource type="PackedScene" uid="uid://cvshjs0wne2oh" path="res://models/gnome/gnome.gltf" id="5_cabd0"]
+[ext_resource type="Script" path="res://scripts/gnome.gd" id="5_k1jtb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -34,13 +39,28 @@ size = Vector3(0.150024, 0.0774536, 0.029541)
 [sub_resource type="BoxShape3D" id="BoxShape3D_57l66"]
 size = Vector3(0.0316162, 0.931752, 0.03125)
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
+radius = 0.312095
+height = 1.43211
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6slyc"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 0.1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_b71ab"]
+height = 0.1
+radius = 0.15
+
 [node name="TestMap" type="Node3D"]
+script = ExtResource("1_cabd0")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cabd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_energy = 0.6
 shadow_enabled = true
 
 [node name="Barrier" parent="." instance=ExtResource("1_cabd0")]
@@ -65,7 +85,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_pbr4s")
 shape = SubResource("ConcavePolygonShape3D_pbr4s")
 
 [node name="GolfBall" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41401, 0.667923, -2.318)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.721253, 0.667923, -1.03261)
 can_sleep = false
 angular_damp = 3.0
 script = ExtResource("1_42yok")
@@ -82,7 +102,7 @@ update_rotation = false
 update_scale = false
 
 [node name="NoRotatePivot" type="Node3D" parent="GolfBall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41401, 0.667923, -2.318)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.721253, 0.667923, -1.03261)
 top_level = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="GolfBall/NoRotatePivot"]
@@ -108,6 +128,16 @@ spot_range = 10.0
 spot_angle = 5.0
 spot_angle_attenuation = 0.000211122
 
+[node name="YRotatePivot" type="Node3D" parent="GolfBall/NoRotatePivot"]
+
+[node name="AimDecal" type="Decal" parent="GolfBall/NoRotatePivot/YRotatePivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15722, -3, 0)
+visible = false
+size = Vector3(2, 10, 2)
+texture_albedo = ExtResource("3_42yok")
+upper_fade = 6.83374e-05
+lower_fade = 9.66436e-05
+
 [node name="GolfClub" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.560061, 0.576572, 0.41229)
 axis_lock_linear_y = true
@@ -127,3 +157,28 @@ shape = SubResource("BoxShape3D_57l66")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.999962, 0.00822742, -0.00279283, 0, 0.321439, 0.94693, 0.00868852, -0.946894, 0.321427, -0.0595335, 8.65543, 3.52912)
+
+[node name="Gnome" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32726, 0)
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+can_sleep = false
+script = ExtResource("5_k1jtb")
+
+[node name="blockbench_export" parent="Gnome" instance=ExtResource("5_cabd0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.763834, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gnome"]
+shape = SubResource("CapsuleShape3D_cabd0")
+
+[node name="GolfHole" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.63002, 0.473131, -3.51914)
+mesh = SubResource("CylinderMesh_6slyc")
+skeleton = NodePath("")
+
+[node name="Area3D" type="Area3D" parent="GolfHole"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GolfHole/Area3D"]
+shape = SubResource("CylinderShape3D_b71ab")
+
+[connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]
