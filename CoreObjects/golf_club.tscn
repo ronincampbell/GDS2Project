@@ -9,10 +9,6 @@ size = Vector3(0.150024, 0.0774536, 0.029541)
 size = Vector3(0.0316162, 0.931752, 0.03125)
 
 [node name="GolfClub" type="RigidBody3D"]
-axis_lock_linear_y = true
-axis_lock_angular_x = true
-axis_lock_angular_y = true
-axis_lock_angular_z = true
 
 [node name="blockbench_export2" parent="." instance=ExtResource("1_5f8sv")]
 

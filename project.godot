@@ -14,6 +14,7 @@ config/name="GnomeInOne"
 run/main_scene="uid://kf5auj8ixedm"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
+<<<<<<<HEADrun/main_scene="uid://kf5auj8ixedm"
 
 [autoload]
 
