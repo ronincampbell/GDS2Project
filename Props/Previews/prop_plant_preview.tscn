@@ -40,3 +40,6 @@ target_position = Vector3(0, 0, -0.8)
 [node name="SouthRaycast" type="RayCast3D" parent="SideRaycasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
 target_position = Vector3(0, 0, 0.8)
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

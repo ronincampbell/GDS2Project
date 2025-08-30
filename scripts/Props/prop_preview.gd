@@ -4,13 +4,14 @@ extends Node3D
 @export var side_raycasts: Array[RayCast3D]
 var prop: PackedScene = preload("res://Props/prop_plant.tscn")
 @onready var model: Node3D = $blockbench_export
+var in_area: int = 0
 
 const speed : float = 5
 const rotate_speed : float = 5
 
 func _physics_process(delta: float) -> void:
 	
-	if Input.is_action_just_pressed("ui_accept"):
+	if Input.is_action_just_pressed("ui_accept") and in_area < 1:
 		place_prop()
 	
 	_move_prop(delta)
@@ -46,6 +47,8 @@ func place_prop() -> void:
 	#print_debug(new_prop)
 	#print_debug(new_prop.position)
 	get_parent().add_child(new_prop)
+	if get_parent().has_method("prop_placed"):
+		get_parent().prop_placed()
 	queue_free()
 
 func _is_ray_colliding(ray: RayCast3D) -> bool:
@@ -66,3 +69,12 @@ func _rotate_prop(delta: float) ->  void:
 		_rotate += Vector3(0, -delta*rotate_speed, 0)
 	
 	model.rotation += _rotate
+
+
+func _on_body_entered(body: Node3D) -> void:
+	in_area += 1
+	print_debug("in_area: " + str(in_area))
+
+func _on_body_exited(body: Node3D) -> void:
+	in_area -= 1
+	print_debug("in_area: " + str(in_area))
