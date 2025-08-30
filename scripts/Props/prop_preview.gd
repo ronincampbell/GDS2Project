@@ -11,11 +11,15 @@ const rotate_speed : float = 5
 
 func _physics_process(delta: float) -> void:
 	
+	if get_parent().mode == "playing":
+		queue_free()
+	
 	if Input.is_action_just_pressed("ui_accept") and in_area < 1:
 		place_prop()
 	
 	_move_prop(delta)
 	_rotate_prop(delta)
+	
 
 func _move_prop(delta: float) -> void:
 	if !downward_raycasts.is_empty():
@@ -71,10 +75,10 @@ func _rotate_prop(delta: float) ->  void:
 	model.rotation += _rotate
 
 
-func _on_body_entered(body: Node3D) -> void:
+func _on_body_entered(_body: Node3D) -> void:
 	in_area += 1
 	print_debug("in_area: " + str(in_area))
 
-func _on_body_exited(body: Node3D) -> void:
+func _on_body_exited(_body: Node3D) -> void:
 	in_area -= 1
 	print_debug("in_area: " + str(in_area))
