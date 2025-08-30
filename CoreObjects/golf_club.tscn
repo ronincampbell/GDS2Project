@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvydfpu48xmpi"]
+
+[ext_resource type="PackedScene" uid="uid://dssnjv438vn22" path="res://models/golf_club/golfClub.gltf" id="1_5f8sv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fn2sa"]
+size = Vector3(0.150024, 0.0774536, 0.029541)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_57l66"]
+size = Vector3(0.0316162, 0.931752, 0.03125)
+
+[node name="GolfClub" type="RigidBody3D"]
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="blockbench_export2" parent="." instance=ExtResource("1_5f8sv")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0623169, -0.025238, 0)
+shape = SubResource("BoxShape3D_fn2sa")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57764e-05, 0.477915, 0)
+shape = SubResource("BoxShape3D_57l66")
