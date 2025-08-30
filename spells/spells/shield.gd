@@ -47,25 +47,11 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(b: Node) -> void:
 	if b is Fireball:
 		var fb := b as Fireball
-		if reflect_projectiles:
-			_reflect_fireball(fb)
-		else:
-			fb.queue_free()
-
-func _reflect_fireball(fb: Fireball) -> void:
-	# Reflect away from shield center; keep at least its design speed
-	var out_dir: Vector3 = (fb.global_transform.origin - global_transform.origin).normalized()
-	var mag: float = fb.linear_velocity.length()
-	if mag < fb.speed:
-		mag = fb.speed
-	fb.linear_velocity = out_dir * mag
-
-	# Give the projectile to the owner so it won't hit them immediately
-	fb.shooter = owner_player
+		fb.destroy_on_world_hit = false
+		fb.queue_free()
 
 func _cleanup_and_free() -> void:
 	if owner_player != null:
-		# Reset owner shield flags if they exist
 		if owner_player.has_variable("is_shielded"):
 			owner_player.is_shielded = false
 		if owner_player.has_variable("shield_absorb_scale"):

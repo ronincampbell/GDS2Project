@@ -55,6 +55,10 @@ func _on_hit(other: Object, hit_pos: Vector3) -> void:
 		_explode_and_free(hit_pos)
 		return
 
+	if other is Shield:
+		queue_free()
+		return
+
 	if destroy_on_world_hit and other is Node:
 		_explode_and_free(hit_pos)
 
