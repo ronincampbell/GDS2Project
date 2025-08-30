@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ben31qlfh5wt0"]
+
+[ext_resource type="Script" uid="uid://dlwyxsm5q4fu8" path="res://spells/spells/shield.gd" id="1_gfdem"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_asct4"]
+
+[node name="Shield" type="Area3D"]
+script = ExtResource("1_gfdem")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_asct4")

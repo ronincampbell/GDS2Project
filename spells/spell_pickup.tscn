@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbmlir6a54ytl"]
+
+[ext_resource type="Script" uid="uid://dacawbsv50sw3" path="res://spells/spell_pickup.gd" id="1_0dckw"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i8kvt"]
+radius = 0.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_0dckw"]
+
+[node name="SpellPickup" type="Area3D"]
+script = ExtResource("1_0dckw")
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_i8kvt")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+
+[node name="Mystery" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_0dckw")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
