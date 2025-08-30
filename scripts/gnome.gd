@@ -14,4 +14,3 @@ func _integrate_forces(state):
 			apply_central_force(move_dir*move_force)
 	else:
 		apply_central_force(move_dir*move_force)
-	print(linear_velocity.length())

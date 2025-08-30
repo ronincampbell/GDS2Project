@@ -11,7 +11,6 @@ const max_spin_speed: float = 16
 var stored_aim_dir: Vector2 = Vector2.ZERO
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	
 	var flat_aim_vector: Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
 	if flat_aim_vector.is_zero_approx():
 		flat_aim_vector = stored_aim_dir

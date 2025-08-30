@@ -1,11 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=13 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
 [ext_resource type="Texture2D" uid="uid://dm80g02b4g7ln" path="res://models/Maps/Ground_Grass Base Color.png" id="3_k1jtb"]
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
-[ext_resource type="PackedScene" uid="uid://cdg1k07bmyk3" path="res://CoreObjects/golf_ball.tscn" id="5_pbr4s"]
-[ext_resource type="PackedScene" uid="uid://bvydfpu48xmpi" path="res://CoreObjects/golf_club.tscn" id="7_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://2mlsk3fuft5d" path="res://CoreObjects/gnome.tscn" id="7_svl6s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
@@ -37,6 +35,7 @@ radius = 0.15
 
 [node name="TestMap" type="Node3D"]
 script = ExtResource("1_cabd0")
+skip_placing = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cabd0")
@@ -59,6 +58,7 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -10, 0, 0)
 
 [node name="Map1" type="MeshInstance3D" parent="."]
+layers = 3
 mesh = ExtResource("5_k1jtb")
 surface_material_override/0 = SubResource("StandardMaterial3D_wd2vj")
 
@@ -67,11 +67,8 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wd2vj")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_pbr4s")
 
-[node name="GolfBall" parent="." instance=ExtResource("5_pbr4s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, -1)
-
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999962, 0.00822742, -0.00279283, 0, 0.321439, 0.94693, 0.00868852, -0.946894, 0.321427, -0.0595335, 8.65543, 3.52912)
+transform = Transform3D(1, -2.82576e-05, 2.19154e-05, 0, 0.612846, 0.790202, -3.576e-05, -0.790202, 0.612846, -0.0365372, 10.1156, 10.8182)
 
 [node name="Gnome" parent="." instance=ExtResource("7_svl6s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.32726, 0)
@@ -85,8 +82,5 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GolfHole/Area3D"]
 shape = SubResource("CylinderShape3D_b71ab")
-
-[node name="GolfClub" parent="." instance=ExtResource("7_6b7mj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1, 0)
 
 [connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]
