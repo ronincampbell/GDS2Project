@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8aq45iifrr40"]
+
+[ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="1_ar6eg"]
+[ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="2_f5svn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ar6eg"]
+height = 1.13846
+
+[node name="PropPlantPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts")]
+script = ExtResource("1_ar6eg")
+downward_raycasts = [NodePath("DownwardRaycast")]
+side_raycasts = [NodePath("SideRaycasts/NorthRaycast"), NodePath("SideRaycasts/EastRaycast"), NodePath("SideRaycasts/SouthRaycast"), NodePath("SideRaycasts/WestRaycast")]
+
+[node name="DownwardRaycast" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0227169, 0)
+target_position = Vector3(0, -0.2, 0)
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_f5svn")]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.527432, 0)
+shape = SubResource("CapsuleShape3D_ar6eg")
+
+[node name="SideRaycasts" type="Node3D" parent="."]
+
+[node name="WestRaycast" type="RayCast3D" parent="SideRaycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
+target_position = Vector3(-0.8, 0, 0)
+
+[node name="EastRaycast" type="RayCast3D" parent="SideRaycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
+target_position = Vector3(0.8, 0, 0)
+
+[node name="NorthRaycast" type="RayCast3D" parent="SideRaycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
+target_position = Vector3(0, 0, -0.8)
+
+[node name="SouthRaycast" type="RayCast3D" parent="SideRaycasts"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
+target_position = Vector3(0, 0, 0.8)

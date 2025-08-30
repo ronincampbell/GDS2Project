@@ -1,8 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjc6h1eet1f4p"]
+[gd_scene load_steps=14 format=3 uid="uid://cjc6h1eet1f4p"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_ihq4b"]
-[ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="2_ukxvq"]
-[ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="3_dkmjw"]
+[ext_resource type="PackedScene" uid="uid://c8aq45iifrr40" path="res://Props/Previews/prop_plant_preview.tscn" id="2_ukxvq"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -119,13 +118,7 @@ skeleton = NodePath("")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GolfHole/Area3D"]
 shape = SubResource("CylinderShape3D_q6jtx")
 
-[node name="PropPlantPreview" parent="." node_paths=PackedStringArray("downward_raycasts") instance=ExtResource("2_ukxvq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.84676, 3.26764, 0)
-script = ExtResource("3_dkmjw")
-downward_raycasts = [NodePath("RayCast3D")]
-
-[node name="RayCast3D" type="RayCast3D" parent="PropPlantPreview"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.152504, 0)
-target_position = Vector3(0, -0.2, 0)
+[node name="PropPlantPreview" parent="." instance=ExtResource("2_ukxvq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43215, 0)
 
 [connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]
