@@ -1,3 +1,4 @@
+class_name GolfBall
 extends RigidBody3D
 
 const hit_power: float = 200

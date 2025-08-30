@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://2mlsk3fuft5d"]
 
-[ext_resource type="Script" path="res://scripts/gnome.gd" id="1_5g0f5"]
+[ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://cvshjs0wne2oh" path="res://models/gnome/gnome.gltf" id="2_pyhca"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
@@ -8,6 +8,8 @@ radius = 0.312095
 height = 1.43211
 
 [node name="Gnome" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 5
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 can_sleep = false
@@ -18,3 +20,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.763834, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_cabd0")
+
+[node name="Area3D" type="Area3D" parent="."]

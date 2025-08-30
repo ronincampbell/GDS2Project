@@ -37,6 +37,10 @@ ui_rotate_obstacle_anticlockwise={
 [layer_names]
 
 3d_render/layer_2="ReceiveUI"
+3d_physics/layer_1="Terrain"
+3d_physics/layer_2="Gnomes"
+3d_physics/layer_3="Props"
+3d_physics/layer_4="GolfObjects"
 
 [physics]
 
