@@ -5,6 +5,7 @@ extends Node3D
 var prop: PackedScene = preload("res://Props/prop_plant.tscn")
 @onready var model: Node3D = $blockbench_export
 var in_area: int = 0
+var can_place: bool = true
 
 const speed : float = 5
 const rotate_speed : float = 5
@@ -14,7 +15,7 @@ func _physics_process(delta: float) -> void:
 	if get_parent().mode == "playing":
 		queue_free()
 	
-	if Input.is_action_just_pressed("ui_accept") and in_area < 1:
+	if Input.is_action_just_pressed("ui_accept") and can_place:
 		place_prop()
 	
 	_move_prop(delta)
@@ -28,6 +29,12 @@ func _move_prop(delta: float) -> void:
 		for ray in downward_raycasts:
 			if ray.is_colliding():
 				touching_ground = true
+				
+				var origin = ray.global_position
+				var collision_point = ray.get_collision_point()
+				
+				if origin.distance_to(collision_point) < 0.16:
+					position += Vector3(0, 1, 0)*delta*speed
 		
 		if !touching_ground:
 			position += Vector3(0, -1, 0)*delta*speed
@@ -77,8 +84,13 @@ func _rotate_prop(delta: float) ->  void:
 
 func _on_body_entered(_body: Node3D) -> void:
 	in_area += 1
+	can_place = false
+	#Turn on red shader here
 	print_debug("in_area: " + str(in_area))
 
 func _on_body_exited(_body: Node3D) -> void:
 	in_area -= 1
+	if in_area < 1:
+		can_place = true
+		#Turn off red shader here
 	print_debug("in_area: " + str(in_area))
