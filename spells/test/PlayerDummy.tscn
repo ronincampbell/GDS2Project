@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dxijlxb8njrf0"]
+[gd_scene load_steps=8 format=3 uid="uid://dxijlxb8njrf0"]
 
 [ext_resource type="Script" uid="uid://bg5wl8uk5ex8e" path="res://spells/test/player_dummy.gd" id="1_mhcx5"]
 [ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="2_l44y6"]
@@ -9,10 +9,16 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_nmudy"]
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_nmudy"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.4
+
 [node name="PlayerDummy" type="CharacterBody3D"]
 script = ExtResource("1_mhcx5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10864, 0)
 shape = SubResource("CapsuleShape3D_mhcx5")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -21,6 +27,10 @@ mesh = SubResource("CapsuleMesh_nmudy")
 
 [node name="Muzzle" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Muzzle"]
+transform = Transform3D(1, 0, 0, 0, 0.038475, 0.99926, 0, -0.99926, 0.038475, 0, 0, -0.0961988)
+mesh = SubResource("CylinderMesh_nmudy")
 
 [node name="SpellCaster" type="Node" parent="."]
 script = ExtResource("2_l44y6")

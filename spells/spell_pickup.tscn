@@ -18,6 +18,7 @@ font_size = 127
 script = ExtResource("1_0dckw")
 fireball_scene = ExtResource("2_ofs2q")
 shield_scene = ExtResource("3_e1wh0")
+respawn_after_pickup = true
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_i8kvt")
