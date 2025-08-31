@@ -13,6 +13,7 @@ var player1_obstacle_in_scene : bool = false
 const prop_preview: PackedScene = preload("res://Props/Previews/prop_plant_preview.tscn")
 const golf_ball: PackedScene = preload("res://CoreObjects/golf_ball.tscn")
 const golf_club: PackedScene = preload("res://CoreObjects/golf_club.tscn")
+const gnome: PackedScene = preload("res://CoreObjects/gnome.tscn")
 
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
@@ -22,9 +23,10 @@ func _physics_process(delta: float) -> void:
 			mode = "playing"
 			_place_object(golf_ball, Vector3(2.4, 0.7, -2.3))
 			_place_object(golf_club, Vector3(-0.6, 0.6, 0.4))
+			_place_object(gnome, Vector3(0, 1.4, 0))
 		
 		if !player1_obstacle_in_scene:
-			_place_object(prop_preview, Vector3(0, 1.2, 0))
+			_place_object(prop_preview, Vector3(0, 1.6, 0))
 			player1_obstacle_in_scene = true
 
 func _on_golf_hole_entered(body: Node3D) -> void:

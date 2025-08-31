@@ -34,7 +34,7 @@ func _move_prop(delta: float) -> void:
 				var origin = ray.global_position
 				var collision_point = ray.get_collision_point()
 				
-				if origin.distance_to(collision_point) < 0.16:
+				if origin.distance_to(collision_point) < 0.1:
 					position += Vector3(0, 1, 0)*delta*speed
 		
 		if !touching_ground:
