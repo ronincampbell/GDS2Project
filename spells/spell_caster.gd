@@ -66,7 +66,6 @@ func _cast_shield() -> void:
 	s.owner_caster = self
 	s.duration = 3.0
 	s.radius = 1.2
-	s.reflect_projectiles = true
 	s.absorb_knockback_scale = 0.2
 	_player.get_tree().current_scene.add_child(s)
 

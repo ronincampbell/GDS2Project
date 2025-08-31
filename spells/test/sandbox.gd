@@ -27,9 +27,13 @@ func _ready() -> void:
 
 func _run_sequence() -> void:
 	await _after(0.2)
-	a_caster.add_spell(SpellPickup.SpellID.FIREBALL)
-	await _after(0.2)
-	a_caster.cast_current()
+	b_caster.add_spell(SpellPickup.SpellID.SHIELD)
+	await _after(6.0)
+	b_caster.cast_current()
+	await _after(12.0)
+	b_caster.add_spell(SpellPickup.SpellID.FIREBALL)
+	await _after(6.0)
+	b_caster.cast_current()
 
 func _after(seconds: float) -> Signal:
 	return get_tree().create_timer(seconds).timeout

@@ -3,10 +3,10 @@ class_name Shield
 
 @export var duration: float = 5.0
 @export var radius: float = 1.2
-@export var reflect_projectiles: bool = true
 @export var absorb_knockback_scale: float = 0.2
 
 var owner_player: CharacterBody3D = null
+var owner_caster: SpellCaster
 
 var _elapsed: float = 0.0
 @onready var _shape: CollisionShape3D = $CollisionShape3D
@@ -23,6 +23,9 @@ func _ready() -> void:
 
 	if owner_player != null:
 		global_position = owner_player.global_position
+
+	if owner_caster != null:
+		owner_caster._on_shield_started(absorb_knockback_scale)
 
 	if _visual != null:
 		var s: float = radius * 2.0
@@ -51,9 +54,6 @@ func _on_body_entered(b: Node) -> void:
 		fb.queue_free()
 
 func _cleanup_and_free() -> void:
-	if owner_player != null:
-		if owner_player.has_variable("is_shielded"):
-			owner_player.is_shielded = false
-		if owner_player.has_variable("shield_absorb_scale"):
-			owner_player.shield_absorb_scale = 1.0
+	if owner_caster != null:
+		owner_caster._on_shield_ended()
 	queue_free()

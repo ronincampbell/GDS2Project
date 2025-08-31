@@ -11,6 +11,7 @@ class_name PlayerController
 
 var _kb: Vector3 = Vector3.ZERO  # knockback buffer (compatible with the old dummy behavior)
 var _caster: SpellCaster
+var is_shielded: bool = false
 @onready var _muzzle: Node3D = get_node_or_null("Muzzle")
 
 func _ready() -> void:

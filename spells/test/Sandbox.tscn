@@ -18,7 +18,7 @@ script = ExtResource("1_j0h5b")
 fireball_scene = ExtResource("2_f2qdg")
 shield_scene = ExtResource("3_xvkqo")
 caster_a_path = NodePath("PlayerA/SpellCaster")
-caster_b_path = NodePath("PlayerA/SpellCaster")
+caster_b_path = NodePath("PlayerB/SpellCaster")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 13.1553, 4.40786)
@@ -45,7 +45,7 @@ respawn_position = Vector3(-6, 1, 0)
 respawn_facing_deg = 0.0
 
 [node name="PlayerB" parent="." instance=ExtResource("1_63d72")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 0)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6, 1, 0)
 
 [node name="SpellPickup" parent="." instance=ExtResource("5_xvkqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11384, 0)
