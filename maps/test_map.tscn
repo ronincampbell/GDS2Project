@@ -35,7 +35,6 @@ radius = 0.15
 
 [node name="TestMap" type="Node3D"]
 script = ExtResource("1_cabd0")
-skip_placing = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cabd0")

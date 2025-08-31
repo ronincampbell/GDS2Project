@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c8aq45iifrr40"]
+[gd_scene load_steps=5 format=3 uid="uid://c8aq45iifrr40"]
 
 [ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="1_ar6eg"]
 [ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="2_f5svn"]
+[ext_resource type="PackedScene" uid="uid://cc0op43qj4n5" path="res://models/prop/pot_plant/prop_plant_preview_can't_place.tscn" id="3_f5svn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ar6eg"]
 height = 1.13846
@@ -40,6 +41,9 @@ target_position = Vector3(0, 0, -0.8)
 [node name="SouthRaycast" type="RayCast3D" parent="SideRaycasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
 target_position = Vector3(0, 0, 0.8)
+
+[node name="blockbench_export2" parent="." instance=ExtResource("3_f5svn")]
+visible = false
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

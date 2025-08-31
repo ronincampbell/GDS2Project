@@ -22,7 +22,6 @@ func _physics_process(delta: float) -> void:
 			mode = "playing"
 			_place_object(golf_ball, Vector3(2.4, 0.7, -2.3))
 			_place_object(golf_club, Vector3(-0.6, 0.6, 0.4))
-			print_debug("Objects placed")
 		
 		if !player1_obstacle_in_scene:
 			_place_object(prop_preview, Vector3(0, 1.2, 0))
