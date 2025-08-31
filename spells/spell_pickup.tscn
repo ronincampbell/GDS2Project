@@ -1,14 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://bbmlir6a54ytl"]
+[gd_scene load_steps=7 format=3 uid="uid://bbmlir6a54ytl"]
 
 [ext_resource type="Script" uid="uid://dacawbsv50sw3" path="res://spells/spell_pickup.gd" id="1_0dckw"]
+[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="2_ofs2q"]
+[ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="3_e1wh0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i8kvt"]
 radius = 0.6
 
-[sub_resource type="SphereMesh" id="SphereMesh_0dckw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0dckw"]
+
+[sub_resource type="TextMesh" id="TextMesh_i8kvt"]
+material = SubResource("StandardMaterial3D_0dckw")
+text = "?"
+font_size = 127
 
 [node name="SpellPickup" type="Area3D"]
 script = ExtResource("1_0dckw")
+fireball_scene = ExtResource("2_ofs2q")
+shield_scene = ExtResource("3_e1wh0")
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_i8kvt")
@@ -16,7 +25,7 @@ shape = SubResource("SphereShape3D_i8kvt")
 [node name="Visual" type="MeshInstance3D" parent="."]
 
 [node name="Mystery" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_0dckw")
+mesh = SubResource("TextMesh_i8kvt")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 5.0

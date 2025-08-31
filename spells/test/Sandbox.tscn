@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://c7mgnajsfihvg"]
+
+[ext_resource type="PackedScene" uid="uid://dxijlxb8njrf0" path="res://spells/test/PlayerDummy.tscn" id="1_63d72"]
+[ext_resource type="Script" uid="uid://d3qbwed2crx8f" path="res://spells/test/sandbox.gd" id="1_j0h5b"]
+[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="2_f2qdg"]
+[ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="3_xvkqo"]
+[ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="5_xvkqo"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j0h5b"]
+size = Vector3(50, 0.5, 50)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vtaal"]
+size = Vector3(50, 1, 50)
+
+[node name="Sandbox" type="Node3D"]
+script = ExtResource("1_j0h5b")
+fireball_scene = ExtResource("2_f2qdg")
+shield_scene = ExtResource("3_xvkqo")
+caster_a_path = NodePath("PlayerA/SpellCaster")
+caster_b_path = NodePath("PlayerA/SpellCaster")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 18)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.3148, 0)
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("BoxShape3D_j0h5b")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_vtaal")
+
+[node name="PlayerA" parent="." instance=ExtResource("1_63d72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 1, 0)
+
+[node name="PlayerB" parent="." instance=ExtResource("1_63d72")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, 0)
+
+[node name="SpellPickup" parent="." instance=ExtResource("5_xvkqo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11384, 0)

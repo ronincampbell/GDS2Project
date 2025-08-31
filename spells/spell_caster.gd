@@ -6,12 +6,12 @@ var current_spell: int = -1
 @export var fireball_scene: PackedScene
 @export var shield_scene: PackedScene
 
-@export var cast_action: String = "use_spell_p1"
+#@export var cast_action: String = "use_spell_p1"
 
 var shield_active: bool = false
 var shield_absorb_scale: float = 0.9  #percentage of knockback absorbed by shield
-var _player: CharacterBody3D
 
+var _player: CharacterBody3D
 @onready var _muzzle: Node3D = get_parent().get_node_or_null("Muzzle")
 
 func _ready() -> void:
@@ -19,10 +19,11 @@ func _ready() -> void:
 	if _player == null:
 		push_error("SpellCaster must be a child of a CharacterBody3D")
 	set_process(true)
+	add_to_group("spell_casters")
 
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed(cast_action):
-		use_spell()
+#func _process(_delta: float) -> void:
+	#if Input.is_action_just_pressed(cast_action):
+		#use_spell()
 
 func has_spell() -> bool:
 	return current_spell != -1
@@ -34,16 +35,13 @@ func add_spell(spell_id: int) -> void:
 	if can_accept_spell():
 		current_spell = spell_id
 
-func use_spell() -> void:
+func cast_current() -> void:
 	if current_spell == -1:
 		return
 	match current_spell:
-		SpellPickup.SpellID.FIREBALL:
-			_cast_fireball()
-		SpellPickup.SpellID.SHIELD:
-			_cast_shield()
-		_:
-			print("Spell not implemented:", current_spell)
+		SpellPickup.SpellID.FIREBALL: _cast_fireball()
+		SpellPickup.SpellID.SHIELD:   _cast_shield()
+		_: print("Spell not implemented:", current_spell)
 	current_spell = -1
 
 func _cast_fireball() -> void:

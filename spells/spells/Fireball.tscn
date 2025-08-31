@@ -1,9 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://r0qq4c5we7un"]
+[gd_scene load_steps=5 format=3 uid="uid://r0qq4c5we7un"]
 
 [ext_resource type="Script" uid="uid://buh6xkt1ctw6u" path="res://spells/spells/fireball.gd" id="1_mxssc"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_m8byu"]
 radius = 0.15
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxssc"]
+albedo_color = Color(0.989611, 0.602853, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_m8byu"]
+material = SubResource("StandardMaterial3D_mxssc")
+radius = 0.15
+height = 0.3
 
 [node name="Fireball" type="RigidBody3D"]
 script = ExtResource("1_mxssc")
@@ -11,5 +19,6 @@ script = ExtResource("1_mxssc")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_m8byu")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Visual" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_m8byu")
 skeleton = NodePath("../CollisionShape3D")
