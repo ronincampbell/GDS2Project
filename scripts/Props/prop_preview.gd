@@ -4,7 +4,9 @@ extends Node3D
 @export var side_raycasts: Array[RayCast3D]
 var prop: PackedScene = preload("res://Props/prop_plant.tscn")
 @onready var model: Node3D = $blockbench_export
+@onready var model_cannot_place = $blockbench_export2
 var in_area: int = 0
+var can_place: bool = true
 
 const speed : float = 5
 const rotate_speed : float = 5
@@ -14,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	if get_parent().mode == "playing":
 		queue_free()
 	
-	if Input.is_action_just_pressed("ui_accept") and in_area < 1:
+	if Input.is_action_just_pressed("ui_accept") and can_place:
 		place_prop()
 	
 	_move_prop(delta)
@@ -28,6 +30,12 @@ func _move_prop(delta: float) -> void:
 		for ray in downward_raycasts:
 			if ray.is_colliding():
 				touching_ground = true
+				
+				var origin = ray.global_position
+				var collision_point = ray.get_collision_point()
+				
+				if origin.distance_to(collision_point) < 0.1:
+					position += Vector3(0, 1, 0)*delta*speed
 		
 		if !touching_ground:
 			position += Vector3(0, -1, 0)*delta*speed
@@ -73,12 +81,18 @@ func _rotate_prop(delta: float) ->  void:
 		_rotate += Vector3(0, -delta*rotate_speed, 0)
 	
 	model.rotation += _rotate
+	model_cannot_place.rotation = model.rotation
 
 
 func _on_body_entered(_body: Node3D) -> void:
 	in_area += 1
-	print_debug("in_area: " + str(in_area))
+	can_place = false
+	model.hide()
+	model_cannot_place.show()
 
 func _on_body_exited(_body: Node3D) -> void:
 	in_area -= 1
-	print_debug("in_area: " + str(in_area))
+	if in_area < 1:
+		can_place = true
+		model.show()
+		model_cannot_place.hide()

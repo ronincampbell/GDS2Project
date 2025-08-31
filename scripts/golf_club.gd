@@ -1,6 +1,17 @@
+class_name GolfClub
 extends RigidBody3D
 
-func _physics_process(delta: float) -> void:
-	var flat_move_dir: Vector2 = Input.get_vector("ui_left","ui_right","ui_up","ui_down")
-	var move_dir: Vector3 = Vector3(flat_move_dir.x, 0.0, flat_move_dir.y)
-	apply_central_force(move_dir * 10.0)
+@onready var handle_marker: Marker3D = $HandleMarker
+@onready var head_marker: Marker3D = $HeadMarker
+
+func get_handle_force_offset():
+	return handle_marker.global_position - global_position
+
+func get_handle_global_pos():
+	return handle_marker.global_position
+
+func get_head_force_offset():
+	return head_marker.global_position - global_position
+
+func get_head_global_pos():
+	return head_marker.global_position

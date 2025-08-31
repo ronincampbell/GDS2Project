@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://bx21b2pls01oi"]
+
+[ext_resource type="Script" path="res://scripts/gnome.gd" id="1_5g0f5"]
+[ext_resource type="PackedScene" uid="uid://cvshjs0wne2oh" path="res://models/gnome/gnome.gltf" id="2_pyhca"]
+[ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_k84ux"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
+radius = 0.312095
+height = 1.43211
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8pkva"]
+radius = 1.2
+
+[node name="Gnome" type="RigidBody3D"]
+collision_layer = 2
+collision_mask = 5
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+can_sleep = false
+linear_damp = 0.1
+angular_damp = 2.0
+script = ExtResource("1_5g0f5")
+
+[node name="HoldMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59086, 0.778312, 1.00001e-07)
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_pyhca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.063834, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("CapsuleShape3D_cabd0")
+
+[node name="GolfInteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="GolfInteractArea"]
+shape = SubResource("SphereShape3D_8pkva")
+
+[node name="PropInteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PropInteractArea"]
+shape = SubResource("SphereShape3D_8pkva")
+
+[node name="PlayerInteractArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayerInteractArea"]
+shape = SubResource("SphereShape3D_8pkva")
+
+[node name="InteractIndicator" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.7, 0)
+visible = false
+billboard = 1
+texture = ExtResource("3_k84ux")

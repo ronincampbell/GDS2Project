@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdg1k07bmyk3"]
+[gd_scene load_steps=5 format=3 uid="uid://cdg1k07bmyk3"]
 
 [ext_resource type="Script" uid="uid://bq1l5kvansjop" path="res://scripts/golf_ball.gd" id="1_m66ne"]
 [ext_resource type="PackedScene" uid="uid://c0ryf1go6lmf7" path="res://models/ball/ball.gltf" id="2_d73nu"]
+[ext_resource type="Texture2D" uid="uid://ds85t07fvpvsl" path="res://placeholder_arrow.png" id="3_d73nu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_bdpbv"]
 radius = 0.13
 
 [node name="GolfBall" type="RigidBody3D"]
+collision_layer = 8
+collision_mask = 5
 can_sleep = false
+continuous_cd = true
 angular_damp = 3.0
 script = ExtResource("1_m66ne")
 
@@ -23,7 +27,6 @@ update_rotation = false
 update_scale = false
 
 [node name="NoRotatePivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.41401, 0.667923, -2.318)
 top_level = true
 
 [node name="SpotLight3D" type="SpotLight3D" parent="NoRotatePivot"]
@@ -31,6 +34,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.012
 light_energy = 50.0
 light_indirect_energy = 0.0
 light_specular = 0.0
+light_cull_mask = 2
 distance_fade_begin = 3.0
 distance_fade_length = 2.0
 spot_range = 10.0
@@ -43,8 +47,20 @@ light_energy = 50.0
 light_indirect_energy = 0.0
 light_negative = true
 light_specular = 0.0
+light_cull_mask = 2
 distance_fade_begin = 3.0
 distance_fade_length = 2.0
 spot_range = 10.0
 spot_angle = 5.0
 spot_angle_attenuation = 0.000211122
+
+[node name="YRotatePivot" type="Node3D" parent="NoRotatePivot"]
+
+[node name="AimDecal" type="Decal" parent="NoRotatePivot/YRotatePivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15722, -3, 0)
+visible = false
+size = Vector3(2, 10, 2)
+texture_albedo = ExtResource("3_d73nu")
+upper_fade = 6.83374e-05
+lower_fade = 9.66436e-05
+cull_mask = 2

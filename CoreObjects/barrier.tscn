@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ch6w1xgoxkaho"]
+
+[ext_resource type="PackedScene" uid="uid://dsp63hn03dwss" path="res://models/Maps/fence.tscn" id="1_n2dr4"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_57l66"]
+plane = Plane(0, 0, 1, 0)
+
+[node name="Barrier" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("WorldBoundaryShape3D_57l66")
+
+[node name="Fence" parent="." instance=ExtResource("1_n2dr4")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 9.95)
