@@ -16,7 +16,7 @@ func _physics_process(delta: float) -> void:
 	if get_parent().mode == "playing":
 		queue_free()
 	
-	if Input.is_action_just_pressed("ui_accept") and can_place:
+	if Input.is_action_just_pressed("PlayerInteract") and can_place:
 		place_prop()
 	
 	_move_prop(delta)
@@ -41,13 +41,13 @@ func _move_prop(delta: float) -> void:
 			position += Vector3(0, -1, 0)*delta*speed
 	
 	var direction: Vector3 = Vector3.ZERO
-	if Input.is_action_pressed("ui_left") and !_is_ray_colliding(side_raycasts[3]):
+	if Input.is_action_pressed("PlayerLeft") and !_is_ray_colliding(side_raycasts[3]):
 		direction += Vector3(-1, 0, 0)
-	if Input.is_action_pressed("ui_right") and !_is_ray_colliding(side_raycasts[1]):
+	if Input.is_action_pressed("PlayerRight") and !_is_ray_colliding(side_raycasts[1]):
 		direction += Vector3(1, 0, 0)
-	if Input.is_action_pressed("ui_up") and !_is_ray_colliding(side_raycasts[0]):
+	if Input.is_action_pressed("PlayerUp") and !_is_ray_colliding(side_raycasts[0]):
 		direction += Vector3(0, 0, -1)
-	if Input.is_action_pressed("ui_down") and !_is_ray_colliding(side_raycasts[2]):
+	if Input.is_action_pressed("PlayerDown") and !_is_ray_colliding(side_raycasts[2]):
 		direction += Vector3(0, 0, 1)
 	
 	position += direction.normalized()*speed*delta

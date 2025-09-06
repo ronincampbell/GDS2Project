@@ -10,7 +10,7 @@ var obstacle_placing_timer : float = 0
 var obstacle_placing_time : float = 10                                                    
 var player1_obstacle_in_scene : bool = false
 
-const prop_preview: PackedScene = preload("res://Props/Previews/prop_plant_preview.tscn")
+const placeable_props: Dictionary = {"plant":preload("res://Props/Previews/prop_plant_preview.tscn")}
 const golf_ball: PackedScene = preload("res://CoreObjects/golf_ball.tscn")
 const golf_club: PackedScene = preload("res://CoreObjects/golf_club.tscn")
 const gnome: PackedScene = preload("res://CoreObjects/gnome.tscn")
@@ -26,12 +26,14 @@ func _physics_process(delta: float) -> void:
 			_place_object(gnome, Vector3(0, 1.4, 0))
 		
 		if !player1_obstacle_in_scene:
-			_place_object(prop_preview, Vector3(0, 1.6, 0))
+			_place_object(placeable_props["plant"], Vector3(0, 1.6, 0))
 			player1_obstacle_in_scene = true
 
 func _on_golf_hole_entered(body: Node3D) -> void:
 	if body.name == "GolfBall":
 		body.position = Vector3(2.414, 0.668, -2.318)
+		if body.has_method("reset_velocity"):
+			body.reset_velocity()
 		score += 1
 		Hud.update_score(0, score)
 		if(score >= 3):

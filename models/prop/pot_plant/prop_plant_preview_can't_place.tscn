@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cc0op43qj4n5"]
 
 [ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="1_f6sxs"]
-[ext_resource type="Material" path="res://Props/prop_preview_material.tres" id="2_vrfm4"]
+[ext_resource type="Material" uid="uid://de2sypkpgmr61" path="res://Props/prop_preview_material.tres" id="2_vrfm4"]
 
 [node name="blockbench_export" instance=ExtResource("1_f6sxs")]
 

@@ -42,3 +42,7 @@ func launch_in_aim_direction():
 	angular_velocity = Vector3.ZERO
 	var aim_vector: Vector3 = Vector3(stored_aim_dir.x, 0.0, stored_aim_dir.y)
 	apply_central_impulse(aim_vector*hit_power + Vector3.UP*lift_force)
+
+func reset_velocity():
+	angular_velocity = Vector3.ZERO
+	linear_velocity = Vector3.ZERO
