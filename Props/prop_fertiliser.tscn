@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://17eyatpnwt7o"]
+
+[ext_resource type="Script" uid="uid://bbcown7sf5h4u" path="res://scripts/Props/prop.gd" id="1_v8xck"]
+[ext_resource type="PackedScene" uid="uid://j1mq8bqwm5uw" path="res://models/prop/fertiliser/prop_fertiliser.gltf" id="2_v8xck"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j2bjd"]
+size = Vector3(0.707123, 0.33075, 1)
+
+[node name="PropFertiliser" type="RigidBody3D"]
+script = ExtResource("1_v8xck")
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_v8xck")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00770569, 0.203583, 0)
+shape = SubResource("BoxShape3D_j2bjd")

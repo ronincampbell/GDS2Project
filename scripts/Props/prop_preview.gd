@@ -2,7 +2,7 @@ extends Node3D
 
 @export var downward_raycasts: Array[RayCast3D]
 @export var side_raycasts: Array[RayCast3D]
-var prop: PackedScene = preload("res://Props/prop_plant.tscn")
+@export var prop: PackedScene = preload("res://Props/prop_plant.tscn")
 @onready var model: Node3D = $blockbench_export
 @onready var model_cannot_place = $blockbench_export2
 var in_area: int = 0

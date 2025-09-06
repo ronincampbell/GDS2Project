@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c4kx0je62savm"]
+
+[ext_resource type="PackedScene" uid="uid://j1mq8bqwm5uw" path="res://models/prop/fertiliser/prop_fertiliser.gltf" id="1_p1uhn"]
+[ext_resource type="Material" uid="uid://de2sypkpgmr61" path="res://Props/prop_preview_material.tres" id="2_nxvw6"]
+
+[node name="blockbench_export" instance=ExtResource("1_p1uhn")]
+
+[node name="beveled_cuboid" parent="Node" index="0"]
+material_override = ExtResource("2_nxvw6")
