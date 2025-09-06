@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1s6p1brtdop8"]
+
+[ext_resource type="Script" uid="uid://bbcown7sf5h4u" path="res://scripts/Props/prop.gd" id="1_h4fbc"]
+[ext_resource type="PackedScene" uid="uid://dke4k8svqfc7g" path="res://models/prop/watering_can/prop_wateringCan.gltf" id="2_ukv2r"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ylp8p"]
+height = 0.515564
+radius = 0.229004
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_oh3wc"]
+size = Vector3(0.0716553, 0.408203, 0.173584)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ldjp0"]
+height = 0.465271
+radius = 0.0405273
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xbujh"]
+size = Vector3(0.1875, 0.195679, 0.0690366)
+
+[node name="PropWateringCan" type="RigidBody3D"]
+script = ExtResource("1_h4fbc")
+
+[node name="blockbench_export" parent="." instance=ExtResource("2_ukv2r")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.260651, 0)
+shape = SubResource("CylinderShape3D_ylp8p")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00604248, 0.233215, 0.288452)
+shape = SubResource("BoxShape3D_oh3wc")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.61038, 0.792109, 0, -0.792109, 0.61038, -0.012085, 0.224497, -0.279309)
+shape = SubResource("CylinderShape3D_ldjp0")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.369974, 0.929042, 0, -0.929042, -0.369974, 0.0012207, 0.39769, -0.48912)
+shape = SubResource("BoxShape3D_xbujh")
