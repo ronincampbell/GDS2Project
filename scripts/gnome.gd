@@ -28,6 +28,13 @@ var swing_club_impulse: float = 2.0
 var swing_club_lift: float = 10.0
 var rotate_to_face_torque: float = 2.0
 
+var _caster: SpellCaster
+var is_shielded: bool = false
+@onready var _muzzle: Node3D = get_node_or_null("Muzzle")
+
+func _ready() -> void:
+	_caster = get_node_or_null("SpellCaster") as SpellCaster
+
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED:
 		interact_indicator.hide()

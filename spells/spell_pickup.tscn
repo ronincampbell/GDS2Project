@@ -15,6 +15,7 @@ text = "?"
 font_size = 127
 
 [node name="SpellPickup" type="Area3D"]
+collision_mask = 3
 script = ExtResource("1_0dckw")
 fireball_scene = ExtResource("2_ofs2q")
 shield_scene = ExtResource("3_e1wh0")

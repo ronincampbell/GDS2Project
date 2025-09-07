@@ -1,8 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=13 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
-[ext_resource type="PackedScene" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
+[ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
 [ext_resource type="Texture2D" uid="uid://dm80g02b4g7ln" path="res://models/Maps/Ground_Grass Base Color.png" id="3_k1jtb"]
+[ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="5_cabd0"]
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
@@ -78,5 +79,8 @@ collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GolfHole/Area3D"]
 shape = SubResource("CylinderShape3D_b71ab")
+
+[node name="SpellPickup" parent="." instance=ExtResource("5_cabd0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.38121, 0.997656, 0)
 
 [connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]

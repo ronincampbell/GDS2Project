@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bx21b2pls01oi"]
+[gd_scene load_steps=7 format=3 uid="uid://bx21b2pls01oi"]
 
-[ext_resource type="Script" path="res://scripts/gnome.gd" id="1_5g0f5"]
+[ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://cvshjs0wne2oh" path="res://models/gnome/gnome.gltf" id="2_pyhca"]
 [ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_k84ux"]
+[ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="4_cfifg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
 radius = 0.312095
@@ -60,3 +61,9 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.7, 0)
 visible = false
 billboard = 1
 texture = ExtResource("3_k84ux")
+
+[node name="Muzzle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.764926, 0.380589)
+
+[node name="SpellCaster" type="Node" parent="."]
+script = ExtResource("4_cfifg")
