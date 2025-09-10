@@ -1,8 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://chpaih64nsj73"]
+[gd_scene load_steps=16 format=3 uid="uid://chpaih64nsj73"]
 
 [ext_resource type="PackedScene" uid="uid://u3y10121u23c" path="res://models/Maps/Fence.glb" id="1_62t3n"]
-[ext_resource type="PackedScene" uid="uid://pulx8jn2d2tt" path="res://models/gnome/player_v2.gltf" id="2_oynvy"]
+[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_qmmmc"]
 [ext_resource type="Script" uid="uid://dt3okoa4cn4mr" path="res://scripts/player_drop_in_manager.gd" id="3_ng2wx"]
+[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_q70mm"]
+[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_mj7ku"]
+[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_r7t2y"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ng2wx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -20,21 +23,21 @@ glow_enabled = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62t3n"]
 albedo_color = Color(0, 0.694118, 0.0941176, 1)
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_62t3n"]
-viewport_path = NodePath("PhysicsP1/Player1/Player1Info/SubViewport")
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ng2wx"]
 radius = 1.0
 height = 3.39563
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_62t3n"]
+viewport_path = NodePath("PhysicsP1/Player1Info/SubViewport")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_oynvy"]
-viewport_path = NodePath("PhysicsP2/Player2/Player2Info/SubViewport")
+viewport_path = NodePath("PhysicsP2/Player2Info/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ng2wx"]
-viewport_path = NodePath("PhysicsP3/Player3/Player3Info/SubViewport")
+viewport_path = NodePath("PhysicsP3/Player3Info/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5xsys"]
-viewport_path = NodePath("PhysicsP4/Player4/Player4Info/SubViewport")
+viewport_path = NodePath("PhysicsP4/Player4Info/SubViewport")
 
 [node name="Lobby" type="Node3D"]
 
@@ -65,18 +68,20 @@ axis_lock_linear_z = true
 can_sleep = false
 freeze = true
 
-[node name="Player1" parent="PhysicsP1" instance=ExtResource("2_oynvy")]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsP1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ng2wx")
 
-[node name="Player1Info" type="Sprite3D" parent="PhysicsP1/Player1"]
+[node name="Player1Info" type="Sprite3D" parent="PhysicsP1"]
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, 3, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_62t3n")
 
-[node name="SubViewport" type="SubViewport" parent="PhysicsP1/Player1/Player1Info"]
+[node name="SubViewport" type="SubViewport" parent="PhysicsP1/Player1Info"]
 transparent_bg = true
 size = Vector2i(500, 500)
 
-[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP1/Player1/Player1Info/SubViewport"]
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP1/Player1Info/SubViewport"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -88,7 +93,7 @@ scale = Vector2(3.13, 3.13)
 text = "Player 1"
 horizontal_alignment = 1
 
-[node name="ReadyP1" type="RichTextLabel" parent="PhysicsP1/Player1/Player1Info/SubViewport"]
+[node name="ReadyP1" type="RichTextLabel" parent="PhysicsP1/Player1Info/SubViewport"]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -102,9 +107,7 @@ scale = Vector2(3.13, 3.13)
 text = "Not Ready"
 horizontal_alignment = 1
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsP1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
-shape = SubResource("CapsuleShape3D_ng2wx")
+[node name="blockbench_export" parent="PhysicsP1" instance=ExtResource("2_qmmmc")]
 
 [node name="PhysicsP2" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
@@ -114,19 +117,16 @@ axis_lock_linear_z = true
 can_sleep = false
 freeze = true
 
-[node name="Player2" parent="PhysicsP2" instance=ExtResource("2_oynvy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Player2Info" type="Sprite3D" parent="PhysicsP2/Player2"]
+[node name="Player2Info" type="Sprite3D" parent="PhysicsP2"]
 transform = Transform3D(-0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866026, 0, 3, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_oynvy")
 
-[node name="SubViewport" type="SubViewport" parent="PhysicsP2/Player2/Player2Info"]
+[node name="SubViewport" type="SubViewport" parent="PhysicsP2/Player2Info"]
 transparent_bg = true
 size = Vector2i(500, 500)
 
-[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP2/Player2/Player2Info/SubViewport"]
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP2/Player2Info/SubViewport"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -138,7 +138,7 @@ scale = Vector2(3.13, 3.13)
 text = "Player 2"
 horizontal_alignment = 1
 
-[node name="ReadyP2" type="RichTextLabel" parent="PhysicsP2/Player2/Player2Info/SubViewport"]
+[node name="ReadyP2" type="RichTextLabel" parent="PhysicsP2/Player2Info/SubViewport"]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -156,6 +156,8 @@ horizontal_alignment = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
 shape = SubResource("CapsuleShape3D_ng2wx")
 
+[node name="blockbench_export" parent="PhysicsP2" instance=ExtResource("3_q70mm")]
+
 [node name="PhysicsP3" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 2, 11, 1)
@@ -168,19 +170,16 @@ freeze = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
 shape = SubResource("CapsuleShape3D_ng2wx")
 
-[node name="Player3" parent="PhysicsP3" instance=ExtResource("2_oynvy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Player3Info" type="Sprite3D" parent="PhysicsP3/Player3"]
+[node name="Player3Info" type="Sprite3D" parent="PhysicsP3"]
 transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 3, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_ng2wx")
 
-[node name="SubViewport" type="SubViewport" parent="PhysicsP3/Player3/Player3Info"]
+[node name="SubViewport" type="SubViewport" parent="PhysicsP3/Player3Info"]
 transparent_bg = true
 size = Vector2i(500, 500)
 
-[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP3/Player3/Player3Info/SubViewport"]
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP3/Player3Info/SubViewport"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -192,7 +191,7 @@ scale = Vector2(3.13, 3.13)
 text = "Player 3"
 horizontal_alignment = 1
 
-[node name="ReadyP3" type="RichTextLabel" parent="PhysicsP3/Player3/Player3Info/SubViewport"]
+[node name="ReadyP3" type="RichTextLabel" parent="PhysicsP3/Player3Info/SubViewport"]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -206,6 +205,8 @@ scale = Vector2(3.13, 3.13)
 text = "Not Ready"
 horizontal_alignment = 1
 
+[node name="blockbench_export" parent="PhysicsP3" instance=ExtResource("4_mj7ku")]
+
 [node name="PhysicsP4" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 5, 11, 2)
@@ -214,19 +215,16 @@ axis_lock_linear_z = true
 can_sleep = false
 freeze = true
 
-[node name="Player4" parent="PhysicsP4" instance=ExtResource("2_oynvy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
-
-[node name="Player4Info" type="Sprite3D" parent="PhysicsP4/Player4"]
+[node name="Player4Info" type="Sprite3D" parent="PhysicsP4"]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 3, 0)
 billboard = 1
 texture = SubResource("ViewportTexture_5xsys")
 
-[node name="SubViewport" type="SubViewport" parent="PhysicsP4/Player4/Player4Info"]
+[node name="SubViewport" type="SubViewport" parent="PhysicsP4/Player4Info"]
 transparent_bg = true
 size = Vector2i(500, 500)
 
-[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP4/Player4/Player4Info/SubViewport"]
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP4/Player4Info/SubViewport"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -238,7 +236,7 @@ scale = Vector2(3.13, 3.13)
 text = "Player 4"
 horizontal_alignment = 1
 
-[node name="ReadyP4" type="RichTextLabel" parent="PhysicsP4/Player4/Player4Info/SubViewport"]
+[node name="ReadyP4" type="RichTextLabel" parent="PhysicsP4/Player4Info/SubViewport"]
 unique_name_in_owner = true
 anchors_preset = 5
 anchor_left = 0.5
@@ -255,6 +253,8 @@ horizontal_alignment = 1
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="PhysicsP4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000118256, 1.75029, 0.000126123)
 shape = SubResource("CapsuleShape3D_ng2wx")
+
+[node name="blockbench_export" parent="PhysicsP4" instance=ExtResource("5_r7t2y")]
 
 [node name="PlayerDropInManager" type="Node" parent="."]
 script = ExtResource("3_ng2wx")
