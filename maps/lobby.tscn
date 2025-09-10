@@ -1,0 +1,278 @@
+[gd_scene load_steps=13 format=3 uid="uid://chpaih64nsj73"]
+
+[ext_resource type="PackedScene" uid="uid://u3y10121u23c" path="res://models/Maps/Fence.glb" id="1_62t3n"]
+[ext_resource type="PackedScene" uid="uid://pulx8jn2d2tt" path="res://models/gnome/player_v2.gltf" id="2_oynvy"]
+[ext_resource type="Script" uid="uid://dt3okoa4cn4mr" path="res://scripts/player_drop_in_manager.gd" id="3_ng2wx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ng2wx"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_5xsys"]
+sky_material = SubResource("ProceduralSkyMaterial_ng2wx")
+
+[sub_resource type="Environment" id="Environment_scr03"]
+background_mode = 2
+sky = SubResource("Sky_5xsys")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_62t3n"]
+albedo_color = Color(0, 0.694118, 0.0941176, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_62t3n"]
+viewport_path = NodePath("PhysicsP1/Player1/Player1Info/SubViewport")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ng2wx"]
+radius = 1.0
+height = 3.39563
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_oynvy"]
+viewport_path = NodePath("PhysicsP2/Player2/Player2Info/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ng2wx"]
+viewport_path = NodePath("PhysicsP3/Player3/Player3Info/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_5xsys"]
+viewport_path = NodePath("PhysicsP4/Player4/Player4Info/SubViewport")
+
+[node name="Lobby" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_scr03")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Scene" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Fence" parent="Scene" instance=ExtResource("1_62t3n")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.30115, 0, 8.29791)
+
+[node name="Floor" type="CSGBox3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, -0.4, 2.2)
+use_collision = true
+size = Vector3(20, 1, 8)
+material = SubResource("StandardMaterial3D_62t3n")
+
+[node name="PhysicsP1" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -5, 11, 2)
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+can_sleep = false
+freeze = true
+
+[node name="Player1" parent="PhysicsP1" instance=ExtResource("2_oynvy")]
+
+[node name="Player1Info" type="Sprite3D" parent="PhysicsP1/Player1"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_62t3n")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP1/Player1/Player1Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP1/Player1/Player1Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="ReadyP1" type="RichTextLabel" parent="PhysicsP1/Player1/Player1Info/SubViewport"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.227
+offset_top = 130.595
+offset_right = -41.882
+offset_bottom = 170.595
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Not Ready"
+horizontal_alignment = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsP1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ng2wx")
+
+[node name="PhysicsP2" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.866026, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866026, -2, 11, 1)
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+can_sleep = false
+freeze = true
+
+[node name="Player2" parent="PhysicsP2" instance=ExtResource("2_oynvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Player2Info" type="Sprite3D" parent="PhysicsP2/Player2"]
+transform = Transform3D(-0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866026, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_oynvy")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP2/Player2/Player2Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP2/Player2/Player2Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="ReadyP2" type="RichTextLabel" parent="PhysicsP2/Player2/Player2Info/SubViewport"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.227
+offset_top = 130.595
+offset_right = -41.882
+offset_bottom = 170.595
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Not Ready"
+horizontal_alignment = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsP2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ng2wx")
+
+[node name="PhysicsP3" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 2, 11, 1)
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+can_sleep = false
+freeze = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PhysicsP3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ng2wx")
+
+[node name="Player3" parent="PhysicsP3" instance=ExtResource("2_oynvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Player3Info" type="Sprite3D" parent="PhysicsP3/Player3"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_ng2wx")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP3/Player3/Player3Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP3/Player3/Player3Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 3"
+horizontal_alignment = 1
+
+[node name="ReadyP3" type="RichTextLabel" parent="PhysicsP3/Player3/Player3Info/SubViewport"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.227
+offset_top = 130.595
+offset_right = -41.882
+offset_bottom = 170.595
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Not Ready"
+horizontal_alignment = 1
+
+[node name="PhysicsP4" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 5, 11, 2)
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+can_sleep = false
+freeze = true
+
+[node name="Player4" parent="PhysicsP4" instance=ExtResource("2_oynvy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="Player4Info" type="Sprite3D" parent="PhysicsP4/Player4"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_5xsys")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP4/Player4/Player4Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP4/Player4/Player4Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 4"
+horizontal_alignment = 1
+
+[node name="ReadyP4" type="RichTextLabel" parent="PhysicsP4/Player4/Player4Info/SubViewport"]
+unique_name_in_owner = true
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -132.227
+offset_top = 130.595
+offset_right = -41.882
+offset_bottom = 170.595
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Not Ready"
+horizontal_alignment = 1
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PhysicsP4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000118256, 1.75029, 0.000126123)
+shape = SubResource("CapsuleShape3D_ng2wx")
+
+[node name="PlayerDropInManager" type="Node" parent="."]
+script = ExtResource("3_ng2wx")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
+
+[node name="LobbyHud" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="LobbyHud"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "'A' To Join
+'Y' To Ready
+'B' To Unready"
+horizontal_alignment = 1
