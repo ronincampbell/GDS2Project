@@ -1,9 +1,55 @@
-[gd_scene load_steps=4 format=3 uid="uid://bffwna508cxnq"]
+[gd_scene load_steps=8 format=3 uid="uid://bffwna508cxnq"]
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
+[ext_resource type="Texture2D" uid="uid://ds85t07fvpvsl" path="res://placeholder_arrow.png" id="2_53dev"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm5mv"]
+bg_color = Color(0.537255, 0.635294, 0.490196, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.322502, 0.364369, 0.335173, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7v3yo"]
+bg_color = Color(0.537255, 0.635294, 0.490196, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.322502, 0.364369, 0.335173, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gaqij"]
+bg_color = Color(0.537255, 0.635294, 0.490196, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.322502, 0.364369, 0.335173, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijstf"]
-bg_color = Color(0.535397, 0.636131, 0.489567, 1)
+draw_center = false
 border_width_left = 1
 border_width_top = 1
 border_width_right = 1
@@ -57,7 +103,7 @@ offset_left = 150.0
 offset_top = 10.0
 offset_right = 192.0
 offset_bottom = 57.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
 
 [node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer"]
 layout_mode = 2
@@ -96,7 +142,7 @@ offset_top = 10.0
 offset_right = -150.0
 offset_bottom = 57.0
 grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_7v3yo")
 
 [node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer2"]
 layout_mode = 2
@@ -135,7 +181,7 @@ offset_top = -57.0
 offset_right = 192.0
 offset_bottom = -10.0
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gaqij")
 
 [node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer3"]
 layout_mode = 2
@@ -177,7 +223,7 @@ offset_right = -150.0
 offset_bottom = -10.0
 grow_horizontal = 0
 grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
 
 [node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer4"]
 layout_mode = 2
@@ -203,6 +249,129 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="IncapIndicators" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IndicatorContainer" type="PanelContainer" parent="IncapIndicators"]
+visible = false
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 1
+offset_left = 250.0
+offset_top = 10.0
+offset_right = 307.0
+offset_bottom = 57.0
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+
+[node name="IndicatorMargin" type="MarginContainer" parent="IncapIndicators/IndicatorContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Indicator" type="TextureRect" parent="IncapIndicators/IndicatorContainer/IndicatorMargin"]
+layout_mode = 2
+texture = ExtResource("2_53dev")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="IndicatorContainer2" type="PanelContainer" parent="IncapIndicators"]
+visible = false
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -202.0
+offset_top = 10.0
+offset_right = -145.0
+offset_bottom = 57.0
+grow_horizontal = 0
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+
+[node name="IndicatorMargin" type="MarginContainer" parent="IncapIndicators/IndicatorContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Indicator" type="TextureRect" parent="IncapIndicators/IndicatorContainer2/IndicatorMargin"]
+layout_mode = 2
+texture = ExtResource("2_53dev")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="IndicatorContainer3" type="PanelContainer" parent="IncapIndicators"]
+visible = false
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 250.0
+offset_top = -68.0
+offset_right = 307.0
+offset_bottom = -21.0
+grow_vertical = 0
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+
+[node name="IndicatorMargin" type="MarginContainer" parent="IncapIndicators/IndicatorContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Indicator" type="TextureRect" parent="IncapIndicators/IndicatorContainer3/IndicatorMargin"]
+layout_mode = 2
+texture = ExtResource("2_53dev")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="IndicatorContainer4" type="PanelContainer" parent="IncapIndicators"]
+visible = false
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -202.0
+offset_top = -68.0
+offset_right = -145.0
+offset_bottom = -21.0
+grow_horizontal = 0
+grow_vertical = 0
+rotation = 1.5708
+theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
+
+[node name="IndicatorMargin" type="MarginContainer" parent="IncapIndicators/IndicatorContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="Indicator" type="TextureRect" parent="IncapIndicators/IndicatorContainer4/IndicatorMargin"]
+layout_mode = 2
+texture = ExtResource("2_53dev")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="ScoreAnnouncePanel" type="PanelContainer" parent="."]
 visible = false

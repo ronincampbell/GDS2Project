@@ -11,6 +11,7 @@ var player_count = 4
 	$PlayerScores/ScoreContainer4/ScoreMargin/ScoreText
 ]
 @onready var score_announce = $ScoreAnnouncePanel/AnnounceMargin/ScoreAnnounceText
+@onready var incap_indicators = $IncapIndicators
 
 func _ready() -> void:
 	init_hud()
@@ -23,10 +24,18 @@ func init_hud():
 	reset_score_ui()
 	#reset score announcement
 	reset_score_announce()
+	#hide incapicated indicators
+	reset_incap_ind()
 
 func announce_score(player_id: int):
 	score_announce.get_parent().get_parent().show()
 	score_announce.text = "Player " + str(player_id) + " Scored!"
+
+func indicate_player_incapicated(player_id: int, is_down: bool):
+	if is_down:
+		incap_indicators.get_child(player_id).show()
+	else:
+		incap_indicators.get_child(player_id).hide()
 
 func reset_score_announce():
 	score_announce.get_parent().get_parent().hide()
@@ -36,3 +45,7 @@ func reset_score_ui():
 	for player in player_count:
 		player_scores_container.get_child(player).show()
 		player_scores.get(player).text = str(0)
+
+func reset_incap_ind():
+	for indi in incap_indicators.get_children():
+		indi.hide()
