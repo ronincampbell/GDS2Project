@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
-[ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
+[ext_resource type="PackedScene" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
 [ext_resource type="Texture2D" uid="uid://dm80g02b4g7ln" path="res://models/Maps/Ground_Grass Base Color.png" id="3_k1jtb"]
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
 
