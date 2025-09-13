@@ -280,7 +280,8 @@ anchor_bottom = 1.0
 offset_top = -75.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "'A' To Join
-'Y' To Ready
-'B' To Unready"
+text = "'Start' To Join
+'A' To Ready
+'B' To Unready
+'Back' To Leave"
 horizontal_alignment = 1

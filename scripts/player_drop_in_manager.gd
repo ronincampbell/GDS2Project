@@ -37,3 +37,20 @@ func unready_player(player_num: int):
 
 func _ready() -> void:
 	Hud.hide()
+	ControllerManager.device_joined.connect(_on_device_joined)
+	ControllerManager.device_left.connect(_on_device_left)
+
+func _input(event: InputEvent) -> void:
+	for i in range(1,5):
+		if event.is_action_pressed("PlayerInteract"+str(i)):
+			ready_player(i)
+			break
+		elif event.is_action_pressed("PlayerCancel"+str(i)):
+			unready_player(i)
+			break
+
+func _on_device_joined(player: int, device: int):
+	drop_in_player(player)
+
+func _on_device_left(player: int, device: int):
+	remove_player(player)

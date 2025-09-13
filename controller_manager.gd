@@ -148,6 +148,9 @@ func _input(event: InputEvent) -> void:
 				return
 			if get_lowest_inactive_player() >= 0:
 				_on_controller_joined(event.device)
+		elif event.button_index == JOY_BUTTON_BACK:
+			if event.device in device_players:
+				drop_out_player(device_players[event.device])
 	elif event.is_action_pressed("KeyboardJoin"):
 		if get_lowest_inactive_player() >= 0:
 			_on_keyboard_joined()
