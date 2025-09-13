@@ -1,7 +1,57 @@
-[gd_scene load_steps=8 format=3 uid="uid://bffwna508cxnq"]
+[gd_scene load_steps=19 format=3 uid="uid://bffwna508cxnq"]
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
 [ext_resource type="Texture2D" uid="uid://ds85t07fvpvsl" path="res://placeholder_arrow.png" id="2_53dev"]
+[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
+[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
+[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="5_10ibt"]
+[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="6_3o8sq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijstf"]
+bg_color = Color(0.239216, 0.533333, 0.294118, 0.564706)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.322502, 0.364369, 0.335173, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ktxb"]
+bg_color = Color(0.535397, 0.636131, 0.489567, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.322502, 0.364369, 0.335173, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+corner_detail = 1
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_gmunk"]
+viewport_path = NodePath("PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o30d6"]
+sky_top_color = Color(0.0888046, 0.605597, 1, 1)
+sky_horizon_color = Color(0.603844, 0.800387, 1, 1)
+ground_bottom_color = Color(0.0336162, 0.586221, 1.73271e-06, 1)
+ground_horizon_color = Color(0.562297, 1, 0.524384, 1)
+
+[sub_resource type="Sky" id="Sky_i5ryk"]
+sky_material = SubResource("ProceduralSkyMaterial_o30d6")
+
+[sub_resource type="Environment" id="Environment_2y2n3"]
+background_mode = 2
+background_color = Color(0.382605, 0.57365, 0.993852, 1)
+sky = SubResource("Sky_i5ryk")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dm5mv"]
 bg_color = Color(0.537255, 0.635294, 0.490196, 1)
@@ -33,6 +83,12 @@ corner_detail = 1
 shadow_size = 2
 shadow_offset = Vector2(1, 1)
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_y8qxg"]
+viewport_path = NodePath("PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cgpfr"]
+viewport_path = NodePath("PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport")
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gaqij"]
 bg_color = Color(0.537255, 0.635294, 0.490196, 1)
 border_width_left = 1
@@ -48,35 +104,8 @@ corner_detail = 1
 shadow_size = 2
 shadow_offset = Vector2(1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijstf"]
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0.322502, 0.364369, 0.335173, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-corner_detail = 1
-shadow_size = 2
-shadow_offset = Vector2(1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ktxb"]
-bg_color = Color(0.535397, 0.636131, 0.489567, 1)
-border_width_left = 4
-border_width_top = 4
-border_width_right = 4
-border_width_bottom = 4
-border_color = Color(0.322502, 0.364369, 0.335173, 1)
-corner_radius_top_left = 5
-corner_radius_top_right = 5
-corner_radius_bottom_right = 5
-corner_radius_bottom_left = 5
-corner_detail = 1
-shadow_size = 2
-shadow_offset = Vector2(1, 1)
+[sub_resource type="ViewportTexture" id="ViewportTexture_dwvm7"]
+viewport_path = NodePath("PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport")
 
 [node name="Hud" type="Control"]
 layout_mode = 3
@@ -87,169 +116,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yixhe")
 
-[node name="PlayerScores" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ScoreContainer" type="PanelContainer" parent="PlayerScores"]
-visible = false
-custom_minimum_size = Vector2(42, 47)
-layout_mode = 1
-offset_left = 150.0
-offset_top = 10.0
-offset_right = 192.0
-offset_bottom = 57.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
-
-[node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="ScoreText" type="RichTextLabel" parent="PlayerScores/ScoreContainer/ScoreMargin"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-text = "0"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScoreContainer2" type="PanelContainer" parent="PlayerScores"]
-visible = false
-custom_minimum_size = Vector2(42, 47)
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -192.0
-offset_top = 10.0
-offset_right = -150.0
-offset_bottom = 57.0
-grow_horizontal = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_7v3yo")
-
-[node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="ScoreText" type="RichTextLabel" parent="PlayerScores/ScoreContainer2/ScoreMargin"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-text = "0"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScoreContainer3" type="PanelContainer" parent="PlayerScores"]
-visible = false
-custom_minimum_size = Vector2(42, 47)
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 150.0
-offset_top = -57.0
-offset_right = 192.0
-offset_bottom = -10.0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_gaqij")
-
-[node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer3"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="ScoreText" type="RichTextLabel" parent="PlayerScores/ScoreContainer3/ScoreMargin"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-text = "0"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ScoreContainer4" type="PanelContainer" parent="PlayerScores"]
-visible = false
-custom_minimum_size = Vector2(42, 47)
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -192.0
-offset_top = -57.0
-offset_right = -150.0
-offset_bottom = -10.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
-
-[node name="ScoreMargin" type="MarginContainer" parent="PlayerScores/ScoreContainer4"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 5
-
-[node name="ScoreText" type="RichTextLabel" parent="PlayerScores/ScoreContainer4/ScoreMargin"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_font_sizes/bold_italics_font_size = 25
-theme_override_font_sizes/italics_font_size = 25
-theme_override_font_sizes/mono_font_size = 25
-theme_override_font_sizes/normal_font_size = 25
-theme_override_font_sizes/bold_font_size = 25
-text = "0"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="IncapIndicators" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -259,12 +125,11 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="IndicatorContainer" type="PanelContainer" parent="IncapIndicators"]
-visible = false
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 1
-offset_left = 250.0
+offset_left = 200.0
 offset_top = 10.0
-offset_right = 307.0
+offset_right = 257.0
 offset_bottom = 57.0
 rotation = 1.5708
 theme_override_styles/panel = SubResource("StyleBoxFlat_ijstf")
@@ -284,15 +149,14 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="IndicatorContainer2" type="PanelContainer" parent="IncapIndicators"]
-visible = false
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -202.0
+offset_left = -152.0
 offset_top = 10.0
-offset_right = -145.0
+offset_right = -95.0
 offset_bottom = 57.0
 grow_horizontal = 0
 rotation = 1.5708
@@ -313,15 +177,14 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="IndicatorContainer3" type="PanelContainer" parent="IncapIndicators"]
-visible = false
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 250.0
+offset_left = 200.0
 offset_top = -68.0
-offset_right = 307.0
+offset_right = 257.0
 offset_bottom = -21.0
 grow_vertical = 0
 rotation = 1.5708
@@ -342,7 +205,6 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="IndicatorContainer4" type="PanelContainer" parent="IncapIndicators"]
-visible = false
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 1
 anchors_preset = 3
@@ -350,9 +212,9 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -202.0
+offset_left = -152.0
 offset_top = -68.0
-offset_right = -145.0
+offset_right = -95.0
 offset_bottom = -21.0
 grow_horizontal = 0
 grow_vertical = 0
@@ -412,3 +274,261 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="PlayersContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopRowContainer" type="HBoxContainer" parent="PlayersContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Player1" type="HBoxContainer" parent="PlayersContainer/TopRowContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Player1Icon" type="TextureRect" parent="PlayersContainer/TopRowContainer/Player1"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_gmunk")
+
+[node name="SubViewport" type="SubViewport" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon"]
+own_world_3d = true
+size = Vector2i(96, 96)
+
+[node name="Camera3D" type="Camera3D" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.995168, -0.0981908, 0, 0.0981908, 0.995168, 0, 2.42577, 2.09068)
+environment = SubResource("Environment_2y2n3")
+fov = 46.2
+size = 1.805
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 0, 4.24339, 2.28988)
+
+[node name="Node3D" type="Node3D" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="blockbench_export" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport/Node3D" instance=ExtResource("3_vb885")]
+
+[node name="ScoreContainer" type="PanelContainer" parent="PlayersContainer/TopRowContainer/Player1"]
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
+
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersContainer/TopRowContainer/Player1/ScoreContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ScoreText" type="RichTextLabel" parent="PlayersContainer/TopRowContainer/Player1/ScoreContainer/ScoreMargin"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2" type="HBoxContainer" parent="PlayersContainer/TopRowContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="ScoreContainer2" type="PanelContainer" parent="PlayersContainer/TopRowContainer/Player2"]
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_7v3yo")
+
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersContainer/TopRowContainer/Player2/ScoreContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ScoreText" type="RichTextLabel" parent="PlayersContainer/TopRowContainer/Player2/ScoreContainer2/ScoreMargin"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player2Icon" type="TextureRect" parent="PlayersContainer/TopRowContainer/Player2"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_y8qxg")
+
+[node name="SubViewport" type="SubViewport" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon"]
+own_world_3d = true
+size = Vector2i(96, 96)
+
+[node name="Camera3D" type="Camera3D" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.995168, -0.0981908, 0, 0.0981908, 0.995168, 0, 2.42577, 2.09068)
+environment = SubResource("Environment_2y2n3")
+fov = 46.2
+size = 1.805
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 0, 4.24339, 2.28988)
+
+[node name="Node3D" type="Node3D" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="blockbench_export" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
+
+[node name="BottomRowContainer" type="HBoxContainer" parent="PlayersContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+
+[node name="Player3" type="HBoxContainer" parent="PlayersContainer/BottomRowContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="TextureRect" type="TextureRect" parent="PlayersContainer/BottomRowContainer/Player3"]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_cgpfr")
+
+[node name="SubViewport" type="SubViewport" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect"]
+own_world_3d = true
+size = Vector2i(96, 96)
+
+[node name="Camera3D" type="Camera3D" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.995168, -0.0981908, 0, 0.0981908, 0.995168, 0, 2.42577, 2.09068)
+environment = SubResource("Environment_2y2n3")
+fov = 46.2
+size = 1.805
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 0, 4.24339, 2.28988)
+
+[node name="Node3D" type="Node3D" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="blockbench_export" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport/Node3D" instance=ExtResource("5_10ibt")]
+
+[node name="ScoreContainer3" type="PanelContainer" parent="PlayersContainer/BottomRowContainer/Player3"]
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_gaqij")
+
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersContainer/BottomRowContainer/Player3/ScoreContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ScoreText" type="RichTextLabel" parent="PlayersContainer/BottomRowContainer/Player3/ScoreContainer3/ScoreMargin"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Player4" type="HBoxContainer" parent="PlayersContainer/BottomRowContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="ScoreContainer4" type="PanelContainer" parent="PlayersContainer/BottomRowContainer/Player4"]
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
+
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersContainer/BottomRowContainer/Player4/ScoreContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="ScoreText" type="RichTextLabel" parent="PlayersContainer/BottomRowContainer/Player4/ScoreContainer4/ScoreMargin"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "0"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect2" type="TextureRect" parent="PlayersContainer/BottomRowContainer/Player4"]
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+texture = SubResource("ViewportTexture_dwvm7")
+
+[node name="SubViewport" type="SubViewport" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2"]
+own_world_3d = true
+size = Vector2i(96, 96)
+
+[node name="Camera3D" type="Camera3D" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.995168, -0.0981908, 0, 0.0981908, 0.995168, 0, 2.42577, 2.09068)
+environment = SubResource("Environment_2y2n3")
+fov = 46.2
+size = 1.805
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 0, 4.24339, 2.28988)
+
+[node name="Node3D" type="Node3D" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="blockbench_export" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]

@@ -1,11 +1,13 @@
 extends Control
 
 @onready var hotbar = $HBoxContainer/PanelContainer/MarginContainer/GridContainer
+@onready var timer = $Timer/MarginContainer/TimerText
 
 const prop_models: Dictionary = {"plant":preload("res://Props/prop_plant.tscn"), "fertiliser":preload("res://Props/prop_fertiliser.tscn"), "watering_can":preload("res://Props/prop_watering_can.tscn")}
 const prop_slot = preload("res://UI/prop placement/prop_slot.tscn")
 
 enum players {PLAYER1, PLAYER2, PLAYER3, PLAYER4}
+
 var props_list = {
 	"plant": 0,
 	"fertiliser": 0,
@@ -37,3 +39,6 @@ func highlight_selected_props():
 	
 	for player in player_current_props:
 		hotbar.get_child(props_list.get(player_current_props.get(player))).set_selections(player)
+
+func update_timer_text(rem_time: float = 30.00):
+	timer.text = str(rem_time)

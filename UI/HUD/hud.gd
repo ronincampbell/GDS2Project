@@ -1,14 +1,16 @@
 extends Control
 
-#temporary variable until there's a proper method to get num of players
-var player_count = 4
-
-@onready var player_scores_container = $PlayerScores
+@onready var players = [
+	$PlayersContainer/TopRowContainer/Player1,
+	$PlayersContainer/TopRowContainer/Player2,
+	$PlayersContainer/BottomRowContainer/Player3,
+	$PlayersContainer/BottomRowContainer/Player4
+]
 @onready var player_scores = [
-	$PlayerScores/ScoreContainer/ScoreMargin/ScoreText,
-	$PlayerScores/ScoreContainer2/ScoreMargin/ScoreText,
-	$PlayerScores/ScoreContainer3/ScoreMargin/ScoreText,
-	$PlayerScores/ScoreContainer4/ScoreMargin/ScoreText
+	$PlayersContainer/TopRowContainer/Player1/ScoreContainer/ScoreMargin/ScoreText,
+	$PlayersContainer/TopRowContainer/Player2/ScoreContainer2/ScoreMargin/ScoreText,
+	$PlayersContainer/BottomRowContainer/Player3/ScoreContainer3/ScoreMargin/ScoreText,
+	$PlayersContainer/BottomRowContainer/Player4/ScoreContainer4/ScoreMargin/ScoreText
 ]
 @onready var score_announce = $ScoreAnnouncePanel/AnnounceMargin/ScoreAnnounceText
 @onready var incap_indicators = $IncapIndicators
@@ -21,7 +23,7 @@ func update_score(player_id: int, new_score: int):
 	
 func init_hud():
 	#reset score texts
-	reset_score_ui()
+	reset_scores_ui()
 	#reset score announcement
 	reset_score_announce()
 	#hide incapicated indicators
@@ -41,11 +43,16 @@ func reset_score_announce():
 	score_announce.get_parent().get_parent().hide()
 	score_announce.text = "Scored!"
 
-func reset_score_ui():
-	for player in player_count:
-		player_scores_container.get_child(player).show()
-		player_scores.get(player).text = str(0)
+func reset_scores_ui():
+	for score in player_scores:
+		score.text = "0"
 
 func reset_incap_ind():
 	for indi in incap_indicators.get_children():
 		indi.hide()
+
+func enable_player_icons(players_in: Array[bool]):
+	print(players_in)
+	for p in players_in:
+		if p:
+			players.get(players_in.find(p)).show()

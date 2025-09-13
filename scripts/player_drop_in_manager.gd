@@ -15,6 +15,7 @@ func remove_player(player_num: int):
 
 func next_scene():
 	Hud.show()
+	Hud.enable_player_icons(players_in)
 	get_tree().change_scene_to_file("res://maps/test_map.tscn")
 
 func all_ready() -> bool:
