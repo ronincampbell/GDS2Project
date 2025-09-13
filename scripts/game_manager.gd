@@ -7,7 +7,7 @@ var skip_placing: bool = false
 
 var mode : String = "obstacle placing"
 var obstacle_placing_timer : float = 0
-var obstacle_placing_time : float = 60                                                    
+var obstacle_placing_time : float = 20                                                    
 var player1_obstacle_in_scene : bool = false
 
 const placeable_props: Dictionary = {"plant":preload("res://Props/Previews/prop_plant_preview.tscn"), "fertiliser":preload("res://Props/Previews/prop_fertiliser_preview.tscn"), "watering_can":preload("res://Props/Previews/prop_watering_can_preview.tscn")}
@@ -19,14 +19,20 @@ const ball_spawn_offset: Vector3 = Vector3(0,0.7,0)
 const club_spawn_offset: Vector3 = Vector3(0,1.6,0)
 const gnome_spawn_offset: Vector3 = Vector3(0,1.4,0)
 
+@onready var prop_placement_ui: Node = $PropPlacement
+@onready var hud: Node = $Hud
+
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
 		obstacle_placing_timer += delta
+		prop_placement_ui.update_timer_text(snappedf(obstacle_placing_time-obstacle_placing_timer, 0.1))
 		
 		if Input.is_action_just_pressed("ui_accept"):
 			skip_placing = true
 		
 		if obstacle_placing_timer > obstacle_placing_time or skip_placing:
+			prop_placement_ui.visible = false
+			hud.visible = true
 			mode = "playing"
 			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
 				_place_object(golf_ball, marker.global_position+ball_spawn_offset)

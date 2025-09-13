@@ -1,12 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=17 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
+[ext_resource type="PackedScene" uid="uid://bnaveyfa2eqtl" path="res://UI/prop placement/prop_placement.tscn" id="2_6b7mj"]
 [ext_resource type="PackedScene" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
+[ext_resource type="PackedScene" uid="uid://bffwna508cxnq" path="res://UI/HUD/HUD.tscn" id="2_wd2vj"]
 [ext_resource type="Texture2D" uid="uid://dm80g02b4g7ln" path="res://models/Maps/Ground_Grass Base Color.png" id="3_k1jtb"]
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
-[ext_resource type="PackedScene" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
-[ext_resource type="PackedScene" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
-[ext_resource type="PackedScene" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
+[ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
+[ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
+[ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -37,6 +39,11 @@ radius = 0.15
 
 [node name="TestMap" type="Node3D"]
 script = ExtResource("1_cabd0")
+
+[node name="Hud" parent="." instance=ExtResource("2_wd2vj")]
+visible = false
+
+[node name="PropPlacement" parent="." instance=ExtResource("2_6b7mj")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cabd0")
