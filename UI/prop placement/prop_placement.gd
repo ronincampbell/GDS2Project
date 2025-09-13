@@ -1,12 +1,39 @@
 extends Control
 
-@onready var hotbar = $PanelContainer/MarginContainer/GridContainer
+@onready var hotbar = $HBoxContainer/PanelContainer/MarginContainer/GridContainer
 
-const props_inventory: Dictionary = {"plant":preload("res://Props/prop_plant.tscn"), "fertiliser":preload("res://Props/prop_fertiliser.tscn"), "watering_can":preload("res://Props/prop_watering_can.tscn")}
+const prop_models: Dictionary = {"plant":preload("res://Props/prop_plant.tscn"), "fertiliser":preload("res://Props/prop_fertiliser.tscn"), "watering_can":preload("res://Props/prop_watering_can.tscn")}
 const prop_slot = preload("res://UI/prop placement/prop_slot.tscn")
 
+enum players {PLAYER1, PLAYER2, PLAYER3, PLAYER4}
+var props_list = {
+	"plant": 0,
+	"fertiliser": 0,
+	"watering_can": 0
+}
+var player_current_props = {
+	players.PLAYER1: "plant",
+	players.PLAYER2: "plant",
+	players.PLAYER3: "plant",
+	players.PLAYER4: "plant",
+}
+
 func _ready() -> void:
-	for key in props_inventory.keys():
+	init_hotbar()
+	highlight_selected_props()
+
+func init_hotbar():
+	for key in prop_models.keys():
 		var slot_instance = prop_slot.instantiate()
 		hotbar.add_child(slot_instance)
-		slot_instance.set_slot_prop(props_inventory.get(key))
+		slot_instance.set_slot_prop(prop_models.get(key))
+		props_list.set(key, slot_instance.get_index())
+
+func highlight_selected_props():
+	#some method to update current selected props here
+	
+	for prop in hotbar.get_children():
+		prop.clear_selections()
+	
+	for player in player_current_props:
+		hotbar.get_child(props_list.get(player_current_props.get(player))).set_selections(player)
