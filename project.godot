@@ -21,6 +21,12 @@ config/icon="res://icon.svg"
 Hud="*res://UI/HUD/HUD.tscn"
 ControllerManager="*res://controller_manager.gd"
 
+[global_group]
+
+PlayerSpawnMarkers=""
+BallSpawnMarkers=""
+ClubSpawnMarkers=""
+
 [input]
 
 ui_rotate_obstacle_clockwise={
@@ -82,6 +88,7 @@ KeyboardDropout={
 3d_physics/layer_2="Gnomes"
 3d_physics/layer_3="Props"
 3d_physics/layer_4="GolfObjects"
+3d_physics/layer_5="PropDenial"
 
 [physics]
 

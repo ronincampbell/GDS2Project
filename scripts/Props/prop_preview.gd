@@ -96,3 +96,16 @@ func _on_body_exited(_body: Node3D) -> void:
 		can_place = true
 		model.show()
 		model_cannot_place.hide()
+
+func _on_area_entered(area: Area3D) -> void:
+	in_area += 1
+	can_place = false
+	model.hide()
+	model_cannot_place.show()
+
+func _on_area_exited(area: Area3D) -> void:
+	in_area -= 1
+	if in_area < 1:
+		can_place = true
+		model.show()
+		model_cannot_place.hide()

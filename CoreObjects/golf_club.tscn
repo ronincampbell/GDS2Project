@@ -4,10 +4,10 @@
 [ext_resource type="Script" uid="uid://3abdpmvufoax" path="res://scripts/golf_club.gd" id="1_mymk2"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fn2sa"]
-size = Vector3(0.150024, 0.0774536, 0.029541)
+size = Vector3(0.300048, 0.154907, 0.059082)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_57l66"]
-size = Vector3(0.0316162, 0.931752, 0.03125)
+size = Vector3(0.0632324, 1.8635, 0.0625)
 
 [node name="GolfClub" type="RigidBody3D"]
 collision_layer = 8
@@ -18,17 +18,18 @@ angular_damp = 0.3
 script = ExtResource("1_mymk2")
 
 [node name="blockbench_export2" parent="." instance=ExtResource("1_5f8sv")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0623169, -0.025238, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124634, -1.05048, 0)
 shape = SubResource("BoxShape3D_fn2sa")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.57764e-05, 0.477915, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.16e-05, -0.04417, 0)
 shape = SubResource("BoxShape3D_57l66")
 
 [node name="HandleMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.820568, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64114, 0)
 
 [node name="HeadMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0871628, -0.0339059, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174326, -1.06781, 0)

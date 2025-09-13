@@ -1,15 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=13 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
-[ext_resource type="PackedScene" uid="uid://cvshjs0wne2oh" path="res://models/gnome/gnome.gltf" id="2_pyhca"]
+[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
+[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_7j42c"]
 [ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_k84ux"]
+[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_ptpxf"]
+[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_x56rg"]
+[ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
-radius = 0.312095
-height = 1.43211
+radius = 0.4103
+height = 3.1
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7j42c"]
+radius = 0.627558
+
+[sub_resource type="BoxMesh" id="BoxMesh_ptpxf"]
+size = Vector3(0.91, 0.21, 0.21)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x56rg"]
+size = Vector3(0.91, 0.21, 0.21)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8pkva"]
-radius = 1.2
+radius = 2.4
 
 [node name="Gnome" type="RigidBody3D"]
 collision_layer = 2
@@ -21,15 +34,70 @@ linear_damp = 0.1
 angular_damp = 2.0
 script = ExtResource("1_5g0f5")
 
-[node name="HoldMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.59086, 0.778312, 1.00001e-07)
-
-[node name="blockbench_export" parent="." instance=ExtResource("2_pyhca")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.063834, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55, 0)
 shape = SubResource("CapsuleShape3D_cabd0")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.57794, 0)
+shape = SubResource("SphereShape3D_7j42c")
+
+[node name="PropHoldMarker" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62103, -0.565863)
+
+[node name="ModelBlue" parent="." instance=ExtResource("2_jegbx")]
+
+[node name="ModelPurple" parent="." instance=ExtResource("3_7j42c")]
+visible = false
+
+[node name="ModelRed" parent="." instance=ExtResource("4_ptpxf")]
+visible = false
+
+[node name="ModelYellow" parent="." instance=ExtResource("5_x56rg")]
+visible = false
+
+[node name="LeftArmJoint" type="ConeTwistJoint3D" parent="."]
+transform = Transform3D(-0.952661, 0.304033, 0, -0.304033, -0.952661, 0, 0, 0, 1, -0.267401, 1.80309, -0.0130813)
+node_a = NodePath("..")
+node_b = NodePath("../LeftArmBody")
+
+[node name="LeftArmBody" type="RigidBody3D" parent="."]
+transform = Transform3D(0.952772, -0.303685, 0, 0.303685, 0.952772, 0, 0, 0, 1, -0.315034, 1.78789, -0.0130813)
+collision_layer = 2
+collision_mask = 0
+mass = 0.2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftArmBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375291, 0, 0)
+mesh = SubResource("BoxMesh_ptpxf")
+surface_material_override/0 = ExtResource("6_7j42c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftArmBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375291, 0, 0)
+shape = SubResource("BoxShape3D_x56rg")
+
+[node name="RightArmJoint" type="ConeTwistJoint3D" parent="."]
+transform = Transform3D(0.952662, 0.304033, 0, -0.304033, 0.952662, 0, 0, 0, 1, 0.267401, 1.80309, -0.0130813)
+node_a = NodePath("..")
+node_b = NodePath("../RightArmBody")
+
+[node name="RightArmBody" type="RigidBody3D" parent="."]
+transform = Transform3D(-0.952661, -0.304033, 0, 0.304033, -0.952661, 0, 0, 0, 1, 0.315034, 1.78789, -0.0130813)
+collision_layer = 2
+collision_mask = 0
+mass = 0.2
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RightArmBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375291, 0, 0)
+mesh = SubResource("BoxMesh_ptpxf")
+surface_material_override/0 = ExtResource("6_7j42c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightArmBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375291, 0, 0)
+shape = SubResource("BoxShape3D_x56rg")
+
+[node name="HoldMarker" type="Marker3D" parent="RightArmBody"]
+transform = Transform3D(-0.952661, 0.304033, 0, -0.304033, -0.952661, 0, 0, 0, 1, -0.728222, 0.0176461, 0.00545858)
 
 [node name="GolfInteractArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
@@ -56,7 +124,7 @@ collision_mask = 2
 shape = SubResource("SphereShape3D_8pkva")
 
 [node name="InteractIndicator" type="Sprite3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.7, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.55587, 0)
 visible = false
 billboard = 1
 texture = ExtResource("3_k84ux")

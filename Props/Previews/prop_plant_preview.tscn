@@ -19,6 +19,7 @@ target_position = Vector3(0, -0.2, 0)
 [node name="blockbench_export" parent="." instance=ExtResource("2_f5svn")]
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_mask = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.527432, 0)
@@ -45,5 +46,7 @@ target_position = Vector3(0, 0, 0.8)
 [node name="blockbench_export2" parent="." instance=ExtResource("3_f5svn")]
 visible = false
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_exited"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]
