@@ -1,6 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://b18trsau2kujh"]
+[gd_scene load_steps=4 format=3 uid="uid://u1ncvk7lwj7h"]
 
-[ext_resource type="Script" uid="uid://yn43qi3bnjg4" path="res://UI/HUD/score_board.gd" id="1_47lv8"]
+[ext_resource type="Script" path="res://UI/HUD/score_board.gd" id="1_47lv8"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bdwcy"]
 draw_center = false

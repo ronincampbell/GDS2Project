@@ -7,6 +7,7 @@ extends Node3D
 @onready var model_cannot_place = $blockbench_export2
 var in_area: int = 0
 var can_place: bool = true
+var player_num: int = -1
 
 const speed : float = 5
 const rotate_speed : float = 5
@@ -16,12 +17,14 @@ func _physics_process(delta: float) -> void:
 	if get_parent().mode == "playing":
 		queue_free()
 	
-	if Input.is_action_just_pressed("PlayerInteract") and can_place:
+	if Input.is_action_just_pressed("PlayerInteract"+str(player_num)) and can_place:
 		place_prop()
 	
 	_move_prop(delta)
 	_rotate_prop(delta)
-	
+
+func set_player(num: int) -> void:
+	player_num = num
 
 func _move_prop(delta: float) -> void:
 	if !downward_raycasts.is_empty():
@@ -41,13 +44,13 @@ func _move_prop(delta: float) -> void:
 			position += Vector3(0, -1, 0)*delta*speed
 	
 	var direction: Vector3 = Vector3.ZERO
-	if Input.is_action_pressed("PlayerLeft") and !_is_ray_colliding(side_raycasts[3]):
+	if Input.is_action_pressed("PlayerLeft"+str(player_num)) and !_is_ray_colliding(side_raycasts[3]):
 		direction += Vector3(-1, 0, 0)
-	if Input.is_action_pressed("PlayerRight") and !_is_ray_colliding(side_raycasts[1]):
+	if Input.is_action_pressed("PlayerRight"+str(player_num)) and !_is_ray_colliding(side_raycasts[1]):
 		direction += Vector3(1, 0, 0)
-	if Input.is_action_pressed("PlayerUp") and !_is_ray_colliding(side_raycasts[0]):
+	if Input.is_action_pressed("PlayerUp"+str(player_num)) and !_is_ray_colliding(side_raycasts[0]):
 		direction += Vector3(0, 0, -1)
-	if Input.is_action_pressed("PlayerDown") and !_is_ray_colliding(side_raycasts[2]):
+	if Input.is_action_pressed("PlayerDown"+str(player_num)) and !_is_ray_colliding(side_raycasts[2]):
 		direction += Vector3(0, 0, 1)
 	
 	position += direction.normalized()*speed*delta
@@ -75,9 +78,9 @@ func _is_ray_colliding(ray: RayCast3D) -> bool:
 func _rotate_prop(delta: float) ->  void:
 	var _rotate = Vector3.ZERO
 	
-	if Input.is_action_pressed("ui_rotate_obstacle_clockwise"):
+	if Input.is_action_pressed("RotateClock"+str(player_num)):
 		_rotate += Vector3(0, delta*rotate_speed, 0)
-	if Input.is_action_pressed("ui_rotate_obstacle_anticlockwise"):
+	if Input.is_action_pressed("RotateAntiClock"+str(player_num)):
 		_rotate += Vector3(0, -delta*rotate_speed, 0)
 	
 	model.rotation += _rotate

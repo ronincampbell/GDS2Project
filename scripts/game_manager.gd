@@ -44,7 +44,9 @@ func _physics_process(delta: float) -> void:
 			#new_gnome.player_num = 1
 		
 		if !player1_obstacle_in_scene:
-			_place_object(pick_random(placeable_props), Vector3(0, 1.6, 0))
+			var new_prop = _place_object(pick_random(placeable_props), Vector3(0, 1.6, 0))
+			if new_prop.has_method("set_player"):
+				new_prop.set_player(1)
 			player1_obstacle_in_scene = true
 
 func _on_golf_hole_entered(body: Node3D) -> void:

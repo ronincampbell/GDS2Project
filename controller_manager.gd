@@ -14,6 +14,9 @@ var down_input: InputEventJoypadMotion
 var interact_input: InputEventJoypadButton
 var cancel_input: InputEventJoypadButton
 
+var rotate_clock: InputEventJoypadMotion
+var rotate_anti_clock: InputEventJoypadMotion
+
 var left_input_key: InputEventKey
 var right_input_key: InputEventKey
 var up_input_key: InputEventKey
@@ -32,6 +35,8 @@ func _ready() -> void:
 		InputMap.add_action("PlayerDown"+str(i))
 		InputMap.add_action("PlayerInteract"+str(i))
 		InputMap.add_action("PlayerCancel"+str(i))
+		InputMap.add_action("RotateClock"+str(i))
+		InputMap.add_action("RotateAntiClock"+str(i))
 	
 	left_input = InputEventJoypadMotion.new()
 	left_input.axis = JOY_AXIS_LEFT_X
@@ -54,6 +59,14 @@ func _ready() -> void:
 	
 	cancel_input = InputEventJoypadButton.new()
 	cancel_input.button_index = JOY_BUTTON_B
+	
+	rotate_clock = InputEventJoypadMotion.new()
+	rotate_clock.axis = JOY_AXIS_RIGHT_X
+	rotate_clock.axis_value = 1
+	
+	rotate_anti_clock = InputEventJoypadMotion.new()
+	rotate_anti_clock.axis = JOY_AXIS_RIGHT_X
+	rotate_anti_clock.axis_value = -1
 	
 	
 	left_input_key = InputEventKey.new()
@@ -93,6 +106,8 @@ func drop_out_player(player_num: int) -> bool:
 			InputMap.action_erase_events("PlayerDown"+str(player_num))
 			InputMap.action_erase_events("PlayerInteract"+str(player_num))
 			InputMap.action_erase_events("PlayerCancel"+str(player_num))
+			InputMap.action_erase_events("RotateClock"+str(player_num))
+			InputMap.action_erase_events("RotateAntiClock"+str(player_num))
 			print("Player %s left on Device %s" % [player_num, device_num])
 			device_left.emit(player_num, device_num)
 			return true
@@ -110,12 +125,17 @@ func _on_controller_joined(device_num: int):
 	var device_interact_input: InputEventJoypadButton = interact_input.duplicate()
 	var device_cancel_input: InputEventJoypadButton = cancel_input.duplicate()
 	
+	var device_rotate_clock: InputEventJoypadMotion = rotate_clock.duplicate()
+	var device_rotate_anti_clock: InputEventJoypadMotion = rotate_anti_clock.duplicate()
+	
 	device_left_input.device = device_num
 	device_right_input.device = device_num
 	device_up_input.device = device_num
 	device_down_input.device = device_num
 	device_interact_input.device = device_num
 	device_cancel_input.device = device_num
+	device_rotate_clock.device = device_num
+	device_rotate_anti_clock.device = device_num
 	
 	InputMap.action_add_event("PlayerLeft"+player_num, device_left_input)
 	InputMap.action_add_event("PlayerRight"+player_num, device_right_input)
@@ -123,6 +143,8 @@ func _on_controller_joined(device_num: int):
 	InputMap.action_add_event("PlayerDown"+player_num, device_down_input)
 	InputMap.action_add_event("PlayerInteract"+player_num, device_interact_input)
 	InputMap.action_add_event("PlayerCancel"+player_num, device_cancel_input)
+	InputMap.action_add_event("RotateClock"+player_num, device_rotate_clock)
+	InputMap.action_add_event("RotateAntiClock"+player_num, device_rotate_anti_clock)
 	
 	print("Player %s joined on Device %s" % [player_num, device_num])
 	device_joined.emit(device_players[device_num], device_num)
