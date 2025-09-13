@@ -18,18 +18,18 @@ angular_damp = 0.3
 script = ExtResource("1_mymk2")
 
 [node name="blockbench_export2" parent="." instance=ExtResource("1_5f8sv")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124634, -0.050476, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.124634, -1.05048, 0)
 shape = SubResource("BoxShape3D_fn2sa")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.16e-05, 0.95583, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.16e-05, -0.04417, 0)
 shape = SubResource("BoxShape3D_57l66")
 
 [node name="HandleMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.64114, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64114, 0)
 
 [node name="HeadMarker" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174326, -0.0678118, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174326, -1.06781, 0)

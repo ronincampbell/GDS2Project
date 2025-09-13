@@ -3,7 +3,7 @@ extends RigidBody3D
 enum ArmState {EMPTY, PROP, CLUB, AIMING}
 enum BodyState {DISABLED, MOVING, STUNNED}
 
-const move_force: float = 30.0
+const move_force: float = 40.0
 const max_walk_speed: float = 3.0
 
 var arm_state: ArmState = ArmState.EMPTY
@@ -15,6 +15,8 @@ var body_state: BodyState = BodyState.MOVING
 @onready var prop_hold_marker: Marker3D = $PropHoldMarker
 @onready var interact_indicator: Sprite3D = $InteractIndicator
 
+var stun_timer: float = 0.0
+
 var held_prop: Node3D
 var held_club: GolfClub
 var aiming_ball: GolfBall
@@ -23,11 +25,12 @@ var club_pull_force_scale: float = 80.0
 var prop_pull_force_scale: float = 40.0
 var aim_pull_force_scale: float = 30.0
 var aim_club_pull_force_scale: float = 20.0
-var swing_impulse: float = 4.0
+var swing_impulse: float = -5.0
 var swing_lift: float = 6.0
-var swing_club_impulse: float = 2.0
+var swing_club_impulse: float = 8.0
 var swing_club_lift: float = 10.0
 var rotate_to_face_torque: float = 2.0
+var swing_stun_length: float = 2.0
 
 var player_num: int = -1:
 	set(value):
@@ -45,6 +48,9 @@ var color_models: Array[Node3D] = [
 	$ModelRed,
 	$ModelYellow,
 ]
+@onready var left_arm_body: RigidBody3D = $LeftArmBody
+@onready var right_arm_body: RigidBody3D = $RightArmBody
+
 @onready var left_arm_mesh: MeshInstance3D = $LeftArmBody/MeshInstance3D
 @onready var right_arm_mesh: MeshInstance3D = $RightArmBody/MeshInstance3D
 
@@ -59,8 +65,15 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED:
 		interact_indicator.hide()
 		return
-	if body_state == BodyState.STUNNED:
+	if body_state == BodyState.STUNNED and stun_timer > 0.0:
 		interact_indicator.hide()
+		stun_timer -= get_physics_process_delta_time()
+		if stun_timer <= 0.0:
+			body_state = BodyState.MOVING
+			axis_lock_angular_x = true
+			axis_lock_angular_z = true
+			rotation.x = 0.0
+			rotation.z = 0.0
 		return
 	
 	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft"+str(player_num),"PlayerRight"+str(player_num),"PlayerUp"+str(player_num),"PlayerDown"+str(player_num))
@@ -107,8 +120,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		held_club.apply_force(diff * aim_club_pull_force_scale, held_club.get_head_force_offset())
 		
 		rotate_to_face(aiming_ball.global_position)
-		
-		# TODO: Rotate to face ball
 
 func rotate_to_face(target: Vector3):
 	var dir_to_target: Vector3 = global_position.direction_to(target)
@@ -116,6 +127,12 @@ func rotate_to_face(target: Vector3):
 	var orthogonal_dir: Vector3 = dir_to_target.normalized().rotated(Vector3.UP,-PI/2)
 	var rotation_error: float = -global_basis.z.dot(orthogonal_dir)
 	apply_torque(Vector3(0,rotation_error*rotate_to_face_torque,0))
+
+func start_stun(stun_time: float):
+	axis_lock_angular_x = false
+	axis_lock_angular_z = false
+	stun_timer = stun_time
+	body_state = BodyState.STUNNED
 
 func _show_color_model(index: int):
 	for i in color_models.size():
@@ -172,7 +189,7 @@ func _is_close_to_prop() -> bool:
 
 func _is_close_to_other_player() -> bool:
 	for body in player_interact_area.get_overlapping_bodies():
-		if body != self:
+		if body != self and body != left_arm_body and body != right_arm_body:
 			return true
 	return false
 
@@ -233,6 +250,7 @@ func cancel_aiming():
 func swing():
 	var aim_dir: Vector3 = Vector3(aiming_ball.stored_aim_dir.x, 0.0, aiming_ball.stored_aim_dir.y)
 	linear_velocity = Vector3.ZERO
+	start_stun(swing_stun_length)
 	apply_central_impulse(aim_dir*swing_impulse+Vector3.UP*swing_lift)
 	held_club.linear_velocity = Vector3.ZERO
 	held_club.apply_impulse(aim_dir*swing_club_impulse+Vector3.UP*swing_club_lift, held_club.get_head_force_offset())

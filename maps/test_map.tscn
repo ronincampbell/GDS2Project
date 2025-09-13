@@ -1,9 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=15 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
 [ext_resource type="Texture2D" uid="uid://dm80g02b4g7ln" path="res://models/Maps/Ground_Grass Base Color.png" id="3_k1jtb"]
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
+[ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
+[ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
+[ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -40,7 +43,7 @@ environment = SubResource("Environment_cabd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0.491065, -0.642495, 0.588264, -0.0941021, 0.632218, 0.769055, 0, 3.71263, 0)
-light_energy = 0.3
+light_energy = 0.819
 shadow_enabled = true
 
 [node name="Barrier" parent="." instance=ExtResource("2_svl6s")]
@@ -75,5 +78,23 @@ collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GolfHole/Area3D"]
 shape = SubResource("CylinderShape3D_b71ab")
+
+[node name="PlayerSpawnMarker" parent="." instance=ExtResource("5_pbr4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29332, 0, 6.66432)
+
+[node name="PlayerSpawnMarker2" parent="." instance=ExtResource("5_pbr4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.78595, 0, 7.10879)
+
+[node name="PlayerSpawnMarker3" parent="." instance=ExtResource("5_pbr4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.307585, 0.33587, 6.41291)
+
+[node name="PlayerSpawnMarker4" parent="." instance=ExtResource("5_pbr4s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.46136, 0.336425, 5.06385)
+
+[node name="ClubSpawnMarker" parent="." instance=ExtResource("6_6b7mj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55913, 0, 4.21974)
+
+[node name="BallSpawnMarker" parent="." instance=ExtResource("7_svl6s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9378, 4.76837e-07, 3.95363)
 
 [connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]

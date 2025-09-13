@@ -15,6 +15,10 @@ const golf_ball: PackedScene = preload("res://CoreObjects/golf_ball.tscn")
 const golf_club: PackedScene = preload("res://CoreObjects/golf_club.tscn")
 const gnome: PackedScene = preload("res://CoreObjects/gnome.tscn")
 
+const ball_spawn_offset: Vector3 = Vector3(0,0.7,0)
+const club_spawn_offset: Vector3 = Vector3(0,1.6,0)
+const gnome_spawn_offset: Vector3 = Vector3(0,1.4,0)
+
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
 		obstacle_placing_timer += delta
@@ -24,10 +28,20 @@ func _physics_process(delta: float) -> void:
 		
 		if obstacle_placing_timer > obstacle_placing_time or skip_placing:
 			mode = "playing"
-			_place_object(golf_ball, Vector3(2.4, 0.7, -2.3))
-			_place_object(golf_club, Vector3(-0.6, 0.6, 0.4))
-			var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
-			new_gnome.player_num = 1
+			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
+				_place_object(golf_ball, marker.global_position+ball_spawn_offset)
+			for marker in get_tree().get_nodes_in_group("ClubSpawnMarkers"):
+				_place_object(golf_club, marker.global_position+club_spawn_offset)
+			var available_spawns: Array = get_tree().get_nodes_in_group("PlayerSpawnMarkers")
+			for player_num in ControllerManager.device_players.keys():
+				var spawn_index: int = randi_range(0, available_spawns.size()-1)
+				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
+				new_gnome.player_num = player_num
+				available_spawns.remove_at(spawn_index)
+			
+			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
+			#var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
+			#new_gnome.player_num = 1
 		
 		if !player1_obstacle_in_scene:
 			_place_object(pick_random(placeable_props), Vector3(0, 1.6, 0))
