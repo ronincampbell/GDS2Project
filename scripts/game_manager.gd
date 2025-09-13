@@ -26,7 +26,8 @@ func _physics_process(delta: float) -> void:
 			mode = "playing"
 			_place_object(golf_ball, Vector3(2.4, 0.7, -2.3))
 			_place_object(golf_club, Vector3(-0.6, 0.6, 0.4))
-			_place_object(gnome, Vector3(0, 1.4, 0))
+			var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
+			new_gnome.player_num = 1
 		
 		if !player1_obstacle_in_scene:
 			_place_object(pick_random(placeable_props), Vector3(0, 1.6, 0))
@@ -43,10 +44,11 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			body.queue_free()
 			print_debug("Game won!")
 
-func _place_object(object: PackedScene, pos: Vector3) -> void:
+func _place_object(object: PackedScene, pos: Vector3) -> Node:
 	var new_object = object.instantiate()
 	new_object.position = pos
 	add_child(new_object)
+	return new_object
 
 func prop_placed() -> void:
 	player1_obstacle_in_scene = false
