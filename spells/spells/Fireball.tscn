@@ -14,6 +14,13 @@ radius = 0.15
 height = 0.3
 
 [node name="Fireball" type="RigidBody3D"]
+collision_layer = 32
+collision_mask = 7
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+gravity_scale = 0.0
+continuous_cd = true
 script = ExtResource("1_mxssc")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

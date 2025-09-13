@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=16 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
@@ -7,6 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_ptpxf"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_x56rg"]
 [ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
+[ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="8_2kfoo"]
+[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="9_x7fgk"]
+[ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="10_dxthy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
 radius = 0.4103
@@ -129,8 +132,10 @@ visible = false
 billboard = 1
 texture = ExtResource("3_k84ux")
 
-[node name="Muzzle" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.764926, 0.380589)
-
 [node name="SpellCaster" type="Node" parent="."]
-script = ExtResource("4_cfifg")
+script = ExtResource("8_2kfoo")
+fireball_scene = ExtResource("9_x7fgk")
+shield_scene = ExtResource("10_dxthy")
+
+[node name="Muzzle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69381, -0.466965)
