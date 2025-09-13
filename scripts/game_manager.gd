@@ -25,7 +25,7 @@ func _physics_process(delta: float) -> void:
 		if obstacle_placing_timer > obstacle_placing_time or skip_placing:
 			mode = "playing"
 			_place_object(golf_ball, Vector3(2.4, 0.7, -2.3))
-			_place_object(golf_club, Vector3(-0.6, 0.6, 0.4))
+			_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
 			var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
 			new_gnome.player_num = 1
 		
