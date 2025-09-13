@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3kokrhk0ge6g"]
+[gd_scene load_steps=3 format=3 uid="uid://jl3ma3x8nc04"]
 
 [ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="1_nrf7c"]
 [ext_resource type="Material" uid="uid://de2sypkpgmr61" path="res://Props/prop_preview_material.tres" id="2_hjko7"]

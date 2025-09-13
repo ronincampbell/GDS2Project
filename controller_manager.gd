@@ -174,6 +174,8 @@ func _input(event: InputEvent) -> void:
 			if event.device in device_players:
 				drop_out_player(device_players[event.device])
 	elif event.is_action_pressed("KeyboardJoin"):
+		if -1 in device_players:
+			return
 		if get_lowest_inactive_player() >= 0:
 			_on_keyboard_joined()
 	elif event.is_action_pressed("KeyboardDropout"):

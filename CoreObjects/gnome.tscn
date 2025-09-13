@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=19 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
@@ -7,6 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_ptpxf"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_x56rg"]
 [ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
+[ext_resource type="AudioStream" uid="uid://bob1melhxhfgd" path="res://sounds/golf ball hit 2.mp3" id="8_x56rg"]
+[ext_resource type="AudioStream" uid="uid://dyphv7oaihlnm" path="res://sounds/golf ball hit 3.mp3" id="9_2kfoo"]
+[ext_resource type="AudioStream" uid="uid://dtqe8y814dqwn" path="res://sounds/jump.wav" id="10_x7fgk"]
+[ext_resource type="AudioStream" uid="uid://d3oewbqcu8r02" path="res://sounds/obs 1.wav" id="11_dxthy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
 radius = 0.4103
@@ -23,6 +27,18 @@ size = Vector3(0.91, 0.21, 0.21)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8pkva"]
 radius = 2.4
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x7fgk"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("8_x56rg")
+stream_1/stream = ExtResource("9_2kfoo")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_moqlk"]
+playback_mode = 1
+streams_count = 2
+stream_0/stream = ExtResource("10_x7fgk")
+stream_1/stream = ExtResource("11_dxthy")
 
 [node name="Gnome" type="RigidBody3D"]
 collision_layer = 2
@@ -128,3 +144,9 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.55587, 0)
 visible = false
 billboard = 1
 texture = ExtResource("3_k84ux")
+
+[node name="BallHitSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_x7fgk")
+
+[node name="BonkSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_moqlk")

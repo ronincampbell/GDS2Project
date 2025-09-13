@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="1_wv44k"]
 [ext_resource type="PackedScene" uid="uid://b1s6p1brtdop8" path="res://Props/prop_watering_can.tscn" id="2_4sbqj"]
 [ext_resource type="PackedScene" uid="uid://c732ae0oiehvv" path="res://models/prop/watering_can/prop_watering_can_preview_can't_place.tscn" id="3_1u0ld"]
-[ext_resource type="PackedScene" uid="uid://dc0drnnruhema" path="res://models/prop/watering_can/prop_watering_can_preview_can_place.tscn" id="4_4sbqj"]
+[ext_resource type="PackedScene" path="res://models/prop/watering_can/prop_watering_can_preview_can_place.tscn" id="4_4sbqj"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wv44k"]
 size = Vector3(0.403809, 0.484924, 1)
@@ -19,6 +19,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0227169, 0)
 target_position = Vector3(0, -0.2, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_mask = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0471191, 0.258934, -0.0994866)
@@ -47,5 +48,7 @@ visible = false
 
 [node name="blockbench_export" parent="." instance=ExtResource("4_4sbqj")]
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_exited"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

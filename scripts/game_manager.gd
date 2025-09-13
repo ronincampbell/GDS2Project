@@ -33,7 +33,7 @@ func _physics_process(delta: float) -> void:
 			for marker in get_tree().get_nodes_in_group("ClubSpawnMarkers"):
 				_place_object(golf_club, marker.global_position+club_spawn_offset)
 			var available_spawns: Array = get_tree().get_nodes_in_group("PlayerSpawnMarkers")
-			for player_num in ControllerManager.device_players.keys():
+			for player_num in ControllerManager.device_players.values():
 				var spawn_index: int = randi_range(0, available_spawns.size()-1)
 				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
 				new_gnome.player_num = player_num
@@ -56,6 +56,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			body.reset_velocity()
 		score += 1
 		Hud.update_score(0, score)
+		SoundPlayer.play_ball_in_hole()
 		if(score >= 3):
 			body.queue_free()
 			print_debug("Game won!")

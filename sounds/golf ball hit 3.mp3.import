@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dyphv7oaihlnm"
+path="res://.godot/imported/golf ball hit 3.mp3-88f4577e5db7a93ea2205e7d6b81473d.mp3str"
+
+[deps]
+
+source_file="res://sounds/golf ball hit 3.mp3"
+dest_files=["res://.godot/imported/golf ball hit 3.mp3-88f4577e5db7a93ea2205e7d6b81473d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

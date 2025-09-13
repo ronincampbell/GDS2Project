@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 Hud="*res://UI/HUD/HUD.tscn"
 ControllerManager="*res://controller_manager.gd"
+SoundPlayer="*res://sound_player.tscn"
 
 [global_group]
 
