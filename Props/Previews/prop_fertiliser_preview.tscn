@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=3 uid="uid://b0poqsba6nc1n"]
 
-[ext_resource type="PackedScene" uid="uid://j1mq8bqwm5uw" path="res://models/prop/fertiliser/prop_fertiliser.gltf" id="1_1rpq8"]
 [ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="1_cvhfe"]
 [ext_resource type="PackedScene" uid="uid://17eyatpnwt7o" path="res://Props/prop_fertiliser.tscn" id="2_ej1kb"]
 [ext_resource type="PackedScene" uid="uid://c4kx0je62savm" path="res://models/prop/fertiliser/prop_fertiliser_preview_can't_place.tscn" id="2_ogly4"]
+[ext_resource type="PackedScene" uid="uid://bdcolcrrklg51" path="res://models/prop/fertiliser/prop_fertiliser_preview_can_place.tscn" id="4_ej1kb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1rpq8"]
 size = Vector3(0.755249, 0.365234, 1)
@@ -38,8 +38,6 @@ target_position = Vector3(0, 0, -0.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
 target_position = Vector3(0, 0, 0.8)
 
-[node name="blockbench_export" parent="." instance=ExtResource("1_1rpq8")]
-
 [node name="DownwardRaycasts" type="Node3D" parent="."]
 
 [node name="DownwardRaycast" type="RayCast3D" parent="DownwardRaycasts"]
@@ -52,6 +50,8 @@ target_position = Vector3(0, -0.2, 0)
 
 [node name="blockbench_export2" parent="." instance=ExtResource("2_ogly4")]
 visible = false
+
+[node name="blockbench_export" parent="." instance=ExtResource("4_ej1kb")]
 
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

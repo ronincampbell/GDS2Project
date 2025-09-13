@@ -3,7 +3,7 @@ extends RigidBody3D
 enum ArmState {EMPTY, PROP, CLUB, AIMING}
 enum BodyState {DISABLED, MOVING, STUNNED}
 
-const move_force: float = 30.0
+const move_force: float = 40.0
 const max_walk_speed: float = 3.0
 
 var arm_state: ArmState = ArmState.EMPTY
@@ -11,22 +11,55 @@ var body_state: BodyState = BodyState.MOVING
 @onready var golf_interact_area: Area3D = $GolfInteractArea
 @onready var prop_interact_area: Area3D = $PropInteractArea
 @onready var player_interact_area: Area3D = $PlayerInteractArea
-@onready var hold_marker: Marker3D = $HoldMarker
+@onready var hold_marker: Marker3D = $RightArmBody/HoldMarker
+@onready var prop_hold_marker: Marker3D = $PropHoldMarker
 @onready var interact_indicator: Sprite3D = $InteractIndicator
+
+var stun_timer: float = 0.0
 
 var held_prop: Node3D
 var held_club: GolfClub
 var aiming_ball: GolfBall
 
-var club_pull_force_scale: float = 20.0
-var prop_pull_force_scale: float = 5.0
+var club_pull_force_scale: float = 80.0
+var prop_pull_force_scale: float = 40.0
 var aim_pull_force_scale: float = 30.0
 var aim_club_pull_force_scale: float = 20.0
-var swing_impulse: float = 4.0
+var swing_impulse: float = -5.0
 var swing_lift: float = 6.0
-var swing_club_impulse: float = 2.0
+var swing_club_impulse: float = 8.0
 var swing_club_lift: float = 10.0
 var rotate_to_face_torque: float = 2.0
+var swing_stun_length: float = 2.0
+
+var player_num: int = -1:
+	set(value):
+		if value < 0:
+			player_num = -1
+			_show_color_model(0)
+		else:
+			player_num = value
+			_show_color_model(player_num-1)
+
+@onready
+var color_models: Array[Node3D] = [
+	$ModelBlue,
+	$ModelPurple,
+	$ModelRed,
+	$ModelYellow,
+]
+@onready var left_arm_body: RigidBody3D = $LeftArmBody
+@onready var right_arm_body: RigidBody3D = $RightArmBody
+
+@onready var left_arm_mesh: MeshInstance3D = $LeftArmBody/MeshInstance3D
+@onready var right_arm_mesh: MeshInstance3D = $RightArmBody/MeshInstance3D
+
+var color_materials: Array[StandardMaterial3D] = [
+	preload("res://models/gnome/placeholder_gnome_skin_blue.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_purple.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_red.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_yellow.tres"),
+]
 
 var _caster: SpellCaster
 var is_shielded: bool = false
@@ -39,11 +72,18 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED:
 		interact_indicator.hide()
 		return
-	if body_state == BodyState.STUNNED:
+	if body_state == BodyState.STUNNED and stun_timer > 0.0:
 		interact_indicator.hide()
+		stun_timer -= get_physics_process_delta_time()
+		if stun_timer <= 0.0:
+			body_state = BodyState.MOVING
+			axis_lock_angular_x = true
+			axis_lock_angular_z = true
+			rotation.x = 0.0
+			rotation.z = 0.0
 		return
 	
-	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft","PlayerRight","PlayerUp","PlayerDown")
+	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft"+str(player_num),"PlayerRight"+str(player_num),"PlayerUp"+str(player_num),"PlayerDown"+str(player_num))
 	var move_dir: Vector3 = Vector3(flat_move_dir.x, 0.0, flat_move_dir.y)
 	
 	if arm_state != ArmState.AIMING:
@@ -87,8 +127,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		held_club.apply_force(diff * aim_club_pull_force_scale, held_club.get_head_force_offset())
 		
 		rotate_to_face(aiming_ball.global_position)
-		
-		# TODO: Rotate to face ball
 
 func rotate_to_face(target: Vector3):
 	var dir_to_target: Vector3 = global_position.direction_to(target)
@@ -97,17 +135,32 @@ func rotate_to_face(target: Vector3):
 	var rotation_error: float = -global_basis.z.dot(orthogonal_dir)
 	apply_torque(Vector3(0,rotation_error*rotate_to_face_torque,0))
 
+func start_stun(stun_time: float):
+	axis_lock_angular_x = false
+	axis_lock_angular_z = false
+	stun_timer = stun_time
+	body_state = BodyState.STUNNED
+
+func _show_color_model(index: int):
+	for i in color_models.size():
+		if i == index:
+			color_models[i].show()
+		else:
+			color_models[i].hide()
+	left_arm_mesh.set_surface_override_material(0, color_materials[index])
+	right_arm_mesh.set_surface_override_material(0, color_materials[index])
+
 func _pull_club_to_hand():
 	var handle_pos: Vector3 = held_club.get_handle_global_pos()
 	var diff: Vector3 = hold_marker.global_position - handle_pos
 	held_club.apply_force(diff * club_pull_force_scale, held_club.get_handle_force_offset())
 
 func _pull_prop_to_self():
-	var diff: Vector3 = global_position - held_prop.global_position
+	var diff: Vector3 = prop_hold_marker.global_position - held_prop.global_position
 	held_prop.apply_central_force(diff * prop_pull_force_scale)
 
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("PlayerInteract"):
+	if event.is_action_pressed("PlayerInteract"+str(player_num)):
 		if arm_state == ArmState.EMPTY:
 			try_pickup()
 		elif arm_state == ArmState.PROP:
@@ -116,7 +169,7 @@ func _input(event: InputEvent) -> void:
 			try_start_aim()
 		elif arm_state == ArmState.AIMING:
 			swing()
-	elif event.is_action_pressed("PlayerCancel"):
+	elif event.is_action_pressed("PlayerCancel"+str(player_num)):
 		if arm_state == ArmState.PROP:
 			drop_prop()
 		elif arm_state == ArmState.CLUB:
@@ -126,13 +179,13 @@ func _input(event: InputEvent) -> void:
 
 func _get_golf_ball() -> GolfBall:
 	for body in golf_interact_area.get_overlapping_bodies():
-		if body is GolfBall:
+		if body is GolfBall and !body.is_being_aimed:
 			return body
 	return null
 
 func _get_golf_club() -> GolfClub:
 	for body in golf_interact_area.get_overlapping_bodies():
-		if body is GolfClub:
+		if body is GolfClub and !body.is_held:
 			return body
 	return null
 
@@ -143,7 +196,7 @@ func _is_close_to_prop() -> bool:
 
 func _is_close_to_other_player() -> bool:
 	for body in player_interact_area.get_overlapping_bodies():
-		if body != self:
+		if body != self and body != left_arm_body and body != right_arm_body:
 			return true
 	return false
 
@@ -165,40 +218,54 @@ func _get_closest_body_in_area(area: Area3D):
 func try_pickup():
 	var golf_club: GolfClub = _get_golf_club()
 	var closest_prop: Node3D = _get_closest_body_in_area(prop_interact_area)
-	if golf_club:
+	if golf_club and golf_club:
 		held_club = golf_club
+		held_club.is_held = true
+		held_club.enable_held_damping()
 		arm_state = ArmState.CLUB
 	elif closest_prop:
 		held_prop = closest_prop
+		held_prop.start_holding()
+		add_collision_exception_with(held_prop)
 		arm_state = ArmState.PROP
 
 func try_start_aim():
 	var golf_ball: GolfBall = _get_golf_ball()
 	if golf_ball:
 		aiming_ball = golf_ball
+		aiming_ball.is_being_aimed = true
 		aiming_ball.show_aim_arrow()
 		arm_state = ArmState.AIMING
 
 func drop_prop():
+	remove_collision_exception_with(held_prop)
+	held_prop.stop_holding()
 	held_prop = null
 	arm_state = ArmState.EMPTY
 
 func drop_club():
+	held_club.is_held = false
+	held_club.disable_held_damping()
 	held_club = null
 	arm_state = ArmState.EMPTY
 
 func cancel_aiming():
+	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.CLUB
 
 func swing():
 	var aim_dir: Vector3 = Vector3(aiming_ball.stored_aim_dir.x, 0.0, aiming_ball.stored_aim_dir.y)
 	linear_velocity = Vector3.ZERO
+	start_stun(swing_stun_length)
 	apply_central_impulse(aim_dir*swing_impulse+Vector3.UP*swing_lift)
 	held_club.linear_velocity = Vector3.ZERO
 	held_club.apply_impulse(aim_dir*swing_club_impulse+Vector3.UP*swing_club_lift, held_club.get_head_force_offset())
 	aiming_ball.launch_in_aim_direction()
 	aiming_ball.hide_aim_arrow()
+	held_club.is_held = false
+	held_club.disable_held_damping()
 	held_club = null
+	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY

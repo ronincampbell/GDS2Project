@@ -1,36 +1,36 @@
 [gd_scene load_steps=3 format=3 uid="uid://cc0op43qj4n5"]
 
 [ext_resource type="PackedScene" uid="uid://bc60wvr4fp7ya" path="res://models/prop/pot_plant/prop_plant.gltf" id="1_f6sxs"]
-[ext_resource type="Material" uid="uid://de2sypkpgmr61" path="res://Props/prop_preview_material.tres" id="2_vrfm4"]
+[ext_resource type="Material" uid="uid://dkq0qij1ag884" path="res://Props/cant_place_prop_preview_material.tres" id="2_f6sxs"]
 
 [node name="blockbench_export" instance=ExtResource("1_f6sxs")]
 
 [node name="pot" parent="Node" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid" parent="Node/Leaves/bigLeaf" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid2" parent="Node/Leaves/leaf" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid3" parent="Node/Leaves/leaf8" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid4" parent="Node/Leaves/leaf9" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid6" parent="Node/Leaves/midLeaf" index="1"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid7" parent="Node/Leaves/midLeaf2" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid8" parent="Node/Leaves/midLeaf3" index="0"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid9" parent="Node/Leaves/bgiLeaf1" index="1"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")
 
 [node name="beveled_cuboid10" parent="Node/Leaves/bigLeaf2" index="1"]
-material_override = ExtResource("2_vrfm4")
+material_override = ExtResource("2_f6sxs")

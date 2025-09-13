@@ -12,6 +12,8 @@ const max_spin_speed: float = 16
 var stored_aim_dir: Vector2 = Vector2.ZERO
 var showing_aim_arrow: bool = false
 
+var is_being_aimed: bool = false
+
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	state.linear_velocity.limit_length(max_move_speed)
 	state.angular_velocity.limit_length(max_spin_speed)
