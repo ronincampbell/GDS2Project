@@ -14,6 +14,8 @@ var body_state: BodyState = BodyState.MOVING
 @onready var hold_marker: Marker3D = $RightArmBody/HoldMarker
 @onready var prop_hold_marker: Marker3D = $PropHoldMarker
 @onready var interact_indicator: Sprite3D = $InteractIndicator
+@onready var ball_hit_sound: AudioStreamPlayer = $BallHitSound
+@onready var bonk_sound: AudioStreamPlayer = $BonkSound
 
 var stun_timer: float = 0.0
 
@@ -31,6 +33,10 @@ var swing_club_impulse: float = 8.0
 var swing_club_lift: float = 10.0
 var rotate_to_face_torque: float = 2.0
 var swing_stun_length: float = 2.0
+var min_swing_force: float = 0.1
+var swing_force: float = 0.1
+var increasing_force: bool = true
+var swing_force_speed: float = 1.0
 
 var player_num: int = -1:
 	set(value):
@@ -78,10 +84,18 @@ func _ready() -> void:
 		#remove give_spell line later (only for testing)
 		_caster.give_spell(SpellPickup.SpellID.FIREBALL)
 
+var prev_linear_velocity: Vector3
+var min_bonk_speed: float = 4.0
+
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED:
 		interact_indicator.hide()
 		return
+	
+	if (linear_velocity - prev_linear_velocity).length() > min_bonk_speed:
+		bonk_sound.play()
+	prev_linear_velocity = state.linear_velocity
+	
 	if body_state == BodyState.STUNNED and stun_timer > 0.0:
 		interact_indicator.hide()
 		stun_timer -= get_physics_process_delta_time()
@@ -123,6 +137,18 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			interact_indicator.hide()
 			_pull_prop_to_self()
 	else:
+		if increasing_force:
+			swing_force += get_physics_process_delta_time()*swing_force_speed
+			if swing_force > 1.0:
+				swing_force = 1.0 - (swing_force - 1.0)
+				increasing_force = false
+		else:
+			swing_force -= get_physics_process_delta_time()*swing_force_speed
+			if swing_force < min_swing_force:
+				swing_force = min_swing_force + (min_swing_force - swing_force)
+				increasing_force = true
+		aiming_ball.aim_with_force(swing_force)
+		
 		_pull_club_to_hand()
 		interact_indicator.hide()
 		aiming_ball.aim_in_dir(move_dir)
@@ -242,6 +268,8 @@ func try_pickup():
 func try_start_aim():
 	var golf_ball: GolfBall = _get_golf_ball()
 	if golf_ball:
+		swing_force = min_swing_force
+		increasing_force = true
 		aiming_ball = golf_ball
 		aiming_ball.is_being_aimed = true
 		aiming_ball.show_aim_arrow()
@@ -268,10 +296,10 @@ func swing():
 	var aim_dir: Vector3 = Vector3(aiming_ball.stored_aim_dir.x, 0.0, aiming_ball.stored_aim_dir.y)
 	linear_velocity = Vector3.ZERO
 	start_stun(swing_stun_length)
-	apply_central_impulse(aim_dir*swing_impulse+Vector3.UP*swing_lift)
+	apply_central_impulse(aim_dir*swing_impulse*swing_force+Vector3.UP*swing_lift*swing_force)
 	held_club.linear_velocity = Vector3.ZERO
-	held_club.apply_impulse(aim_dir*swing_club_impulse+Vector3.UP*swing_club_lift, held_club.get_head_force_offset())
-	aiming_ball.launch_in_aim_direction()
+	held_club.apply_impulse(aim_dir.rotated(Vector3.UP,PI/2)*swing_club_impulse*swing_force+Vector3.UP*swing_club_lift*swing_force, held_club.get_head_force_offset())
+	aiming_ball.launch_in_aim_direction(swing_force)
 	aiming_ball.hide_aim_arrow()
 	held_club.is_held = false
 	held_club.disable_held_damping()
@@ -279,3 +307,4 @@ func swing():
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
+	ball_hit_sound.play()

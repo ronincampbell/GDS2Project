@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://c8aq45iifrr40"]
 
 [ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="1_ar6eg"]
-[ext_resource type="PackedScene" uid="uid://b3kokrhk0ge6g" path="res://models/prop/pot_plant/prop_plant_preview_can_place.tscn" id="3_8tx0v"]
+[ext_resource type="PackedScene" uid="uid://jl3ma3x8nc04" path="res://models/prop/pot_plant/prop_plant_preview_can_place.tscn" id="3_8tx0v"]
 [ext_resource type="PackedScene" uid="uid://cc0op43qj4n5" path="res://models/prop/pot_plant/prop_plant_preview_can't_place.tscn" id="3_f5svn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ar6eg"]
@@ -17,6 +17,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0227169, 0)
 target_position = Vector3(0, -0.2, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.527432, 0)
@@ -45,5 +47,7 @@ visible = false
 
 [node name="blockbench_export" parent="." instance=ExtResource("3_8tx0v")]
 
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_area_exited"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]

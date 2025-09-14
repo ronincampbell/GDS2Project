@@ -190,7 +190,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(441.382, 0)
 nodes/fragment/0/position = Vector2(1940, 20)
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_tosr3")
 nodes/fragment/2/position = Vector2(-1260, 100)
@@ -237,9 +236,9 @@ nodes/fragment/29/position = Vector2(620, 400)
 nodes/fragment/30/node = SubResource("VisualShaderNodeSwitch_h2fo4")
 nodes/fragment/30/position = Vector2(1160, 260)
 nodes/fragment/31/node = SubResource("VisualShaderNodeColorConstant_gasv2")
-nodes/fragment/31/position = Vector2(1240, 240)
+nodes/fragment/31/position = Vector2(1320, 240)
 nodes/fragment/32/node = SubResource("VisualShaderNodeColorConstant_5hwkk")
-nodes/fragment/32/position = Vector2(1300, 360)
+nodes/fragment/32/position = Vector2(1360, 360)
 nodes/fragment/33/node = SubResource("VisualShaderNodeSwitch_nnkb1")
 nodes/fragment/33/position = Vector2(1280, 460)
 nodes/fragment/connections = PackedInt32Array(2, 0, 6, 0, 6, 0, 7, 0, 6, 1, 8, 0, 7, 0, 14, 0, 8, 0, 15, 0, 5, 0, 16, 0, 16, 0, 7, 1, 16, 0, 8, 1, 14, 0, 17, 0, 15, 0, 17, 1, 17, 0, 3, 0, 3, 0, 13, 0, 13, 0, 22, 0, 22, 0, 24, 0, 24, 0, 23, 0, 23, 0, 21, 0, 21, 0, 25, 0, 25, 0, 26, 0, 26, 0, 27, 0, 27, 0, 0, 0, 30, 0, 27, 1, 29, 0, 30, 0, 20, 0, 30, 2, 31, 0, 30, 1, 29, 0, 33, 0, 28, 0, 33, 2, 32, 0, 33, 1, 33, 0, 27, 2, 32, 0, 27, 2, 31, 0, 27, 1)

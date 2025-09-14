@@ -2,16 +2,21 @@ extends Node
 var players_in :Array[bool] = [false, false, false, false]
 var players_ready :Array[bool] = [false, false, false, false]
 
+@onready var gnome_laugh: AudioStreamPlayer = $GnomeLaugh
+
 func drop_in_player(player_num: int):
 	get_node("%PhysicsP" + str(player_num)).freeze = false
+	get_node("%ReadyP" + str(player_num)).text = "Not Ready"
 	players_in[player_num-1] = true
+	gnome_laugh.play()
 
 func remove_player(player_num: int):
 	get_node("%PhysicsP" + str(player_num)).freeze = true
-	get_node("%PhysicsP" + str(player_num)).position.y = 11
 	players_in[player_num-1] = false
 	players_ready[player_num-1] = false
-	get_node("%ReadyP" + str(player_num)).text = "Not Ready"
+	get_node("%ReadyP" + str(player_num)).text = "INACTIVE"
+	await get_tree().process_frame
+	get_node("%PhysicsP" + str(player_num)).position.y = 11
 
 func next_scene():
 	Hud.show()

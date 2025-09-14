@@ -38,12 +38,17 @@ func aim_in_dir(direction: Vector3):
 	
 	y_rotate_pivot.rotation.y = -flat_direction.angle()
 
-func launch_in_aim_direction():
+func aim_with_force(force: float):
+	#aim_decal.scale = Vector3(force, force, force)
+	aim_decal.size = Vector3(2*force, 10, 2*force)
+	aim_decal.position.x = 1.15722*force
+
+func launch_in_aim_direction(force: float):
 	if stored_aim_dir.is_zero_approx():
 		return
 	angular_velocity = Vector3.ZERO
 	var aim_vector: Vector3 = Vector3(stored_aim_dir.x, 0.0, stored_aim_dir.y)
-	apply_central_impulse(aim_vector*hit_power + Vector3.UP*lift_force)
+	apply_central_impulse(aim_vector*hit_power*force + Vector3.UP*lift_force*force)
 
 func reset_velocity():
 	angular_velocity = Vector3.ZERO
