@@ -7,7 +7,7 @@ var skip_placing: bool = false
 
 var mode : String = "obstacle placing"
 var obstacle_placing_timer : float = 0
-var obstacle_placing_time : float = 20                                                    
+var obstacle_placing_time : float = 60                                                    
 var player1_obstacle_in_scene : bool = false
 
 const placeable_props: Dictionary = {"plant":preload("res://Props/Previews/prop_plant_preview.tscn"), "fertiliser":preload("res://Props/Previews/prop_fertiliser_preview.tscn"), "watering_can":preload("res://Props/Previews/prop_watering_can_preview.tscn")}
@@ -21,6 +21,20 @@ const gnome_spawn_offset: Vector3 = Vector3(0,1.4,0)
 
 @onready var prop_placement_ui: Node = $PropPlacement
 @onready var hud: Node = $Hud
+
+var players_in_scene: int = 1
+enum players_prop {PLAYER1, PLAYER2, PLAYER3, PLAYER4}
+
+var player_current_props = {
+	players_prop.PLAYER1: "plant",
+	players_prop.PLAYER2: "plant",
+	players_prop.PLAYER3: "plant",
+	players_prop.PLAYER4: "plant"
+}
+const player_prop_index = [players_prop.PLAYER1, players_prop.PLAYER2, players_prop.PLAYER3, players_prop.PLAYER4]
+const prop_index = ["plant", "fertiliser", "watering_can"]
+var current_player_prop_index = [0, 0, 0, 0]
+var prop_preview_in_scene = [null, null, null, null]
 
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
@@ -49,11 +63,35 @@ func _physics_process(delta: float) -> void:
 			#var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
 			#new_gnome.player_num = 1
 		
-		if !player1_obstacle_in_scene:
-			var new_prop = _place_object(pick_random(placeable_props), Vector3(0, 1.6, 0))
-			if new_prop.has_method("set_player"):
-				new_prop.set_player(1)
-			player1_obstacle_in_scene = true
+		if !prop_preview_in_scene[0]:
+			_place_player_object(player_current_props[players_prop.PLAYER1], 1)
+		
+		for i in players_in_scene:
+			var index_change = 0
+			if Input.is_action_just_pressed("NextObject"+str(i+1)):
+				index_change += 1
+			if Input.is_action_just_pressed("PreviousObject"+str(i+1)):
+				index_change -= 1
+			
+			if index_change != 0:
+				prop_preview_in_scene[i].queue_free()
+				
+				current_player_prop_index[i] += index_change
+				if current_player_prop_index[i] < 0:
+					current_player_prop_index[i] = prop_index.size()-1
+				elif current_player_prop_index[i] >= prop_index.size():
+					current_player_prop_index[i] = 0
+				
+				var new_prop = prop_index[current_player_prop_index[i]]
+				player_current_props[player_prop_index[i]] = new_prop
+				_place_player_object(new_prop, i+1)
+				prop_placement_ui.update_selected(i+1, new_prop)
+
+func _place_player_object(player_current_prop, player_num) -> void:
+	var new_prop = _place_object(placeable_props[player_current_prop], Vector3(0, 1.6, 0))
+	if new_prop.has_method("set_player"):
+		new_prop.set_player(player_num)
+	prop_preview_in_scene[player_num-1] = new_prop
 
 func _on_golf_hole_entered(body: Node3D) -> void:
 	if body.name == "GolfBall":
