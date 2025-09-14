@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4yg1nsegjud5"
-path="res://.godot/imported/neckTexture.png-44bfa7c4a09c4af740443af2b6335cd8.ctex"
+uid="uid://ceraasdfgpcic"
+path="res://.godot/imported/face.png-eda8e0fd3af116b0a023ac85132f8f14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/gnome/texture/neckTexture.png"
-dest_files=["res://.godot/imported/neckTexture.png-44bfa7c4a09c4af740443af2b6335cd8.ctex"]
+source_file="res://models/gnome/redTexture/face.png"
+dest_files=["res://.godot/imported/face.png-eda8e0fd3af116b0a023ac85132f8f14.ctex"]
 
 [params]
 

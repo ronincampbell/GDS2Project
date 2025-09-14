@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bib8clq3y1s0r"
-path="res://.godot/imported/chestTexture.png-039e653e52f178d3c06bdf4168f00355.ctex"
+path="res://.godot/imported/chestTexture.png-2a0657f6004022067fe359a976238e5e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/gnome/texture/chestTexture.png"
-dest_files=["res://.godot/imported/chestTexture.png-039e653e52f178d3c06bdf4168f00355.ctex"]
+source_file="res://models/gnome/redTexture/chestTexture.png"
+dest_files=["res://.godot/imported/chestTexture.png-2a0657f6004022067fe359a976238e5e.ctex"]
 
 [params]
 

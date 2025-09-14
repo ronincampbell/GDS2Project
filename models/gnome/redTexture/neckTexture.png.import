@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d5fpvavcx307"
-path="res://.godot/imported/armTexture.png-86c9a848d32c78cff597f4c1a9eb334f.ctex"
+uid="uid://c4yg1nsegjud5"
+path="res://.godot/imported/neckTexture.png-946034de1cea19193745b42a7ac546f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/gnome/texture/armTexture.png"
-dest_files=["res://.godot/imported/armTexture.png-86c9a848d32c78cff597f4c1a9eb334f.ctex"]
+source_file="res://models/gnome/redTexture/neckTexture.png"
+dest_files=["res://.godot/imported/neckTexture.png-946034de1cea19193745b42a7ac546f2.ctex"]
 
 [params]
 

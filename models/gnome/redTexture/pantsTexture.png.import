@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ceraasdfgpcic"
-path="res://.godot/imported/face.png-2629c29e0400739b4415a491fab9099d.ctex"
+uid="uid://dwnwjpyq2nqm1"
+path="res://.godot/imported/pantsTexture.png-92998c6cc873fdfd6a595c34e1cca708.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://models/gnome/texture/face.png"
-dest_files=["res://.godot/imported/face.png-2629c29e0400739b4415a491fab9099d.ctex"]
+source_file="res://models/gnome/redTexture/pantsTexture.png"
+dest_files=["res://.godot/imported/pantsTexture.png-92998c6cc873fdfd6a595c34e1cca708.ctex"]
 
 [params]
 
