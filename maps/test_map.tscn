@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=16 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
 [ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
+[ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="8_6b7mj"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -61,6 +62,7 @@ mesh = ExtResource("5_k1jtb")
 surface_material_override/0 = SubResource("StandardMaterial3D_wd2vj")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="Map1"]
+collision_mask = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Map1/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_pbr4s")
@@ -96,5 +98,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.55913, 0, 4.21974)
 
 [node name="BallSpawnMarker" parent="." instance=ExtResource("7_svl6s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.9378, 4.76837e-07, 3.95363)
+
+[node name="SpellPickup" parent="." instance=ExtResource("8_6b7mj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 0)
+
+[node name="SpellPickup2" parent="." instance=ExtResource("8_6b7mj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 1, 0)
 
 [connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]

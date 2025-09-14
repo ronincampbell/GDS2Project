@@ -29,7 +29,7 @@ func _ready() -> void:
 func _on_reveal_timer() -> void:
 	_rng.randomize()
 	var pick := _rng.randi() % 2
-	_rolled_spell = SpellID.FIREBALL if pick == 0 else SpellID.SHIELD
+	_rolled_spell = SpellID.FIREBALL #if pick == 0 else SpellID.SHIELD
 	_apply_visual_for_roll()
 	_revealed = true
 

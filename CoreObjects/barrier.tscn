@@ -6,6 +6,7 @@
 plane = Plane(0, 0, 1, 0)
 
 [node name="Barrier" type="StaticBody3D"]
+collision_mask = 9
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("WorldBoundaryShape3D_57l66")

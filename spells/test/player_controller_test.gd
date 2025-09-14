@@ -1,57 +1,41 @@
-extends CharacterBody3D
+extends RigidBody3D
 class_name PlayerController
 
 @export var move_speed: float = 7.0
 @export var turn_speed_deg: float = 180.0
-@export var gravity: float = 24.0
+@export var gravity: float = 10.0
+@export var device_id: int = 0
 
-# optional: where to respawn with R
-@export var respawn_position: Vector3 = Vector3(-6, 1, 0)
-@export var respawn_facing_deg: float = 0.0
-
-@export var device_id := 0
-
-var _kb: Vector3 = Vector3.ZERO  # knockback buffer (compatible with the old dummy behavior)
+var _kb: Vector3 = Vector3.ZERO
 var _caster: SpellCaster
-var is_shielded: bool = false
-@onready var _muzzle: Node3D = get_node_or_null("Muzzle")
 
 func _ready() -> void:
+	custom_integrator = true
+	gravity_scale = 0.0
 	_caster = get_node_or_null("SpellCaster") as SpellCaster
-	if _caster: _caster.attach(self, device_id)
-	# place at start if desired
-	if respawn_position != Vector3.ZERO:
-		global_position = respawn_position
-	rotation.y = deg_to_rad(respawn_facing_deg)
+	if _caster:
+		_caster.attach(self, device_id)
 
-func _physics_process(delta: float) -> void:
-	var yaw_input := 0.0
-	if Input.is_key_pressed(KEY_A): yaw_input -= 1.0
-	if Input.is_key_pressed(KEY_D): yaw_input += 1.0
-	rotation.y += deg_to_rad(turn_speed_deg) * yaw_input * delta
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	var yaw := 0.0
+	if Input.is_action_pressed("turn_left"):  yaw -= 1.0
+	if Input.is_action_pressed("turn_right"): yaw += 1.0
+	var xf := state.transform
+	xf.basis = Basis(Vector3.UP, deg_to_rad(turn_speed_deg) * yaw * state.step) * xf.basis
 
-	var move_input := 0.0
-	if Input.is_key_pressed(KEY_W): move_input += 1.0
-	if Input.is_key_pressed(KEY_S): move_input -= 1.0
+	var flat := Input.get_vector("PlayerLeft","PlayerRight","PlayerUp","PlayerDown", 0.2)
+	var forward := -xf.basis.z
+	var right   :=  xf.basis.x
+	var wish := (right * flat.x + forward * flat.y) * move_speed
 
-	var forward: Vector3 = -global_transform.basis.z
-	var wish: Vector3 = forward * move_input * move_speed
-	var horiz := Vector3(wish.x + _kb.x, 0.0, wish.z + _kb.z)
+	var vel := wish + Vector3(_kb.x, 0.0, _kb.z)
+	if gravity != 0.0:
+		vel.y -= gravity * state.step
 
-	velocity.x = horiz.x
-	velocity.z = horiz.z
+	xf.origin += vel * state.step
+	state.transform = xf
 
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-	else:
-		velocity.y = 0.0
-
-	move_and_slide()
-
-	_kb = _kb.move_toward(Vector3.ZERO, 10.0 * delta)
-
-	if Input.is_key_pressed(KEY_SPACE) and _caster != null:
-		_caster._cast_current()
+	_kb = _kb.move_toward(Vector3.ZERO, 10.0 * state.step)
 
 func apply_knockback(from: Vector3, strength: float) -> void:
 	var dir := (global_transform.origin - from).normalized()

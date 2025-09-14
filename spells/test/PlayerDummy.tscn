@@ -5,25 +5,26 @@
 [ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="3_nmudy"]
 [ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="4_hed1x"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mhcx5"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nmudy"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_nmudy"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_hed1x"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nmudy"]
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.4
 
-[node name="PlayerDummy" type="CharacterBody3D"]
+[node name="PlayerDummy" type="RigidBody3D"]
+collision_mask = 9
 script = ExtResource("1_mhcx5")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10864, 0)
-shape = SubResource("CapsuleShape3D_mhcx5")
+shape = SubResource("CylinderShape3D_nmudy")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
-mesh = SubResource("CapsuleMesh_nmudy")
+mesh = SubResource("CylinderMesh_hed1x")
 
 [node name="Muzzle" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, -0.6)

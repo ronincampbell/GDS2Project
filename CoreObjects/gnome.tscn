@@ -29,7 +29,7 @@ radius = 2.4
 
 [node name="Gnome" type="RigidBody3D"]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 can_sleep = false
@@ -138,4 +138,4 @@ fireball_scene = ExtResource("9_x7fgk")
 shield_scene = ExtResource("10_dxthy")
 
 [node name="Muzzle" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.69381, -0.466965)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15507, -0.466965)

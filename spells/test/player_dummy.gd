@@ -1,4 +1,4 @@
-extends CharacterBody3D
+extends RigidBody3D
 class_name PlayerDummy
 
 @export var knockback_decay: float = 10.0
@@ -10,11 +10,9 @@ func _ready() -> void:
 		muzzle.transform.origin = Vector3(0, 1.4, -0.6)
 
 func _physics_process(delta: float) -> void:
-	velocity.x = kb.x
-	velocity.z = kb.z
-	if not is_on_floor():
-		velocity.y -= 24.0 * delta
-	move_and_slide()
+	linear_velocity.x = kb.x
+	linear_velocity.z = kb.z
+	linear_velocity.y -= 24.0 * delta
 	kb = kb.move_toward(Vector3.ZERO, knockback_decay * delta)
 
 func apply_knockback(from: Vector3, strength: float) -> void:
