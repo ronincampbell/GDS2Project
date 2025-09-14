@@ -40,5 +40,17 @@ func highlight_selected_props():
 	for player in player_current_props:
 		hotbar.get_child(props_list.get(player_current_props.get(player))).set_selections(player)
 
+func update_selected(player_num: int, object: String) -> void:
+	var player = players.PLAYER1
+	if player_num == 2:
+		player = players.PLAYER2
+	elif player_num == 3:
+		player = players.PLAYER3
+	elif player_num == 4:
+		player = players.PLAYER4
+	
+	player_current_props[player] = object
+	highlight_selected_props()
+
 func update_timer_text(rem_time: float = 30.00):
 	timer.text = str(rem_time)
