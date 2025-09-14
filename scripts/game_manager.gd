@@ -36,6 +36,10 @@ const prop_index = ["plant", "fertiliser", "watering_can"]
 var current_player_prop_index = [0, 0, 0, 0]
 var prop_preview_in_scene = [null, null, null, null]
 
+func _ready() -> void:
+	if ControllerManager.device_players.values().size() > 0:
+		players_in_scene = ControllerManager.device_players.values().size()
+
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
 		obstacle_placing_timer += delta
@@ -46,7 +50,6 @@ func _physics_process(delta: float) -> void:
 		
 		if obstacle_placing_timer > obstacle_placing_time or skip_placing:
 			prop_placement_ui.visible = false
-			hud.visible = true
 			mode = "playing"
 			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
 				_place_object(golf_ball, marker.global_position+ball_spawn_offset)
@@ -63,10 +66,13 @@ func _physics_process(delta: float) -> void:
 			#var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
 			#new_gnome.player_num = 1
 		
-		if !prop_preview_in_scene[0]:
-			_place_player_object(player_current_props[players_prop.PLAYER1], 1)
+		##if !prop_preview_in_scene[0]:
+			##_place_player_object(player_current_props[players_prop.PLAYER1], 1)
 		
 		for i in players_in_scene:
+			if !prop_preview_in_scene[i]:
+				_place_player_object(player_current_props[player_prop_index[i]], i+1)
+			
 			var index_change = 0
 			if Input.is_action_just_pressed("NextObject"+str(i+1)):
 				index_change += 1

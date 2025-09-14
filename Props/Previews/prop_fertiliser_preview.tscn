@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cw12fojcrae78" path="res://scripts/Props/prop_preview.gd" id="1_cvhfe"]
 [ext_resource type="PackedScene" uid="uid://17eyatpnwt7o" path="res://Props/prop_fertiliser.tscn" id="2_ej1kb"]
 [ext_resource type="PackedScene" uid="uid://c4kx0je62savm" path="res://models/prop/fertiliser/prop_fertiliser_preview_can't_place.tscn" id="2_ogly4"]
-[ext_resource type="PackedScene" path="res://models/prop/fertiliser/prop_fertiliser_preview_can_place.tscn" id="4_ej1kb"]
+[ext_resource type="PackedScene" uid="uid://bdcolcrrklg51" path="res://models/prop/fertiliser/prop_fertiliser_preview_can_place.tscn" id="4_ej1kb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1rpq8"]
 size = Vector3(0.755249, 0.365234, 1)
@@ -15,6 +15,7 @@ side_raycasts = [NodePath("SideRaycasts/NorthRaycast"), NodePath("SideRaycasts/E
 prop = ExtResource("2_ej1kb")
 
 [node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
 collision_mask = 17
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
