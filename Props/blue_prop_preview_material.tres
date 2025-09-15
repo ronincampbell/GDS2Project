@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dcpfr81lb6mtp"]
+
+[ext_resource type="Shader" uid="uid://uen103sdqun4" path="res://Props/blue_prop_preview_material_shader.tres" id="1_i2msv"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_i2msv")

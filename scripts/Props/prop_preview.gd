@@ -6,11 +6,25 @@ extends Node3D
 @onready var model: Node3D = $blockbench_export
 @onready var model_cannot_place = $blockbench_export2
 var in_area: int = 0
-var can_place: bool = true
+var can_place: bool = true:
+	set(value):
+		can_place = value
+		if can_place:
+			_set_color(player_num)
+		else:
+			_set_color(0)
 var player_num: int = -1
 
 const speed : float = 5
 const rotate_speed : float = 5
+
+var color_materials: Array[ShaderMaterial] = [
+	preload("res://Props/cant_place_prop_preview_material.tres"),
+	preload("res://Props/blue_prop_preview_material.tres"),
+	preload("res://Props/purple_prop_preview_material.tres"),
+	preload("res://Props/red_prop_preview_material.tres"),
+	preload("res://Props/yellow_prop_preview_material.tres"),
+]
 
 func _physics_process(delta: float) -> void:
 	
@@ -25,6 +39,8 @@ func _physics_process(delta: float) -> void:
 
 func set_player(num: int) -> void:
 	player_num = num
+	if can_place:
+		_set_color(player_num)
 
 func _move_prop(delta: float) -> void:
 	if !downward_raycasts.is_empty():
@@ -84,31 +100,40 @@ func _rotate_prop(delta: float) ->  void:
 		_rotate += Vector3(0, -delta*rotate_speed, 0)
 	
 	model.rotation += _rotate
-	model_cannot_place.rotation = model.rotation
+	#model_cannot_place.rotation = model.rotation
 
 
 func _on_body_entered(_body: Node3D) -> void:
 	in_area += 1
 	can_place = false
-	model.hide()
-	model_cannot_place.show()
+	#model.hide()
+	#model_cannot_place.show()
 
 func _on_body_exited(_body: Node3D) -> void:
 	in_area -= 1
 	if in_area < 1:
 		can_place = true
-		model.show()
-		model_cannot_place.hide()
+		#model.show()
+		#model_cannot_place.hide()
 
 func _on_area_entered(area: Area3D) -> void:
 	in_area += 1
 	can_place = false
-	model.hide()
-	model_cannot_place.show()
+	#model.hide()
+	#model_cannot_place.show()
 
 func _on_area_exited(area: Area3D) -> void:
 	in_area -= 1
 	if in_area < 1:
 		can_place = true
-		model.show()
-		model_cannot_place.hide()
+		#model.show()
+		#model_cannot_place.hide()
+
+func _set_color(color_index: int):
+	_recursive_set_color(color_index, self)
+
+func _recursive_set_color(color_index: int, node: Node):
+	if node is GeometryInstance3D:
+		node.material_override = color_materials[color_index]
+	for child in node.get_children():
+		_recursive_set_color(color_index, child)
