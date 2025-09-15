@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=22 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
@@ -8,10 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_x56rg"]
 [ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
 [ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="8_2kfoo"]
-[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="9_x7fgk"]
-[ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="10_dxthy"]
 [ext_resource type="AudioStream" uid="uid://bob1melhxhfgd" path="res://sounds/golf ball hit 2.mp3" id="8_x56rg"]
 [ext_resource type="AudioStream" uid="uid://dyphv7oaihlnm" path="res://sounds/golf ball hit 3.mp3" id="9_2kfoo"]
+[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="9_x7fgk"]
+[ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="10_dxthy"]
 [ext_resource type="AudioStream" uid="uid://dtqe8y814dqwn" path="res://sounds/jump.wav" id="10_x7fgk"]
 [ext_resource type="AudioStream" uid="uid://d3oewbqcu8r02" path="res://sounds/obs 1.wav" id="11_dxthy"]
 
@@ -45,7 +45,7 @@ stream_1/stream = ExtResource("11_dxthy")
 
 [node name="Gnome" type="RigidBody3D"]
 collision_layer = 2
-collision_mask = 13
+collision_mask = 5
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 can_sleep = false
@@ -161,4 +161,3 @@ stream = SubResource("AudioStreamRandomizer_x7fgk")
 
 [node name="BonkSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_moqlk")
-
