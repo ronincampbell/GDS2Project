@@ -1,4 +1,4 @@
-[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://cxdtfu6ytsd0v"]
+[gd_resource type="VisualShader" load_steps=21 format=3 uid="uid://dqp72d3tvtk52"]
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_h2fo4"]
 default_input_values = [0, 0.0, 1, 1.0]
@@ -21,7 +21,7 @@ operator = 2
 input_name = "screen_uv"
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_7swxc"]
-constant = Color(0.21, 0.21, 0.21, 1)
+constant = Color(1, 0, 0, 1)
 
 [sub_resource type="VisualShaderNodeFloatOp" id="VisualShaderNodeFloatOp_iglf4"]
 operator = 6
@@ -50,7 +50,7 @@ default_input_values = [0, false, 1, Vector3(1, 1, 1), 2, Vector3(0, 0, 0)]
 op_type = 4
 
 [sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_mhr0h"]
-constant = Color(0.1, 0.1, 0.1, 1)
+constant = Color(0.65, 0, 0, 1)
 
 [sub_resource type="VisualShaderNodeFloatFunc" id="VisualShaderNodeFloatFunc_mhr0h"]
 function = 0
@@ -153,11 +153,11 @@ void fragment() {
 
 
 // ColorConstant:20
-	vec4 n_out20p0 = vec4(0.210000, 0.210000, 0.210000, 1.000000);
+	vec4 n_out20p0 = vec4(1.000000, 0.000000, 0.000000, 1.000000);
 
 
 // ColorConstant:28
-	vec4 n_out28p0 = vec4(0.100000, 0.100000, 0.100000, 1.000000);
+	vec4 n_out28p0 = vec4(0.650000, 0.000000, 0.000000, 1.000000);
 
 
 	vec3 n_out27p0;
@@ -171,7 +171,7 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(501.218, -46.4829)
+graph_offset = Vector2(-155.5, -170.87)
 nodes/fragment/0/position = Vector2(1940, 20)
 nodes/fragment/2/node = SubResource("VisualShaderNodeInput_tosr3")
 nodes/fragment/2/position = Vector2(-1260, 100)
