@@ -53,11 +53,11 @@ func _ready() -> void:
 	
 	down_input = InputEventJoypadMotion.new()
 	down_input.axis = JOY_AXIS_LEFT_Y
-	down_input.axis_value = -1
+	down_input.axis_value = 1
 	
 	up_input = InputEventJoypadMotion.new()
 	up_input.axis = JOY_AXIS_LEFT_Y
-	up_input.axis_value = 1
+	up_input.axis_value = -1
 	
 	interact_input = InputEventJoypadButton.new()
 	interact_input.button_index = JOY_BUTTON_A
@@ -185,6 +185,7 @@ func _on_keyboard_joined():
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventJoypadButton:
+		print("Controller button!")
 		if event.button_index == JOY_BUTTON_START:
 			if event.device in device_players:
 				return

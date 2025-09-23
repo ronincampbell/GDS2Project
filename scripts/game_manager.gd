@@ -20,7 +20,7 @@ const club_spawn_offset: Vector3 = Vector3(0,1.6,0)
 const gnome_spawn_offset: Vector3 = Vector3(0,1.4,0)
 
 @onready var prop_placement_ui: Node = $PropPlacement
-@onready var hud: Node = $Hud
+#@onready var hud: Node = $Hud
 
 var players_in_scene: int = 1
 enum players_prop {PLAYER1, PLAYER2, PLAYER3, PLAYER4}
