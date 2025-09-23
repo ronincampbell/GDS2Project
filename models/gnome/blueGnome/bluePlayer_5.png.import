@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xdudwh0e2byw"
-path.s3tc="res://.godot/imported/bluePlayer_3.png-d9991fd9000ee635e94ebd36ca168567.s3tc.ctex"
+uid="uid://ciovfu8dd0cuu"
+path.s3tc="res://.godot/imported/bluePlayer_5.png-1783683a6664d7b6a549b415d5b88737.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "c31e83c069d6a708b6f1675b2189b850"
+"md5": "c95bca724d1250fd419f8e8b042f9066"
 }
 
 [deps]
 
-source_file="res://models/gnome/blueGnome/bluePlayer_3.png"
-dest_files=["res://.godot/imported/bluePlayer_3.png-d9991fd9000ee635e94ebd36ca168567.s3tc.ctex"]
+source_file="res://models/gnome/blueGnome/bluePlayer_5.png"
+dest_files=["res://.godot/imported/bluePlayer_5.png-1783683a6664d7b6a549b415d5b88737.s3tc.ctex"]
 
 [params]
 
