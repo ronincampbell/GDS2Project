@@ -91,6 +91,7 @@ CastSpell={
 [layer_names]
 
 3d_render/layer_2="ReceiveUI"
+3d_render/layer_3="ShowThrough"
 3d_physics/layer_1="Terrain"
 3d_physics/layer_2="Gnomes"
 3d_physics/layer_3="Props"

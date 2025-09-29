@@ -18,6 +18,7 @@ var body_state: BodyState = BodyState.MOVING
 @onready var bonk_sound: AudioStreamPlayer = $BonkSound
 
 var stun_timer: float = 0.0
+var disable_timer: float = 0.0
 
 var held_prop: Node3D
 var held_club: GolfClub
@@ -88,8 +89,11 @@ var prev_linear_velocity: Vector3
 var min_bonk_speed: float = 4.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
-	if body_state == BodyState.DISABLED:
+	if body_state == BodyState.DISABLED and disable_timer > 0.0:
 		interact_indicator.hide()
+		disable_timer -= get_physics_process_delta_time()
+		if disable_timer <= 0.0:
+			body_state = BodyState.MOVING
 		return
 	
 	if (linear_velocity - prev_linear_velocity).length() > min_bonk_speed:
@@ -100,6 +104,17 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		interact_indicator.hide()
 		stun_timer -= get_physics_process_delta_time()
 		if stun_timer <= 0.0:
+			body_state = BodyState.MOVING
+			axis_lock_angular_x = true
+			axis_lock_angular_z = true
+			rotation.x = 0.0
+			rotation.z = 0.0
+		return
+	
+	if body_state == BodyState.DISABLED and disable_timer > 0.0:
+		interact_indicator.hide()
+		disable_timer -= get_physics_process_delta_time()
+		if disable_timer <= 0.0:
 			body_state = BodyState.MOVING
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
@@ -170,6 +185,10 @@ func rotate_to_face(target: Vector3):
 	var orthogonal_dir: Vector3 = dir_to_target.normalized().rotated(Vector3.UP,-PI/2)
 	var rotation_error: float = -global_basis.z.dot(orthogonal_dir)
 	apply_torque(Vector3(0,rotation_error*rotate_to_face_torque,0))
+
+func start_disable(disable_time: float):
+	disable_timer = disable_time
+	body_state = BodyState.DISABLED
 
 func start_stun(stun_time: float):
 	axis_lock_angular_x = false

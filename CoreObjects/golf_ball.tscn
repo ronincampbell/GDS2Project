@@ -59,6 +59,7 @@ spot_angle_attenuation = 0.000211122
 [node name="AimDecal" type="Decal" parent="NoRotatePivot/YRotatePivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.15722, -3, 0)
 visible = false
+sorting_offset = 1000.0
 size = Vector3(2, 10, 2)
 texture_albedo = ExtResource("3_d73nu")
 upper_fade = 6.83374e-05

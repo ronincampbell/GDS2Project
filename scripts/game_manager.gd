@@ -10,6 +10,8 @@ var obstacle_placing_timer : float = 0
 var obstacle_placing_time : float = 60                                                    
 var player1_obstacle_in_scene : bool = false
 
+var match_start_time: float = 3.0
+
 const placeable_props: Dictionary = {"plant":preload("res://Props/Previews/prop_plant_preview.tscn"), "fertiliser":preload("res://Props/Previews/prop_fertiliser_preview.tscn"), "watering_can":preload("res://Props/Previews/prop_watering_can_preview.tscn")}
 const golf_ball: PackedScene = preload("res://CoreObjects/golf_ball.tscn")
 const golf_club: PackedScene = preload("res://CoreObjects/golf_club.tscn")
@@ -60,6 +62,7 @@ func _physics_process(delta: float) -> void:
 				var spawn_index: int = randi_range(0, available_spawns.size()-1)
 				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
 				new_gnome.player_num = player_num
+				new_gnome.start_disable(match_start_time)
 				available_spawns.remove_at(spawn_index)
 			
 			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
