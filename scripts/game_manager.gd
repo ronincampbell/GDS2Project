@@ -40,6 +40,9 @@ var prop_preview_in_scene = [null, null, null, null]
 func _ready() -> void:
 	if ControllerManager.device_players.values().size() > 0:
 		players_in_scene = ControllerManager.device_players.values().size()
+	
+	if camera_controller.has_method("update_targets"):
+		camera_controller.update_targets()
 
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
