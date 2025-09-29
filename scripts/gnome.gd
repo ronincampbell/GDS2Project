@@ -318,7 +318,7 @@ func swing():
 	apply_central_impulse(aim_dir*swing_impulse*swing_force+Vector3.UP*swing_lift*swing_force)
 	held_club.linear_velocity = Vector3.ZERO
 	held_club.apply_impulse(aim_dir.rotated(Vector3.UP,PI/2)*swing_club_impulse*swing_force+Vector3.UP*swing_club_lift*swing_force, held_club.get_head_force_offset())
-	aiming_ball.launch_in_aim_direction(swing_force)
+	aiming_ball.launch_in_aim_direction(swing_force, player_num)
 	aiming_ball.hide_aim_arrow()
 	held_club.is_held = false
 	held_club.disable_held_damping()

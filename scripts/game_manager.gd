@@ -1,6 +1,6 @@
 extends Node
 
-var score : int = 0
+var scores : Dictionary[int,int]
 
 @export
 var skip_placing: bool = false
@@ -45,6 +45,8 @@ var active_ball: Node3D
 func _ready() -> void:
 	if ControllerManager.device_players.values().size() > 0:
 		players_in_scene = ControllerManager.device_players.values().size()
+		for player in ControllerManager.device_players.values():
+			scores[player] = 0
 
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":
@@ -108,16 +110,18 @@ func _place_player_object(player_current_prop, player_num) -> void:
 	prop_preview_in_scene[player_num-1] = new_prop
 
 func _on_golf_hole_entered(body: Node3D) -> void:
-	if body.name == "GolfBall":
+	if body.name.contains("GolfBall"):
 		body.position = Vector3(2.414, 0.668, -2.318)
 		if body.has_method("reset_velocity"):
 			body.reset_velocity()
-		score += 1
-		Hud.update_score(0, score)
+		scores[body.last_hit_player] += 1
+		Hud.update_score(body.last_hit_player-1, scores[body.last_hit_player])
 		SoundPlayer.play_ball_in_hole()
-		if(score >= 3):
+		if(scores[body.last_hit_player] >= 3):
+			VictoryHoldover.last_winner = body.last_hit_player
 			body.queue_free()
 			print_debug("Game won!")
+			get_tree().change_scene_to_file.call_deferred("res://maps/victory_podium.tscn")
 		else:
 			for player in active_players:
 				player.queue_free()
@@ -129,7 +133,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 func _place_object(object: PackedScene, pos: Vector3) -> Node:
 	var new_object = object.instantiate()
 	new_object.position = pos
-	add_child(new_object)
+	add_child(new_object,true)
 	return new_object
 
 func prop_placed() -> void:

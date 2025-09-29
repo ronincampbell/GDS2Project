@@ -3,7 +3,7 @@ extends Node
 signal device_joined(attached_player: int, device_num: int)
 signal device_left(attached_player: int, device_num: int)
 
-# DeviceNum -> PlayerNum
+## DeviceNum -> PlayerNum
 var device_players: Dictionary[int, int]
 
 var left_input: InputEventJoypadMotion
@@ -125,6 +125,10 @@ func drop_out_player(player_num: int) -> bool:
 			device_left.emit(player_num, device_num)
 			return true
 	return false
+
+func reset_players():
+	for player in device_players.values():
+		drop_out_player(player)
 
 func _on_controller_joined(device_num: int):
 	var player_num: String = str(get_lowest_inactive_player())

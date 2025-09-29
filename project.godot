@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 Hud="*res://UI/HUD/HUD.tscn"
 ControllerManager="*res://controller_manager.gd"
 SoundPlayer="*res://sound_player.tscn"
+VictoryHoldover="*res://victory_holdover.gd"
 
 [global_group]
 
