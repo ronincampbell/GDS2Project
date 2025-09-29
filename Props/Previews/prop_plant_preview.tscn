@@ -7,7 +7,7 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ar6eg"]
 height = 1.13846
 
-[node name="PropPlantPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts")]
+[node name="PropPlantPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts") groups=["CameraTarget"]]
 script = ExtResource("1_ar6eg")
 downward_raycasts = [NodePath("DownwardRaycast")]
 side_raycasts = [NodePath("SideRaycasts/NorthRaycast"), NodePath("SideRaycasts/EastRaycast"), NodePath("SideRaycasts/SouthRaycast"), NodePath("SideRaycasts/WestRaycast")]

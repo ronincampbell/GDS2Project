@@ -43,7 +43,7 @@ streams_count = 2
 stream_0/stream = ExtResource("10_x7fgk")
 stream_1/stream = ExtResource("11_dxthy")
 
-[node name="Gnome" type="RigidBody3D"]
+[node name="Gnome" type="RigidBody3D" groups=["CameraTarget"]]
 collision_layer = 2
 collision_mask = 5
 axis_lock_angular_x = true

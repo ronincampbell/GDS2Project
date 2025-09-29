@@ -8,7 +8,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_1rpq8"]
 size = Vector3(0.755249, 0.365234, 1)
 
-[node name="PropFertiliserPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts")]
+[node name="PropFertiliserPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts") groups=["CameraTarget"]]
 script = ExtResource("1_cvhfe")
 downward_raycasts = [NodePath("DownwardRaycasts/DownwardRaycast"), NodePath("DownwardRaycasts/DownwardRaycast2")]
 side_raycasts = [NodePath("SideRaycasts/NorthRaycast"), NodePath("SideRaycasts/EastRaycast"), NodePath("SideRaycasts/SouthRaycast"), NodePath("SideRaycasts/WestRaycast")]

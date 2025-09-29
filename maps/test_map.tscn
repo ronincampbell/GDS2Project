@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=18 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://bnaveyfa2eqtl" path="res://UI/prop placement/prop_placement.tscn" id="2_6b7mj"]
@@ -7,6 +7,7 @@
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
 [ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
 [ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
+[ext_resource type="Script" uid="uid://2lrif2x4oxfs" path="res://scripts/camera_contoller.gd" id="6_wd2vj"]
 [ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
 [ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="8_6b7mj"]
 
@@ -76,8 +77,9 @@ shape = SubResource("ConcavePolygonShape3D_pbr4s")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -2.82576e-05, 2.19154e-05, 8.32191e-06, 0.779913, 0.625888, -3.47782e-05, -0.625888, 0.779913, -0.0365372, 6.28287, 11.7465)
+script = ExtResource("6_wd2vj")
 
-[node name="GolfHole" type="MeshInstance3D" parent="."]
+[node name="GolfHole" type="MeshInstance3D" parent="." groups=["CameraTarget"]]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3.11183, -0.0729234, -5.70722)
 mesh = SubResource("CylinderMesh_6slyc")
 skeleton = NodePath("")

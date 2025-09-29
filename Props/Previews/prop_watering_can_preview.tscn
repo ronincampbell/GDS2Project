@@ -8,7 +8,7 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_wv44k"]
 size = Vector3(0.403809, 0.484924, 1)
 
-[node name="PropWateringCanPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts")]
+[node name="PropWateringCanPreview" type="Node3D" node_paths=PackedStringArray("downward_raycasts", "side_raycasts") groups=["CameraTarget"]]
 script = ExtResource("1_wv44k")
 downward_raycasts = [NodePath("DownwardRaycast")]
 side_raycasts = [NodePath("SideRaycasts/NorthRaycast"), NodePath("SideRaycasts/EastRaycast"), NodePath("SideRaycasts/SouthRaycast"), NodePath("SideRaycasts/WestRaycast")]
