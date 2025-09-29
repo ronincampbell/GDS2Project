@@ -38,6 +38,10 @@ const prop_index = ["plant", "fertiliser", "watering_can"]
 var current_player_prop_index = [0, 0, 0, 0]
 var prop_preview_in_scene = [null, null, null, null]
 
+var active_players: Array[Node3D]
+var active_club: Node3D
+var active_ball: Node3D
+
 func _ready() -> void:
 	if ControllerManager.device_players.values().size() > 0:
 		players_in_scene = ControllerManager.device_players.values().size()
@@ -54,15 +58,16 @@ func _physics_process(delta: float) -> void:
 			prop_placement_ui.visible = false
 			mode = "playing"
 			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
-				_place_object(golf_ball, marker.global_position+ball_spawn_offset)
+				active_ball = _place_object(golf_ball, marker.global_position+ball_spawn_offset)
 			for marker in get_tree().get_nodes_in_group("ClubSpawnMarkers"):
-				_place_object(golf_club, marker.global_position+club_spawn_offset)
+				active_club = _place_object(golf_club, marker.global_position+club_spawn_offset)
 			var available_spawns: Array = get_tree().get_nodes_in_group("PlayerSpawnMarkers")
 			for player_num in ControllerManager.device_players.values():
 				var spawn_index: int = randi_range(0, available_spawns.size()-1)
 				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
 				new_gnome.player_num = player_num
 				new_gnome.start_disable(match_start_time)
+				active_players.append(new_gnome)
 				available_spawns.remove_at(spawn_index)
 			
 			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
@@ -113,6 +118,13 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 		if(score >= 3):
 			body.queue_free()
 			print_debug("Game won!")
+		else:
+			for player in active_players:
+				player.queue_free()
+			active_players.clear()
+			active_ball.queue_free()
+			active_club.queue_free()
+			mode = "obstacle placing"
 
 func _place_object(object: PackedScene, pos: Vector3) -> Node:
 	var new_object = object.instantiate()
