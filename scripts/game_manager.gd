@@ -47,6 +47,8 @@ func _ready() -> void:
 		players_in_scene = ControllerManager.device_players.values().size()
 		for player in ControllerManager.device_players.values():
 			scores[player] = 0
+		for i in players_in_scene:
+			Hud.update_score(i, 0)
 
 func _physics_process(delta: float) -> void:
 	if mode == "obstacle placing":

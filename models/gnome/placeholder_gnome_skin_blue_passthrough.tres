@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cmdg5auab07pt"]
+
+[ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="1_rb48c"]
+
+[resource]
+next_pass = ExtResource("1_rb48c")
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.086, 0.473, 0.86, 1)

@@ -63,10 +63,10 @@ var color_models: Array[Node3D] = [
 @onready var right_arm_mesh: MeshInstance3D = $RightArmBody/MeshInstance3D
 
 var color_materials: Array[StandardMaterial3D] = [
-	preload("res://models/gnome/placeholder_gnome_skin_blue.tres"),
-	preload("res://models/gnome/placeholder_gnome_skin_purple.tres"),
-	preload("res://models/gnome/placeholder_gnome_skin_red.tres"),
-	preload("res://models/gnome/placeholder_gnome_skin_yellow.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_blue_passthrough.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_purple_passthrough.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_red_passthrough.tres"),
+	preload("res://models/gnome/placeholder_gnome_skin_yellow_passthrough.tres"),
 ]
 
 var _caster: SpellCaster
