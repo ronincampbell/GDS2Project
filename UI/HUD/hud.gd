@@ -1,10 +1,10 @@
 extends Control
 
 @onready var players = [
-	$PlayersContainer/TopRowContainer/Player1,
-	$PlayersContainer/TopRowContainer/Player2,
-	$PlayersContainer/BottomRowContainer/Player3,
-	$PlayersContainer/BottomRowContainer/Player4
+	$PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1,
+	$PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2,
+	$PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3,
+	$PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4
 ]
 @onready var score_announce = $ScoreAnnouncePanel/AnnounceMargin/ScoreAnnounceText
 
@@ -12,9 +12,13 @@ func _ready() -> void:
 	init_hud()
 
 func _process(delta: float) -> void:
-	for player in players:
-		if player.is_timer_active:
-			player.update_timer()
+	if self.visible:
+		for player in players:
+			if player.is_timer_active:
+				player.update_timer()
+		
+		for player in players:
+			player.update_arrow()
 
 func update_score(player_id: int, new_score: int):
 	players[player_id].set_score_text(new_score)
