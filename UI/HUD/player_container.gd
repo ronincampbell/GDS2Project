@@ -8,7 +8,6 @@ extends HBoxContainer
 
 var is_timer_active: bool = false
 var countdown: float = 0.0
-var camera
 
 func _ready() -> void:
 	arrow.pivot_offset = Vector2(48, 48)
@@ -44,10 +43,10 @@ func update_timer(stun_length: float = 0.0, is_visible: bool = true):
 		timer.hide()
 		is_timer_active = false
 
-func update_arrow():
-	if !camera && get_tree().current_scene:
-		camera = get_tree().current_scene.get_viewport().get_camera_3d()
+func update_arrow(gnome_pos: Vector3, camera: Camera3D):
 	if camera:
-		var gnome_pos_on_screen = Vector2(0, 0)#= camera.unproject_position(gnome's 3d position here)
+		var gnome_pos_on_screen = camera.unproject_position(gnome_pos)
 		var angle_to_gnome = arrow.position.angle_to_point(gnome_pos_on_screen)
-		arrow.rotation = angle_to_gnome
+		arrow.rotation = -45.0
+		#arrow.rotation = 0.0
+		arrow.rotation += angle_to_gnome

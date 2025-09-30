@@ -46,13 +46,13 @@ background_mode = 2
 background_color = Color(0.382605, 0.57365, 0.993852, 1)
 sky = SubResource("Sky_i5ryk")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o30d6"]
-bg_color = Color(0.796078, 0.188235, 0.964706, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5ryk"]
+bg_color = Color(0.129412, 0.498039, 0.94902, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.796078, 0.188235, 0.964706, 1)
+border_color = Color(0.129412, 0.498039, 0.94902, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_left = 50
@@ -103,13 +103,13 @@ corner_detail = 20
 [sub_resource type="ViewportTexture" id="ViewportTexture_y8qxg"]
 viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8dl0"]
-bg_color = Color(0.768627, 0.901961, 0.160784, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o30d6"]
+bg_color = Color(0.796078, 0.188235, 0.964706, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.768627, 0.901961, 0.160784, 1)
+border_color = Color(0.796078, 0.188235, 0.964706, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_left = 50
@@ -130,13 +130,13 @@ corner_detail = 20
 [sub_resource type="ViewportTexture" id="ViewportTexture_cgpfr"]
 viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_i5ryk"]
-bg_color = Color(0.129412, 0.498039, 0.94902, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y2n3"]
+bg_color = Color(0.752941, 0.160784, 0.176471, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.129412, 0.498039, 0.94902, 1)
+border_color = Color(0.752941, 0.160784, 0.176471, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_left = 50
@@ -172,13 +172,13 @@ corner_detail = 20
 [sub_resource type="ViewportTexture" id="ViewportTexture_dwvm7"]
 viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y2n3"]
-bg_color = Color(0.752941, 0.160784, 0.176471, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8dl0"]
+bg_color = Color(0.768627, 0.901961, 0.160784, 1)
 border_width_left = 3
 border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
-border_color = Color(0.752941, 0.160784, 0.176471, 1)
+border_color = Color(0.768627, 0.901961, 0.160784, 1)
 corner_radius_top_left = 50
 corner_radius_top_right = 50
 corner_radius_bottom_left = 50
@@ -290,7 +290,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("3_vb885")]
+[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("5_10ibt")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer"]
 visible = false
@@ -310,7 +310,7 @@ vertical_alignment = 1
 z_index = -1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_o30d6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_i5ryk")
 
 [node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
 custom_minimum_size = Vector2(42, 47)
@@ -409,7 +409,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
+[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("3_vb885")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer"]
 visible = false
@@ -429,7 +429,7 @@ vertical_alignment = 1
 z_index = -1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_q8dl0")
+theme_override_styles/panel = SubResource("StyleBoxFlat_o30d6")
 
 [node name="BottomRowContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer"]
 layout_mode = 2
@@ -468,7 +468,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("5_10ibt")]
+[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer"]
 visible = false
@@ -488,7 +488,7 @@ vertical_alignment = 1
 z_index = -1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_i5ryk")
+theme_override_styles/panel = SubResource("StyleBoxFlat_2y2n3")
 
 [node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
 custom_minimum_size = Vector2(42, 47)
@@ -585,7 +585,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]
+[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer"]
 visible = false
@@ -605,4 +605,4 @@ vertical_alignment = 1
 z_index = -1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_2y2n3")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8dl0")

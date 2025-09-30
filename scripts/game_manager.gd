@@ -60,6 +60,7 @@ func _physics_process(delta: float) -> void:
 				var spawn_index: int = randi_range(0, available_spawns.size()-1)
 				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
 				new_gnome.player_num = player_num
+				new_gnome.add_to_group("Players")
 				available_spawns.remove_at(spawn_index)
 			
 			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))

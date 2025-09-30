@@ -27,6 +27,7 @@ SoundPlayer="*res://sound_player.tscn"
 PlayerSpawnMarkers=""
 BallSpawnMarkers=""
 ClubSpawnMarkers=""
+Players=""
 
 [input]
 
