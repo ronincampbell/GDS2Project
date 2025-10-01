@@ -5,6 +5,7 @@ extends HBoxContainer
 @onready var timer = $IconContainer/IncapTimer
 @onready var score = $ScoreContainer/ScoreMargin/ScoreText
 @onready var arrow = $IconContainer/Arrow
+@onready var crown = $GnomeCrown
 
 var is_timer_active: bool = false
 var countdown: float = 0.0
@@ -31,8 +32,8 @@ func reset_timer():
 	timer.hide()
 	is_timer_active = false
 	
-func update_timer(stun_length: float = 0.0, is_visible: bool = true):
-	if is_visible:
+func update_timer(stun_length: float = 0.0, is_active: bool = true):
+	if is_active:
 		if !timer.visible: 
 			timer.show()
 			is_timer_active = true
@@ -50,3 +51,9 @@ func update_arrow(gnome_pos: Vector3, camera: Camera3D):
 		arrow.rotation = -45.0
 		#arrow.rotation = 0.0
 		arrow.rotation += angle_to_gnome
+
+func update_crown(is_holding_club: bool):
+	if is_holding_club:
+		crown.show()
+	else:
+		crown.hide()

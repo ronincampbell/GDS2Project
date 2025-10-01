@@ -13,7 +13,7 @@ var players: Array
 func _ready() -> void:
 	init_hud()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if self.visible:
 		if players.is_empty():
 			if current_scene:
@@ -70,3 +70,9 @@ func update_player_icons(players_in: Array[bool]):
 			player_containers[i].show()
 		else:
 			player_containers[i].hide()
+
+func update_player_crown(player_id: int = -1):
+	for container in player_containers:
+		container.update_crown(false)
+	if player_id > -1:
+		player_containers[clamp(player_id-1, 0, 3)].update_crown(true)

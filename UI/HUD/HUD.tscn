@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://bffwna508cxnq"]
+[gd_scene load_steps=27 format=3 uid="uid://bffwna508cxnq"]
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
+[ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_10ibt"]
 [ext_resource type="Script" uid="uid://cjphkt54sg4f5" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
 [ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
@@ -263,6 +264,15 @@ size_flags_horizontal = 2
 theme_override_constants/separation = 10
 script = ExtResource("3_q8dl0")
 
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_10ibt")
+expand_mode = 1
+
 [node name="IconContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
 clip_children = 1
 layout_mode = 2
@@ -431,6 +441,15 @@ custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o30d6")
 
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2"]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_10ibt")
+expand_mode = 1
+
 [node name="BottomRowContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer"]
 layout_mode = 2
 size_flags_vertical = 10
@@ -440,6 +459,15 @@ layout_mode = 2
 size_flags_horizontal = 2
 theme_override_constants/separation = 10
 script = ExtResource("3_q8dl0")
+
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_10ibt")
+expand_mode = 1
 
 [node name="IconContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
 clip_children = 1
@@ -606,3 +634,12 @@ z_index = -1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q8dl0")
+
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4"]
+visible = false
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+texture = ExtResource("3_10ibt")
+expand_mode = 1
