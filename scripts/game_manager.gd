@@ -7,10 +7,10 @@ var skip_placing: bool = false
 
 var mode : String = "obstacle placing"
 var obstacle_placing_timer : float = 0
-var obstacle_placing_time : float = 60                                                    
+var obstacle_placing_time : float = 20                                                    
 var player1_obstacle_in_scene : bool = false
 
-var match_start_time: float = 3.0
+var match_start_time: float = 2.0
 
 const placeable_props: Dictionary = {"plant":preload("res://Props/Previews/prop_plant_preview.tscn"), "fertiliser":preload("res://Props/Previews/prop_fertiliser_preview.tscn"), "watering_can":preload("res://Props/Previews/prop_watering_can_preview.tscn")}
 const golf_ball: PackedScene = preload("res://CoreObjects/golf_ball.tscn")

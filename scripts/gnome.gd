@@ -54,7 +54,7 @@ var contest_chain_counter: int = 1
 var lose_contest_stun_length: float = 1.0
 
 var attack_strength: float = 6.0
-var attack_stun_length: float = 1.0
+var attack_stun_length: float = 1.5
 var attack_lift: float = 9.0
 var attack_spin_force: float = 50.0
 
