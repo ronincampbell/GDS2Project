@@ -95,6 +95,8 @@ surface_material_override/0 = ExtResource("6_7j42c")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375291, 0, 0)
 shape = SubResource("BoxShape3D_x56rg")
 
+[node name="LeftHandMarker" type="Marker3D" parent="LeftArmBody"]
+
 [node name="RightArmJoint" type="ConeTwistJoint3D" parent="."]
 transform = Transform3D(0.952662, 0.304033, 0, -0.304033, 0.952662, 0, 0, 0, 1, 0.267401, 1.80309, -0.0130813)
 node_a = NodePath("..")
@@ -115,7 +117,7 @@ surface_material_override/0 = ExtResource("6_7j42c")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.375291, 0, 0)
 shape = SubResource("BoxShape3D_x56rg")
 
-[node name="HoldMarker" type="Marker3D" parent="RightArmBody"]
+[node name="RightHandMarker" type="Marker3D" parent="RightArmBody"]
 transform = Transform3D(-0.952661, 0.304033, 0, -0.304033, -0.952661, 0, 0, 0, 1, -0.728222, 0.0176461, 0.00545858)
 
 [node name="GolfInteractArea" type="Area3D" parent="."]
@@ -145,6 +147,13 @@ shape = SubResource("SphereShape3D_8pkva")
 [node name="InteractIndicator" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.55587, 0)
 visible = false
+billboard = 1
+texture = ExtResource("3_k84ux")
+
+[node name="AttackIndicator" type="Sprite3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.1951, 0)
+visible = false
+modulate = Color(1, 0, 0, 1)
 billboard = 1
 texture = ExtResource("3_k84ux")
 

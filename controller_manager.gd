@@ -12,6 +12,7 @@ var up_input: InputEventJoypadMotion
 var down_input: InputEventJoypadMotion
 
 var interact_input: InputEventJoypadButton
+var attack_input: InputEventJoypadButton
 var cancel_input: InputEventJoypadButton
 
 var rotate_clock: InputEventJoypadMotion
@@ -26,6 +27,7 @@ var up_input_key: InputEventKey
 var down_input_key: InputEventKey
 
 var interact_input_key: InputEventKey
+var attack_input_key: InputEventKey
 var cancel_input_key: InputEventKey
 
 func _ready() -> void:
@@ -37,6 +39,7 @@ func _ready() -> void:
 		InputMap.add_action("PlayerUp"+str(i))
 		InputMap.add_action("PlayerDown"+str(i))
 		InputMap.add_action("PlayerInteract"+str(i))
+		InputMap.add_action("PlayerAttack"+str(i))
 		InputMap.add_action("PlayerCancel"+str(i))
 		InputMap.add_action("RotateClock"+str(i))
 		InputMap.add_action("RotateAntiClock"+str(i))
@@ -61,6 +64,9 @@ func _ready() -> void:
 	
 	interact_input = InputEventJoypadButton.new()
 	interact_input.button_index = JOY_BUTTON_A
+	
+	attack_input = InputEventJoypadButton.new()
+	attack_input.button_index = JOY_BUTTON_X
 	
 	cancel_input = InputEventJoypadButton.new()
 	cancel_input.button_index = JOY_BUTTON_B
@@ -95,6 +101,9 @@ func _ready() -> void:
 	interact_input_key = InputEventKey.new()
 	interact_input_key.physical_keycode = KEY_E
 	
+	attack_input_key = InputEventKey.new()
+	attack_input_key.physical_keycode = KEY_Q
+	
 	cancel_input_key = InputEventKey.new()
 	cancel_input_key.physical_keycode = KEY_Z
 
@@ -116,6 +125,7 @@ func drop_out_player(player_num: int) -> bool:
 			InputMap.action_erase_events("PlayerUp"+str(player_num))
 			InputMap.action_erase_events("PlayerDown"+str(player_num))
 			InputMap.action_erase_events("PlayerInteract"+str(player_num))
+			InputMap.action_erase_events("PlayerAttack"+str(player_num))
 			InputMap.action_erase_events("PlayerCancel"+str(player_num))
 			InputMap.action_erase_events("RotateClock"+str(player_num))
 			InputMap.action_erase_events("RotateAntiClock"+str(player_num))
@@ -140,6 +150,7 @@ func _on_controller_joined(device_num: int):
 	var device_down_input: InputEventJoypadMotion = down_input.duplicate()
 
 	var device_interact_input: InputEventJoypadButton = interact_input.duplicate()
+	var device_attack_input: InputEventJoypadButton = attack_input.duplicate()
 	var device_cancel_input: InputEventJoypadButton = cancel_input.duplicate()
 	
 	var device_rotate_clock: InputEventJoypadMotion = rotate_clock.duplicate()
@@ -153,6 +164,7 @@ func _on_controller_joined(device_num: int):
 	device_up_input.device = device_num
 	device_down_input.device = device_num
 	device_interact_input.device = device_num
+	device_attack_input.device = device_num
 	device_cancel_input.device = device_num
 	device_rotate_clock.device = device_num
 	device_rotate_anti_clock.device = device_num
@@ -164,6 +176,7 @@ func _on_controller_joined(device_num: int):
 	InputMap.action_add_event("PlayerUp"+player_num, device_up_input)
 	InputMap.action_add_event("PlayerDown"+player_num, device_down_input)
 	InputMap.action_add_event("PlayerInteract"+player_num, device_interact_input)
+	InputMap.action_add_event("PlayerAttack"+player_num, device_attack_input)
 	InputMap.action_add_event("PlayerCancel"+player_num, device_cancel_input)
 	InputMap.action_add_event("RotateClock"+player_num, device_rotate_clock)
 	InputMap.action_add_event("RotateAntiClock"+player_num, device_rotate_anti_clock)
@@ -182,6 +195,7 @@ func _on_keyboard_joined():
 	InputMap.action_add_event("PlayerUp"+player_num, up_input_key.duplicate())
 	InputMap.action_add_event("PlayerDown"+player_num, down_input_key.duplicate())
 	InputMap.action_add_event("PlayerInteract"+player_num, interact_input_key.duplicate())
+	InputMap.action_add_event("PlayerAttack"+player_num, attack_input_key.duplicate())
 	InputMap.action_add_event("PlayerCancel"+player_num, cancel_input_key.duplicate())
 	
 	print("Player %s joined on Device %s" % [player_num, -1])

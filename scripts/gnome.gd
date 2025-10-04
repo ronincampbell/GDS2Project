@@ -1,7 +1,8 @@
+class_name Gnome
 extends RigidBody3D
 
 enum ArmState {EMPTY, PROP, CLUB, AIMING}
-enum BodyState {DISABLED, MOVING, STUNNED}
+enum BodyState {DISABLED, MOVING, STUNNED, CONTESTING}
 
 const move_force: float = 40.0
 const max_walk_speed: float = 3.0
@@ -11,23 +12,29 @@ var body_state: BodyState = BodyState.MOVING
 @onready var golf_interact_area: Area3D = $GolfInteractArea
 @onready var prop_interact_area: Area3D = $PropInteractArea
 @onready var player_interact_area: Area3D = $PlayerInteractArea
-@onready var hold_marker: Marker3D = $RightArmBody/HoldMarker
+@onready var right_hand_marker: Marker3D = $RightArmBody/RightHandMarker
+@onready var left_hand_marker: Marker3D = $LeftArmBody/LeftHandMarker
 @onready var prop_hold_marker: Marker3D = $PropHoldMarker
 @onready var interact_indicator: Sprite3D = $InteractIndicator
+@onready var attack_indicator: Sprite3D = $AttackIndicator
 @onready var ball_hit_sound: AudioStreamPlayer = $BallHitSound
 @onready var bonk_sound: AudioStreamPlayer = $BonkSound
 
 var stun_timer: float = 0.0
 var disable_timer: float = 0.0
+var attack_cooldown_length: float = 3.0
+var attack_cooldown_timer: float = 0.0
 
 var held_prop: Node3D
 var held_club: GolfClub
 var aiming_ball: GolfBall
+var contesting_gnome: Gnome
 
 var club_pull_force_scale: float = 80.0
 var prop_pull_force_scale: float = 40.0
 var aim_pull_force_scale: float = 30.0
 var aim_club_pull_force_scale: float = 20.0
+var hand_move_force_scale: float = 5.0
 var swing_impulse: float = -5.0
 var swing_lift: float = 6.0
 var swing_club_impulse: float = 8.0
@@ -38,6 +45,16 @@ var min_swing_force: float = 0.1
 var swing_force: float = 0.1
 var increasing_force: bool = true
 var swing_force_speed: float = 1.0
+
+var contest_power: float = 0.0
+var contest_step: float = 0.2
+var contest_chain_counter: int = 1
+var lose_contest_stun_length: float = 1.0
+
+var attack_strength: float = 6.0
+var attack_stun_length: float = 1.0
+var attack_lift: float = 9.0
+var attack_spin_force: float = 50.0
 
 var player_num: int = -1:
 	set(value):
@@ -91,10 +108,14 @@ var min_bonk_speed: float = 4.0
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED and disable_timer > 0.0:
 		interact_indicator.hide()
+		attack_indicator.hide()
 		disable_timer -= get_physics_process_delta_time()
 		if disable_timer <= 0.0:
 			body_state = BodyState.MOVING
 		return
+	
+	if attack_cooldown_timer > 0.0:
+		attack_cooldown_timer -= get_physics_process_delta_time()
 	
 	if (linear_velocity - prev_linear_velocity).length() > min_bonk_speed:
 		bonk_sound.play()
@@ -102,6 +123,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	
 	if body_state == BodyState.STUNNED and stun_timer > 0.0:
 		interact_indicator.hide()
+		attack_indicator.hide()
 		stun_timer -= get_physics_process_delta_time()
 		if stun_timer <= 0.0:
 			body_state = BodyState.MOVING
@@ -113,6 +135,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	
 	if body_state == BodyState.DISABLED and disable_timer > 0.0:
 		interact_indicator.hide()
+		attack_indicator.hide()
 		disable_timer -= get_physics_process_delta_time()
 		if disable_timer <= 0.0:
 			body_state = BodyState.MOVING
@@ -120,6 +143,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			axis_lock_angular_z = true
 			rotation.x = 0.0
 			rotation.z = 0.0
+		return
+	
+	if body_state == BodyState.CONTESTING:
+		interact_indicator.hide()
+		attack_indicator.show()
+		rotate_to_face(contesting_gnome.global_position)
+		_pull_left_hand_towards(contesting_gnome.global_position)
+		_pull_right_hand_towards(contesting_gnome.global_position)
 		return
 	
 	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft"+str(player_num),"PlayerRight"+str(player_num),"PlayerUp"+str(player_num),"PlayerDown"+str(player_num))
@@ -137,20 +168,31 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		rotate_to_face(global_position+move_dir)
 		
 		if arm_state == ArmState.EMPTY:
-			if _get_golf_club() or _is_close_to_prop() or _is_close_to_other_player():
+			if _get_golf_club() or _is_close_to_prop():
 				interact_indicator.show()
 			else:
 				interact_indicator.hide()
+			if _get_club_holder():
+				attack_indicator.show()
+			else:
+				attack_indicator.hide()
 		elif arm_state == ArmState.CLUB:
 			if _get_golf_ball():
 				interact_indicator.show()
 			else:
 				interact_indicator.hide()
+			if attack_cooldown_timer <= 0.0 and _is_close_to_other_player():
+				attack_indicator.show()
+			else:
+				attack_indicator.hide()
 			
 			_pull_club_to_hand()
 		elif arm_state == ArmState.PROP:
 			interact_indicator.hide()
+			attack_indicator.hide()
 			_pull_prop_to_self()
+			#_pull_left_hand_towards(prop_hold_marker.global_position)
+			#_pull_right_hand_towards(prop_hold_marker.global_position)
 	else:
 		if increasing_force:
 			swing_force += get_physics_process_delta_time()*swing_force_speed
@@ -166,6 +208,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		
 		_pull_club_to_hand()
 		interact_indicator.hide()
+		attack_indicator.hide()
 		aiming_ball.aim_in_dir(move_dir)
 		var stand_offset: Vector3 = aiming_ball.get_3d_aim_dir().rotated(Vector3.UP, PI/2)
 		var stand_pos: Vector3 = aiming_ball.global_position + stand_offset
@@ -207,12 +250,22 @@ func _show_color_model(index: int):
 
 func _pull_club_to_hand():
 	var handle_pos: Vector3 = held_club.get_handle_global_pos()
-	var diff: Vector3 = hold_marker.global_position - handle_pos
+	var diff: Vector3 = right_hand_marker.global_position - handle_pos
 	held_club.apply_force(diff * club_pull_force_scale, held_club.get_handle_force_offset())
 
 func _pull_prop_to_self():
 	var diff: Vector3 = prop_hold_marker.global_position - held_prop.global_position
 	held_prop.apply_central_force(diff * prop_pull_force_scale)
+
+func _pull_left_hand_towards(target_pos: Vector3):
+	var diff: Vector3 = target_pos - left_hand_marker.global_position
+	var offset: Vector3 = left_hand_marker.global_position - left_arm_body.global_position
+	left_arm_body.apply_force(diff * hand_move_force_scale, offset)
+
+func _pull_right_hand_towards(target_pos: Vector3):
+	var diff: Vector3 = target_pos - right_hand_marker.global_position
+	var offset: Vector3 = right_hand_marker.global_position - right_arm_body.global_position
+	right_arm_body.apply_force(diff * hand_move_force_scale, offset)
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("PlayerInteract"+str(player_num)):
@@ -224,6 +277,29 @@ func _input(event: InputEvent) -> void:
 			try_start_aim()
 		elif arm_state == ArmState.AIMING:
 			swing()
+	elif event.is_action_pressed("PlayerAttack"+str(player_num)):
+		if body_state == BodyState.CONTESTING:
+			var contest_change: float = contest_step/contest_chain_counter
+			contest_power += contest_change
+			print("Contest power increased to "+str(contest_power))
+			contesting_gnome.reduce_contest_power(contest_change)
+			if contest_power >= 1.0:
+				if arm_state == ArmState.CLUB:
+					return
+				elif arm_state == ArmState.EMPTY:
+					held_club = contesting_gnome.held_club
+					arm_state = ArmState.CLUB
+				body_state = BodyState.MOVING
+				contest_chain_counter += 1
+				contest_power = 0.0
+				contesting_gnome.lose_contest()
+				attack()
+		else:
+			if arm_state == ArmState.EMPTY:
+				try_contest_club()
+			elif arm_state == ArmState.CLUB:
+				if attack_cooldown_timer <= 0.0:
+					attack()
 	elif event.is_action_pressed("PlayerCancel"+str(player_num)):
 		if arm_state == ArmState.PROP:
 			drop_prop()
@@ -244,6 +320,12 @@ func _get_golf_club() -> GolfClub:
 			return body
 	return null
 
+func _get_club_holder() -> Gnome:
+	for body in player_interact_area.get_overlapping_bodies():
+		if body != self and body is Gnome and body.arm_state == ArmState.CLUB and body.body_state != BodyState.CONTESTING:
+			return body
+	return null
+
 func _is_close_to_prop() -> bool:
 	if prop_interact_area.has_overlapping_bodies():
 		return true
@@ -251,7 +333,7 @@ func _is_close_to_prop() -> bool:
 
 func _is_close_to_other_player() -> bool:
 	for body in player_interact_area.get_overlapping_bodies():
-		if body != self and body != left_arm_body and body != right_arm_body:
+		if body != self and body is Gnome:
 			return true
 	return false
 
@@ -294,6 +376,31 @@ func try_start_aim():
 		aiming_ball.show_aim_arrow()
 		arm_state = ArmState.AIMING
 
+func try_contest_club():
+	var club_holder: Gnome = _get_club_holder()
+	if club_holder:
+		contesting_gnome = club_holder
+		club_holder.start_being_contested_by(self)
+		body_state = BodyState.CONTESTING
+
+func start_being_contested_by(contester: Gnome):
+	contesting_gnome = contester
+	body_state = BodyState.CONTESTING
+	if arm_state == ArmState.AIMING:
+		arm_state = ArmState.CLUB
+
+func reduce_contest_power(contest_change: float):
+	contest_power -= contest_change
+	print("Contest power reduced to "+str(contest_power))
+
+func lose_contest():
+	if arm_state == ArmState.CLUB:
+		arm_state = ArmState.EMPTY
+	body_state = BodyState.MOVING
+	start_stun(lose_contest_stun_length)
+	contest_chain_counter = 1
+	contest_power = 0.0
+
 func drop_prop():
 	remove_collision_exception_with(held_prop)
 	held_prop.stop_holding()
@@ -327,3 +434,19 @@ func swing():
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
 	ball_hit_sound.play()
+
+func attack():
+	attack_cooldown_timer = attack_cooldown_length
+	apply_torque_impulse(Vector3.UP * attack_spin_force)
+	for body in player_interact_area.get_overlapping_bodies():
+		if body == self:
+			continue
+		if not body is Gnome:
+			continue
+		body.get_attacked_from(global_position, attack_strength, attack_stun_length)
+
+func get_attacked_from(attack_pos: Vector3, attack_strength: float, attack_stun_length: float):
+	start_stun(attack_stun_length)
+	attack_pos.y = global_position.y
+	var knockback_dir: Vector3 = attack_pos.direction_to(global_position)
+	apply_central_impulse(knockback_dir*attack_strength+Vector3.UP*attack_lift)
