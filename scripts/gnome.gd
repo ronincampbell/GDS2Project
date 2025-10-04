@@ -414,6 +414,7 @@ func drop_club():
 	arm_state = ArmState.EMPTY
 
 func cancel_aiming():
+	aiming_ball.hide_aim_arrow()
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.CLUB

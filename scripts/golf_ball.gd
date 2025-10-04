@@ -14,6 +14,8 @@ var showing_aim_arrow: bool = false
 
 var is_being_aimed: bool = false
 var last_hit_player: int = -1
+@export
+var color_models: Array[Node3D]
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	state.linear_velocity.limit_length(max_move_speed)
@@ -45,7 +47,10 @@ func aim_with_force(force: float):
 	aim_decal.position.x = 1.15722*force
 
 func launch_in_aim_direction(force: float, launching_player: int):
+	for model in color_models:
+		model.hide()
 	last_hit_player = launching_player
+	color_models[last_hit_player].show()
 	if stored_aim_dir.is_zero_approx():
 		return
 	angular_velocity = Vector3.ZERO

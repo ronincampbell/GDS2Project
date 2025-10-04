@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://c0ryf1go6lmf7"
-path="res://.godot/imported/ball.gltf-69d596a96062d5a7994728674b35fc06.scn"
+uid="uid://cj0385qwxkefd"
+path="res://.godot/imported/ball_blue.gltf-744ccbf0506fc9e75eb30c213ded2471.scn"
 
 [deps]
 
-source_file="res://models/ball/ball.gltf"
-dest_files=["res://.godot/imported/ball.gltf-69d596a96062d5a7994728674b35fc06.scn"]
+source_file="res://models/ball/ball_blue.gltf"
+dest_files=["res://.godot/imported/ball_blue.gltf-744ccbf0506fc9e75eb30c213ded2471.scn"]
 
 [params]
 
@@ -36,7 +36,7 @@ _subresources={
 "materials": {
 "material_0": {
 "use_external/enabled": true,
-"use_external/path": "uid://cysel3l44l1pr"
+"use_external/path": "uid://ctofnl8c6nef5"
 }
 },
 "meshes": {
