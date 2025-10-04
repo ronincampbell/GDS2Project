@@ -141,6 +141,9 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 				marker.show()
 			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
 				marker.show()
+			Hud.announce_score(body.last_hit_player)
+			await get_tree().create_timer(1.0).timeout
+			Hud.reset_score_announce()
 
 func _place_object(object: PackedScene, pos: Vector3) -> Node:
 	var new_object = object.instantiate()
