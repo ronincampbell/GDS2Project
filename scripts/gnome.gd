@@ -19,6 +19,7 @@ var body_state: BodyState = BodyState.MOVING
 @onready var attack_indicator: Sprite3D = $AttackIndicator
 @onready var ball_hit_sound: AudioStreamPlayer = $BallHitSound
 @onready var bonk_sound: AudioStreamPlayer = $BonkSound
+@onready var laugh_sound: AudioStreamPlayer = $LaughSound
 
 var stun_timer: float = 0.0
 var disable_timer: float = 0.0
@@ -437,6 +438,7 @@ func swing():
 	ball_hit_sound.play()
 
 func attack():
+	laugh_sound.play()
 	attack_cooldown_timer = attack_cooldown_length
 	apply_torque_impulse(Vector3.UP * attack_spin_force)
 	for body in player_interact_area.get_overlapping_bodies():

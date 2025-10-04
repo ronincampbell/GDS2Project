@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=27 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
@@ -14,6 +14,10 @@
 [ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="10_dxthy"]
 [ext_resource type="AudioStream" uid="uid://dtqe8y814dqwn" path="res://sounds/jump.wav" id="10_x7fgk"]
 [ext_resource type="AudioStream" uid="uid://d3oewbqcu8r02" path="res://sounds/obs 1.wav" id="11_dxthy"]
+[ext_resource type="AudioStream" uid="uid://cd37qbkju0h1b" path="res://sounds/laugh 1.wav" id="15_d1q12"]
+[ext_resource type="AudioStream" uid="uid://ci3a8appd47ui" path="res://sounds/laugh 2.wav" id="16_qwf6p"]
+[ext_resource type="AudioStream" uid="uid://bmkixsbkshfif" path="res://sounds/laugh 3.wav" id="17_jgpo3"]
+[ext_resource type="AudioStream" uid="uid://ckf01aja76pd2" path="res://sounds/laugh 7.mp3" id="18_7a58a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
 radius = 0.4103
@@ -42,6 +46,13 @@ playback_mode = 1
 streams_count = 2
 stream_0/stream = ExtResource("10_x7fgk")
 stream_1/stream = ExtResource("11_dxthy")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_6rgyp"]
+streams_count = 4
+stream_0/stream = ExtResource("15_d1q12")
+stream_1/stream = ExtResource("16_qwf6p")
+stream_2/stream = ExtResource("17_jgpo3")
+stream_3/stream = ExtResource("18_7a58a")
 
 [node name="Gnome" type="RigidBody3D"]
 collision_layer = 2
@@ -170,3 +181,6 @@ stream = SubResource("AudioStreamRandomizer_x7fgk")
 
 [node name="BonkSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_moqlk")
+
+[node name="LaughSound" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_6rgyp")
