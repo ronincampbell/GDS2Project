@@ -314,7 +314,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport/Node3D" instance=ExtResource("3_vb885")]
+[node name="BlueGnome" parent="PlayersContainer/TopRowContainer/Player1/Player1Icon/SubViewport/Node3D" instance=ExtResource("5_10ibt")]
 
 [node name="ScoreContainer" type="PanelContainer" parent="PlayersContainer/TopRowContainer/Player1"]
 custom_minimum_size = Vector2(42, 47)
@@ -407,7 +407,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
+[node name="PurpleGnome" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport/Node3D" instance=ExtResource("3_vb885")]
 
 [node name="BottomRowContainer" type="HBoxContainer" parent="PlayersContainer"]
 layout_mode = 2
@@ -440,7 +440,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport/Node3D" instance=ExtResource("5_10ibt")]
+[node name="RedGnome" parent="PlayersContainer/BottomRowContainer/Player3/TextureRect/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]
 
 [node name="ScoreContainer3" type="PanelContainer" parent="PlayersContainer/BottomRowContainer/Player3"]
 custom_minimum_size = Vector2(42, 47)
@@ -531,4 +531,4 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]
+[node name="YellowGnome" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
