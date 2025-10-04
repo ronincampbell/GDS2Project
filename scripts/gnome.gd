@@ -284,7 +284,7 @@ func _input(event: InputEvent) -> void:
 		if body_state == BodyState.CONTESTING:
 			var contest_change: float = contest_step/contest_chain_counter
 			contest_power += contest_change
-			print("Contest power increased to "+str(contest_power))
+			#print("Contest power increased to "+str(contest_power))
 			contesting_gnome.reduce_contest_power(contest_change)
 			if contest_power >= 1.0:
 				if arm_state == ArmState.CLUB:
@@ -394,7 +394,7 @@ func start_being_contested_by(contester: Gnome):
 
 func reduce_contest_power(contest_change: float):
 	contest_power -= contest_change
-	print("Contest power reduced to "+str(contest_power))
+	#print("Contest power reduced to "+str(contest_power))
 
 func lose_contest():
 	if arm_state == ArmState.CLUB:
