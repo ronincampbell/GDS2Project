@@ -113,6 +113,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		disable_timer -= get_physics_process_delta_time()
 		if disable_timer <= 0.0:
 			body_state = BodyState.MOVING
+			axis_lock_angular_x = true
+			axis_lock_angular_z = true
+			rotation.x = 0.0
+			rotation.z = 0.0
 		return
 	
 	if attack_cooldown_timer > 0.0:
@@ -134,17 +138,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			rotation.z = 0.0
 		return
 	
-	if body_state == BodyState.DISABLED and disable_timer > 0.0:
-		interact_indicator.hide()
-		attack_indicator.hide()
-		disable_timer -= get_physics_process_delta_time()
-		if disable_timer <= 0.0:
-			body_state = BodyState.MOVING
-			axis_lock_angular_x = true
-			axis_lock_angular_z = true
-			rotation.x = 0.0
-			rotation.z = 0.0
-		return
+	Hud.indicate_player_incapicated(player_num, false)
 	
 	if body_state == BodyState.CONTESTING:
 		interact_indicator.hide()
@@ -239,6 +233,7 @@ func start_stun(stun_time: float):
 	axis_lock_angular_z = false
 	stun_timer = stun_time
 	body_state = BodyState.STUNNED
+	Hud.indicate_player_incapicated(player_num, true)
 
 func _show_color_model(index: int):
 	for i in color_models.size():
