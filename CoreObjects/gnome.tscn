@@ -184,3 +184,13 @@ stream = SubResource("AudioStreamRandomizer_moqlk")
 
 [node name="LaughSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_6rgyp")
+
+[node name="DisableTimeText" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33377, 0)
+visible = false
+billboard = 1
+no_depth_test = true
+render_priority = 3
+outline_render_priority = 2
+text = "30.0"
+font_size = 160

@@ -20,6 +20,7 @@ var body_state: BodyState = BodyState.MOVING
 @onready var ball_hit_sound: AudioStreamPlayer = $BallHitSound
 @onready var bonk_sound: AudioStreamPlayer = $BonkSound
 @onready var laugh_sound: AudioStreamPlayer = $LaughSound
+@onready var disable_time_text: Label3D = $DisableTimeText
 
 var stun_timer: float = 0.0
 var disable_timer: float = 0.0
@@ -108,10 +109,13 @@ var min_bonk_speed: float = 4.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED and disable_timer > 0.0:
+		disable_time_text.show()
+		disable_time_text.text = "%1.1f" % [disable_timer]
 		interact_indicator.hide()
 		attack_indicator.hide()
 		disable_timer -= get_physics_process_delta_time()
 		if disable_timer <= 0.0:
+			disable_time_text.hide()
 			body_state = BodyState.MOVING
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
@@ -127,10 +131,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	prev_linear_velocity = state.linear_velocity
 	
 	if body_state == BodyState.STUNNED and stun_timer > 0.0:
+		disable_time_text.show()
+		disable_time_text.text = "%1.1f" % [stun_timer]
 		interact_indicator.hide()
 		attack_indicator.hide()
 		stun_timer -= get_physics_process_delta_time()
 		if stun_timer <= 0.0:
+			disable_time_text.hide()
 			body_state = BodyState.MOVING
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
