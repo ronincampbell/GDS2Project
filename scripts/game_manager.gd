@@ -63,8 +63,10 @@ func _physics_process(delta: float) -> void:
 			mode = "playing"
 			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
 				active_ball = _place_object(golf_ball, marker.global_position+ball_spawn_offset)
+				marker.hide()
 			for marker in get_tree().get_nodes_in_group("ClubSpawnMarkers"):
 				active_club = _place_object(golf_club, marker.global_position+club_spawn_offset)
+				marker.hide()
 			var available_spawns: Array = get_tree().get_nodes_in_group("PlayerSpawnMarkers")
 			for player_num in ControllerManager.device_players.values():
 				var spawn_index: int = randi_range(0, available_spawns.size()-1)
@@ -73,6 +75,8 @@ func _physics_process(delta: float) -> void:
 				new_gnome.start_disable(match_start_time)
 				active_players.append(new_gnome)
 				available_spawns.remove_at(spawn_index)
+			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
+				marker.hide()
 			
 			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
 			#var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
@@ -131,6 +135,12 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			active_ball.queue_free()
 			active_club.queue_free()
 			mode = "obstacle placing"
+			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
+				marker.show()
+			for marker in get_tree().get_nodes_in_group("ClubSpawnMarkers"):
+				marker.show()
+			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
+				marker.show()
 
 func _place_object(object: PackedScene, pos: Vector3) -> Node:
 	var new_object = object.instantiate()
