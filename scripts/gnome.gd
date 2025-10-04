@@ -323,7 +323,7 @@ func _get_golf_club() -> GolfClub:
 
 func _get_club_holder() -> Gnome:
 	for body in player_interact_area.get_overlapping_bodies():
-		if body != self and body is Gnome and body.arm_state == ArmState.CLUB and body.body_state != BodyState.CONTESTING:
+		if body != self and body is Gnome and (body.arm_state == ArmState.CLUB or body.arm_state == ArmState.AIMING) and body.body_state != BodyState.CONTESTING:
 			return body
 	return null
 
@@ -388,7 +388,7 @@ func start_being_contested_by(contester: Gnome):
 	contesting_gnome = contester
 	body_state = BodyState.CONTESTING
 	if arm_state == ArmState.AIMING:
-		arm_state = ArmState.CLUB
+		cancel_aiming()
 
 func reduce_contest_power(contest_change: float):
 	contest_power -= contest_change
