@@ -82,7 +82,7 @@ func _ready() -> void:
 					break
 		_caster.attach(self, device_id)
 		#remove give_spell line later (only for testing)
-		_caster.give_spell(SpellCaster.SpellID.FIREBALL)
+		_caster.give_spell(SpellPickup.SpellID.FIREBALL)
 
 var prev_linear_velocity: Vector3
 var min_bonk_speed: float = 4.0
