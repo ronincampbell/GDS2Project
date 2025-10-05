@@ -12,7 +12,8 @@ collision_mask = 9
 script = ExtResource("1_v8xck")
 
 [node name="blockbench_export" parent="." instance=ExtResource("2_v8xck")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00770569, 0.203583, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.00770569, 0.412104, 0)
 shape = SubResource("BoxShape3D_j2bjd")

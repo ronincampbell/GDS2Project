@@ -8,7 +8,7 @@ height = 0.515564
 radius = 0.229004
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_oh3wc"]
-size = Vector3(0.0716553, 0.408203, 0.173584)
+size = Vector3(0.0716553, 0.41394, 0.173584)
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ldjp0"]
 height = 0.465271
@@ -23,19 +23,20 @@ collision_mask = 9
 script = ExtResource("1_h4fbc")
 
 [node name="blockbench_export" parent="." instance=ExtResource("2_ukv2r")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.260651, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.517896, 0)
 shape = SubResource("CylinderShape3D_ylp8p")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00604248, 0.233215, 0.288452)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.00604248, 0.455504, 0.561246)
 shape = SubResource("BoxShape3D_oh3wc")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.61038, 0.792109, 0, -0.792109, 0.61038, -0.012085, 0.224497, -0.279309)
+transform = Transform3D(2, 0, 0, 0, 1.22076, 1.58422, 0, -1.58422, 1.22076, -0.012085, 0.473945, -0.512865)
 shape = SubResource("CylinderShape3D_ldjp0")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.369974, 0.929042, 0, -0.929042, -0.369974, 0.0012207, 0.39769, -0.48912)
+transform = Transform3D(2, 0, 0, 0, -0.739948, 1.85808, 0, -1.85808, -0.739948, 0.0012207, 0.791275, -0.992251)
 shape = SubResource("BoxShape3D_xbujh")

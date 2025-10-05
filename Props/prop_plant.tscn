@@ -17,11 +17,12 @@ collision_mask = 9
 script = ExtResource("1_o3n5q")
 
 [node name="blockbench_export" parent="." instance=ExtResource("2_2bj52")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.245544, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.491315, 0)
 shape = SubResource("CylinderShape3D_dkmjw")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.493007, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1.09285, 0)
 shape = SubResource("CylinderShape3D_ihq4b")

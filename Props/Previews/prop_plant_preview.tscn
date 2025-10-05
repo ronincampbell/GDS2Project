@@ -13,10 +13,11 @@ downward_raycasts = [NodePath("DownwardRaycast")]
 side_raycasts = [NodePath("SideRaycasts/NorthRaycast"), NodePath("SideRaycasts/EastRaycast"), NodePath("SideRaycasts/SouthRaycast"), NodePath("SideRaycasts/WestRaycast")]
 
 [node name="DownwardRaycast" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0227169, 0)
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, -0.0227169, 0)
 target_position = Vector3(0, -0.2, 0)
 
 [node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 collision_layer = 0
 collision_mask = 17
 
@@ -25,6 +26,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.527432, 0)
 shape = SubResource("CapsuleShape3D_ar6eg")
 
 [node name="SideRaycasts" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="WestRaycast" type="RayCast3D" parent="SideRaycasts"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
@@ -43,9 +45,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.314841, 0)
 target_position = Vector3(0, 0, 0.8)
 
 [node name="blockbench_export2" parent="." instance=ExtResource("3_f5svn")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 visible = false
 
 [node name="blockbench_export" parent="." instance=ExtResource("3_8tx0v")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_entered"]
 [connection signal="area_exited" from="Area3D" to="." method="_on_area_exited"]
