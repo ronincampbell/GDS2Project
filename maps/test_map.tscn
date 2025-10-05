@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
 [ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="8_6b7mj"]
-[ext_resource type="PackedScene" path="res://NewMap/floor_plane.tscn" id="8_rw4qe"]
+[ext_resource type="PackedScene" uid="uid://7n0qffixg5k3" path="res://NewMap/floor_plane.tscn" id="8_rw4qe"]
 [ext_resource type="PackedScene" uid="uid://dhv8kwqoj2w5r" path="res://NewMap/new_map_1.tscn" id="9_wd2vj"]
 [ext_resource type="PackedScene" uid="uid://dl5cxytbdj1iq" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/house.gltf" id="10_rw4qe"]
 [ext_resource type="PackedScene" uid="uid://d0o8nwsisqs1w" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/mailbox.gltf" id="11_lqwt6"]

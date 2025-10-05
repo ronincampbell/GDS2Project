@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://chpaih64nsj73"]
+[gd_scene load_steps=28 format=3 uid="uid://chpaih64nsj73"]
 
 [ext_resource type="PackedScene" uid="uid://u3y10121u23c" path="res://models/Maps/Fence.glb" id="1_62t3n"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_qmmmc"]
@@ -10,6 +10,7 @@
 [ext_resource type="AudioStream" uid="uid://ci3a8appd47ui" path="res://sounds/laugh 2.wav" id="8_vwqo6"]
 [ext_resource type="AudioStream" uid="uid://bmkixsbkshfif" path="res://sounds/laugh 3.wav" id="9_xsajp"]
 [ext_resource type="AudioStream" uid="uid://ckf01aja76pd2" path="res://sounds/laugh 7.mp3" id="10_n1qbv"]
+[ext_resource type="Texture2D" uid="uid://c1g4b36gd66yt" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/xboxIconsBig.png" id="11_vwqo6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ng2wx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -51,6 +52,26 @@ stream_0/stream = ExtResource("7_uug8p")
 stream_1/stream = ExtResource("8_vwqo6")
 stream_2/stream = ExtResource("9_xsajp")
 stream_3/stream = ExtResource("10_n1qbv")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xsajp"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(168, 808, 136, 152)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1qbv"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(328, 808, 136, 152)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_revcj"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(648, 488, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwqo6"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(488, 488, 144, 144)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6qpm"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(1120, 336, 152, 120)
 
 [node name="Lobby" type="Node3D"]
 
@@ -298,9 +319,96 @@ anchor_bottom = 1.0
 offset_top = -75.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "'Start' To Join
+text = "'S' To Join
+
 'A' To Ready
+
 'B' To Unready
-'Back' To Leave"
+
+'Y' To Leave"
 horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
+
+[node name="AButton" type="TextureRect" parent="LobbyHud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -129.0
+offset_right = 94.0
+offset_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+texture = SubResource("AtlasTexture_xsajp")
+
+[node name="BButton" type="TextureRect" parent="LobbyHud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -75.0
+offset_right = 87.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+texture = SubResource("AtlasTexture_n1qbv")
+
+[node name="StartButton" type="TextureRect" parent="LobbyHud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -41.0
+offset_top = -179.0
+offset_right = 103.0
+offset_bottom = -19.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+texture = SubResource("AtlasTexture_revcj")
+
+[node name="SSButton" type="TextureRect" parent="LobbyHud"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -24.0
+offset_right = 95.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.16, 0.16)
+texture = SubResource("AtlasTexture_vwqo6")
+
+[node name="Label2" type="Label" parent="LobbyHud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "This Game Is Designed To Be Played With a Controller"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Controller" type="TextureRect" parent="LobbyHud"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -38.0
+offset_top = 25.0
+offset_right = 114.0
+offset_bottom = 145.0
+grow_horizontal = 2
+scale = Vector2(0.4, 0.4)
+texture = SubResource("AtlasTexture_s6qpm")
