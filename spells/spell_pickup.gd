@@ -32,6 +32,7 @@ func _on_reveal_timer() -> void:
 	_rolled_spell = SpellID.FIREBALL if pick == 0 else SpellID.SHIELD
 	_apply_visual_for_roll()
 	_revealed = true
+	_set_mystery_visible(false)
 
 func _apply_visual_for_roll() -> void:
 	if _rolled_spell == SpellID.FIREBALL and fireball_scene:
@@ -56,6 +57,7 @@ func _on_body_entered(body: Node) -> void:
 	if caster and not caster.has_spell():
 		if caster.give_spell(_rolled_spell):
 			_consume_or_respawn()
+			_set_mystery_visible(true)
 
 func _consume_or_respawn() -> void:
 	if respawn_after_pickup:

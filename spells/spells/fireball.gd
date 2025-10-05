@@ -1,20 +1,20 @@
 extends RigidBody3D
 class_name Fireball
 
-@export var speed: float = 24.0              # a bit faster for snappier feel
-@export var strength: float = 200.0           # base impulse strength (we also mass-scale below)
-@export var splash_radius: float = 12.0       # tune to taste
+@export var speed: float = 24.0
+@export var strength: float = 25.0
+@export var splash_radius: float = 8.0
 @export var lifetime: float = 2.5
-@export var hit_radius: float = 0.2          # tiny nose sphere for overlap hits
-@export var ignore_self_time: float = 0.5   # seconds to ignore shooter
+@export var hit_radius: float = 0.2
+@export var ignore_self_time: float = 0.5
 @export var debug_mode: bool = true
 @export var arm_time: float = 0.5
 @export_flags_3d_physics var hit_mask: int = 0xFFFFFFFF
 
 var shooter: Node = null
-
 var _age := 0.0
 var _prev_pos: Vector3
+var _last_dir: Vector3 = Vector3.FORWARD
 
 func _ready() -> void:
 	gravity_scale = 0.0
@@ -48,6 +48,9 @@ func _physics_process(delta: float) -> void:
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var from := _prev_pos
 	var to := global_position
+	var move := to - from
+	if move.length() > 0.0001:
+		_last_dir = move.normalized()
 
 	var space := get_world_3d().direct_space_state
 	var rq := PhysicsRayQueryParameters3D.create(from, to)
@@ -63,7 +66,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			_prev_pos = to
 			return
 		var p: Vector3 = hit.get("position", to)
-		_explode_and_free(p)
+		var n: Vector3 = hit.get("normal", _last_dir)
+		_explode_and_free(p, n)
 		return
 
 	var nose := SphereShape3D.new()
@@ -81,7 +85,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		if _age < arm_time:
 			_prev_pos = to
 			return
-		_explode_and_free(to)
+		_explode_and_free(to, _last_dir)
 		return
 	_prev_pos = to
 
@@ -92,10 +96,13 @@ func _on_body_entered(body: Node) -> void:
 		return
 	_explode_and_free(global_position)
 
-func _explode_and_free(at: Vector3) -> void:
+func _explode_and_free(at: Vector3, outward: Vector3 = Vector3.ZERO) -> void:
 	if splash_radius <= 0.0:
 		queue_free()
 		return
+
+	if outward != Vector3.ZERO:
+		at += outward.normalized() * 0.30
 
 	var sphere := SphereShape3D.new()
 	sphere.radius = splash_radius
@@ -108,54 +115,66 @@ func _explode_and_free(at: Vector3) -> void:
 	q.collision_mask = hit_mask
 
 	var hits := get_world_3d().direct_space_state.intersect_shape(q, 128)
-	_dbg("EXP hits=" + str(hits.size()))
-
 	var rigid_count := 0
+	var listed := 0
+
 	for h in hits:
 		var obj: Object = h.get("collider")
 		if obj == null:
 			continue
+
 		if obj == shooter and _age <= ignore_self_time:
 			continue
-
 		var node := obj as Node
+
 		if node != null and node.is_in_group("shielded"):
 			continue
-
 		var body := obj as RigidBody3D
+
 		if body != null:
 			rigid_count += 1
-			var pre_mode : Variant = body.mode
-			var pre_sleep := body.sleeping
-			var pre_freeze := body.freeze
-			var pre_mass := body.mass
-			var pre_ld := body.linear_damp
-
-			# If it's frozen or sleeping, wake/unfreeze it so impulses actually apply
 			if body.freeze:
 				body.freeze = false
 			body.sleeping = false
-			# (Optional) if a character/kinematic slipped in, make it rigid for the shove
-			# Comment out if you don't want to touch modes:
-			# if body.mode != RigidBody3D.MODE_RIGID:
-			#     body.mode = RigidBody3D.MODE_RIGID
-
 			var delta := body.global_transform.origin - at
 			var dist  : float = max(0.001, delta.length())
-			var dir   := delta / dist
+			var dir := _last_dir
+			if dist > 0.0001:
+				dir = delta / dist
 			var falloff : float = clamp(1.0 - (dist / splash_radius), 0.0, 1.0)
-
-			# Impulse scaled by mass (physically "correct")
-			var impulse : Variant = dir * strength * falloff * max(0.01, pre_mass)
+			var mass    : float = max(0.01, body.mass)
+			var impulse := dir * strength * falloff * mass
 			body.apply_central_impulse(impulse)
-
-			# Extra visible kick to overpower scripts that zero velocity each tick
-			# (tune 1.0..2.0 or remove later once you're confident)
 			body.linear_velocity += dir * (strength * falloff * 1.25)
 
-			_dbg("PUSH -> %s mode=%d sleep=%s freeze=%s mass=%.2f ld=%.2f falloff=%.2f"
-				% [body.name, pre_mode, str(pre_sleep), str(pre_freeze), pre_mass, pre_ld, falloff])
-	_dbg("EXP rigid_count=" + str(rigid_count) + " of " + str(hits.size()))
+	if rigid_count == 0:
+		var pushed := 0
+		for n in get_tree().get_nodes_in_group("pushable"):
+			if not (n is RigidBody3D):
+				continue
+			var body2 := n as RigidBody3D
+			if body2 == shooter and _age <= ignore_self_time:
+				continue
+
+			var delta2 := body2.global_transform.origin - at
+			var dist2 := delta2.length()
+			if dist2 > splash_radius:
+				continue
+
+			if body2.freeze:
+				body2.freeze = false
+			body2.sleeping = false
+
+			var dir2 := _last_dir
+			if dist2 > 0.0001:
+				dir2 = delta2 / dist2
+
+			var falloff2 : Variant = clamp(1.0 - (dist2 / splash_radius), 0.0, 1.0)
+			var mass2    : float = max(0.01, body2.mass)
+			var impulse2 : Variant = dir2 * strength * falloff2 * mass2
+			body2.apply_central_impulse(impulse2)
+			body2.linear_velocity += dir2 * (strength * falloff2 * 1.25)
+			pushed += 1
 
 	queue_free()
 
