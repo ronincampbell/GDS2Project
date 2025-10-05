@@ -10,6 +10,11 @@ class_name Fireball
 @export var debug_mode: bool = true
 @export var arm_time: float = 0.5
 @export_flags_3d_physics var hit_mask: int = 0xFFFFFFFF
+@export var sfx_launch: AudioStream
+@export var sfx_explode: AudioStream
+@export var sfx_bus: StringName = &"SFX"
+@export var sfx_pitch_jitter: float = 0.05
+@export var sfx_volume_db: float = 0.0
 
 var shooter: Node = null
 var _age := 0.0
@@ -17,6 +22,7 @@ var _prev_pos: Vector3
 var _last_dir: Vector3 = Vector3.FORWARD
 
 func _ready() -> void:
+	_play_sfx_3d(sfx_launch, global_position)
 	gravity_scale = 0.0
 	axis_lock_angular_x = true
 	axis_lock_angular_y = true
@@ -176,8 +182,28 @@ func _explode_and_free(at: Vector3, outward: Vector3 = Vector3.ZERO) -> void:
 			body2.linear_velocity += dir2 * (strength * falloff2 * 1.25)
 			pushed += 1
 
+	_play_sfx_3d(sfx_explode, at)
 	queue_free()
 
 func _dbg(msg: String) -> void:
 	if debug_mode:
 		print_debug("Fireball: ", msg, " age=", _age, " pos=", global_position)
+
+func _play_sfx_3d(stream: AudioStream, at_pos: Vector3) -> void:
+	if stream == null:
+		return
+	var p := AudioStreamPlayer3D.new()
+	p.stream = stream
+	p.bus = sfx_bus
+	p.volume_db = sfx_volume_db
+	p.pitch_scale = randf_range(1.0 - sfx_pitch_jitter, 1.0 + sfx_pitch_jitter)
+	p.global_transform = Transform3D(Basis(), at_pos)
+	p.max_distance = 80.0
+	p.unit_size = 1.0
+
+	var host := get_tree().current_scene
+	if host == null:
+		host = get_tree().root
+	host.add_child(p)
+	p.finished.connect(Callable(p, "queue_free"))
+	p.play()
