@@ -5,7 +5,6 @@ enum SpellID { FIREBALL, SHIELD }
 
 var current_spell: int = -1
 
-signal spell_changed(spell_id: int)
 @export var fireball_scene: PackedScene
 @export var shield_scene: PackedScene
 @export var cast_action: StringName = &"CastSpell"
