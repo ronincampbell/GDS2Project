@@ -66,6 +66,8 @@ var player_num: int = -1:
 		else:
 			player_num = value
 			_show_color_model(player_num-1)
+		if _caster:
+			_caster.player_num = player_num
 var device_id: int = 0
 
 @onready
@@ -95,14 +97,16 @@ var is_shielded: bool = false
 func _ready() -> void:
 	_caster = get_node_or_null("SpellCaster") as SpellCaster
 	if _caster:
-		if Engine.has_singleton("ControllerManager") and "device_players" in ControllerManager:
-			for dev in ControllerManager.device_players.keys():
-				if ControllerManager.device_players[dev] == player_num:
-					device_id = dev
-					break
-		_caster.attach(self, device_id)
-		#remove give_spell line later (only for testing)
-		_caster.give_spell(SpellPickup.SpellID.FIREBALL)
+		var tries := 0
+		while player_num < 1 and tries < 5:
+			await get_tree().process_frame
+			tries += 1
+		if player_num < 1:
+			player_num = 1
+		_caster.cast_action = &"PlayerCast"
+		if _caster.has_method("attach"):
+			_caster.attach(self)
+		#_caster.give_spell(SpellPickup.SpellID.FIREBALL)
 
 var prev_linear_velocity: Vector3
 var min_bonk_speed: float = 4.0

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="3_xvkqo"]
 [ext_resource type="Script" uid="uid://cptfnui6q75jl" path="res://spells/test/player_controller_test.gd" id="5_8550r"]
 [ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="5_xvkqo"]
-[ext_resource type="Script" path="res://spells/test/fireball_emitter.gd" id="6_8550r"]
+[ext_resource type="Script" uid="uid://48lefbat8ur5" path="res://spells/test/fireball_emitter.gd" id="6_8550r"]
 [ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="7_ifspy"]
 
 [sub_resource type="Environment" id="Environment_8550r"]

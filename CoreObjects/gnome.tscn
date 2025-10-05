@@ -55,7 +55,6 @@ stream_2/stream = ExtResource("17_jgpo3")
 stream_3/stream = ExtResource("18_7a58a")
 
 [node name="Gnome" type="RigidBody3D" groups=["CameraTarget", "pushable"]]
-
 collision_layer = 2
 collision_mask = 5
 axis_lock_angular_x = true
