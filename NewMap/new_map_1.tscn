@@ -5,4 +5,5 @@
 [node name="NewMap1" instance=ExtResource("1_0tkeu")]
 
 [node name="Ground" parent="." index="0"]
+layers = 3
 cast_shadow = 0

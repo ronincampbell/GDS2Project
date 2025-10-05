@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://7n0qffixg5k3"]
+
+[ext_resource type="PackedScene" uid="uid://d08vg1gg5md2m" path="res://NewMap/floorPlane.glb" id="1_l4oqc"]
+
+[node name="floorPlane" instance=ExtResource("1_l4oqc")]
+
+[node name="SubGround" parent="." index="0"]
+layers = 3
