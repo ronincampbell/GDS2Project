@@ -104,7 +104,7 @@ theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 3
 
 [node name="TimerText" type="RichTextLabel" parent="Timer/MarginContainer"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
 theme_override_font_sizes/bold_italics_font_size = 30
 theme_override_font_sizes/italics_font_size = 30
@@ -112,7 +112,6 @@ theme_override_font_sizes/mono_font_size = 30
 theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 30
 text = "30.00"
-fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1

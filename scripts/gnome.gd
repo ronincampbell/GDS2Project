@@ -363,6 +363,7 @@ func try_pickup():
 		held_club.is_held = true
 		held_club.enable_held_damping()
 		arm_state = ArmState.CLUB
+		Hud.update_player_crown(player_num)
 	elif closest_prop:
 		held_prop = closest_prop
 		held_prop.start_holding()
@@ -415,6 +416,7 @@ func drop_club():
 	held_club.disable_held_damping()
 	held_club = null
 	arm_state = ArmState.EMPTY
+	Hud.update_player_crown()
 
 func cancel_aiming():
 	aiming_ball.hide_aim_arrow()
@@ -437,6 +439,7 @@ func swing():
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
+	Hud.update_player_crown()
 	ball_hit_sound.play()
 
 func attack():
