@@ -264,10 +264,16 @@ size_flags_horizontal = 2
 theme_override_constants/separation = 10
 script = ExtResource("3_q8dl0")
 
-[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
+[node name="CrownControlNode" type="Control" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/CrownControlNode"]
 visible = false
 custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
+layout_mode = 1
+offset_right = 24.0
+offset_bottom = 24.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
@@ -441,10 +447,20 @@ custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_o30d6")
 
-[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2"]
+[node name="CrownControlNode" type="Control" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/CrownControlNode"]
 visible = false
 custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_bottom = 24.0
+grow_horizontal = 0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
@@ -460,10 +476,16 @@ size_flags_horizontal = 2
 theme_override_constants/separation = 10
 script = ExtResource("3_q8dl0")
 
-[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
+[node name="CrownControlNode" type="Control" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/CrownControlNode"]
 visible = false
 custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
+layout_mode = 1
+offset_right = 24.0
+offset_bottom = 24.0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
@@ -635,10 +657,20 @@ custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_q8dl0")
 
-[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4"]
+[node name="CrownControlNode" type="Control" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="GnomeCrown" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/CrownControlNode"]
 visible = false
 custom_minimum_size = Vector2(24, 24)
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -24.0
+offset_bottom = 24.0
+grow_horizontal = 0
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")

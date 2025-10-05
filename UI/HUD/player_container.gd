@@ -5,7 +5,7 @@ extends HBoxContainer
 @onready var timer = $IconContainer/IncapTimer
 @onready var score = $ScoreContainer/ScoreMargin/ScoreText
 @onready var arrow = $IconContainer/Arrow
-@onready var crown = $GnomeCrown
+@onready var crown = $CrownControlNode/GnomeCrown
 
 var is_timer_active: bool = false
 var countdown: float = 0.0
