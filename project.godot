@@ -28,6 +28,7 @@ PlayerSpawnMarkers=""
 BallSpawnMarkers=""
 ClubSpawnMarkers=""
 Players=""
+CameraTarget=""
 
 [input]
 

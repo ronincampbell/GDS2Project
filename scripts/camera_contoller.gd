@@ -1,8 +1,11 @@
 extends Camera3D
 
-const move_speed : float = 30
-const zoom_speed : float = 3
-const min_zoom : float = 5
+const move_speed : float = 5
+const max_zoom : float = 15
+const min_zoom : float = 4
+
+const camera_angle : float = 70
+const distance_from_targets : float = 0.14
 
 var targets : Array[Node] = []
 
@@ -11,7 +14,7 @@ func _physics_process(delta: float) -> void:
 		if _has_empty_node():
 			update_targets()
 		
-		move_camera()
+		move_camera(delta)
 
 func _has_empty_node() -> bool:
 	for target in targets:
@@ -23,14 +26,12 @@ func _has_empty_node() -> bool:
 func update_targets() -> void:
 	targets = get_tree().get_nodes_in_group("CameraTarget")
 
-func move_camera() -> void:
+func move_camera(delta : float) -> void:
 	var mid_pos : Vector3 = Vector3.ZERO
-	var min_pos : Vector2 = Vector2(targets[0].global_position.x, targets[0].global_position.y)
-	var max_pos : Vector2 = Vector2(targets[0].global_position.x, targets[0].global_position.y)
+	var min_pos : Vector2 = Vector2(targets[0].global_position.x, targets[0].global_position.z)
+	var max_pos : Vector2 = Vector2(targets[0].global_position.x, targets[0].global_position.z)
 	
 	for target in targets:
-		mid_pos += target.global_position
-		
 		if target.global_position.x < min_pos.x:
 			min_pos.x = target.global_position.x
 		
@@ -42,20 +43,33 @@ func move_camera() -> void:
 		
 		if target.global_position.z > max_pos.y:
 			max_pos.y = target.global_position.z
+
 	
-	mid_pos /= targets.size()
+	var x_range : float = abs(max_pos.x-min_pos.x)
+	var z_range : float = abs(max_pos.y-min_pos.y)
 	
-	var x_range : float = max_pos.x-min_pos.x
-	var z_range : float = max_pos.y-min_pos.y
+	mid_pos = Vector3(min_pos.x+max_pos.x, 0, min_pos.y+max_pos.y)/2
 	
-	var larger_range : float = z_range
+	var larger_range : float = z_range*9
 	
 	if x_range*16 > z_range*9:
-		larger_range = x_range
+		larger_range = x_range*16
 	
-	var distance_from_action : float = 0
+	var distance_from_action : float = larger_range * distance_from_targets
 	
-	print_debug("mid pos: "+str(mid_pos))
-	print_debug("x range: "+str(x_range))
-	print_debug("z range: "+str(z_range))
-	print_debug("amt of targets: "+str(targets.size()))
+	if distance_from_action > max_zoom:
+		distance_from_action = max_zoom
+	elif distance_from_action < min_zoom:
+		distance_from_action = min_zoom
+	
+	rotation_degrees = Vector3(-camera_angle, 0, 0)
+	var move_to_pos = Vector3(mid_pos.x, 
+						distance_from_action*sin(deg_to_rad(camera_angle)), 
+						distance_from_action*cos(deg_to_rad(camera_angle))+mid_pos.z)
+	
+	position = position.lerp(move_to_pos, delta*move_speed)
+	
+	if Input.is_key_pressed(KEY_K):
+		print_debug("mid pos: "+str(mid_pos))
+		print_debug("distance_from_action: "+str(distance_from_action))
+		print_debug("amt of targets: "+str(targets.size()))

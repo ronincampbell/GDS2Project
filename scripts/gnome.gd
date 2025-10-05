@@ -145,7 +145,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			rotation.z = 0.0
 		return
 	
-	Hud.indicate_player_incapicated(player_num-1, false)
+	Hud.indicate_player_incapicated(player_num-1, false, 0)
 	
 	if body_state == BodyState.CONTESTING:
 		interact_indicator.hide()
@@ -240,7 +240,7 @@ func start_stun(stun_time: float):
 	axis_lock_angular_z = false
 	stun_timer = stun_time
 	body_state = BodyState.STUNNED
-	Hud.indicate_player_incapicated(player_num-1, true)
+	Hud.indicate_player_incapicated(player_num-1, true, stun_time)
 
 func _show_color_model(index: int):
 	for i in color_models.size():

@@ -25,6 +25,8 @@ const gnome_spawn_offset: Vector3 = Vector3(0,1.4,0)
 var players_in_scene: int = 1
 enum players_prop {PLAYER1, PLAYER2, PLAYER3, PLAYER4}
 
+@onready var camera_controller : Camera3D = $Camera3D
+
 var player_current_props = {
 	players_prop.PLAYER1: "plant",
 	players_prop.PLAYER2: "plant",
@@ -99,6 +101,9 @@ func _place_player_object(player_current_prop, player_num) -> void:
 	if new_prop.has_method("set_player"):
 		new_prop.set_player(player_num)
 	prop_preview_in_scene[player_num-1] = new_prop
+	
+	if camera_controller.has_method("update_targets"):
+		camera_controller.update_targets()
 
 func _on_golf_hole_entered(body: Node3D) -> void:
 	if body.name == "GolfBall":
