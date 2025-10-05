@@ -30,6 +30,12 @@ var interact_input_key: InputEventKey
 var attack_input_key: InputEventKey
 var cancel_input_key: InputEventKey
 
+var rotate_clock_key: InputEventKey
+var rotate_anti_clock_key: InputEventKey
+
+var next_object_key: InputEventKey
+var previous_object_key: InputEventKey
+
 func _ready() -> void:
 	Input.joy_connection_changed.connect(_on_joy_connection_changed)
 	
@@ -106,6 +112,18 @@ func _ready() -> void:
 	
 	cancel_input_key = InputEventKey.new()
 	cancel_input_key.physical_keycode = KEY_Z
+	
+	rotate_clock_key = InputEventKey.new()
+	rotate_clock_key.physical_keycode = KEY_I
+	
+	rotate_anti_clock_key = InputEventKey.new()
+	rotate_anti_clock_key.physical_keycode = KEY_U
+	
+	next_object_key = InputEventKey.new()
+	next_object_key.physical_keycode = KEY_K
+	
+	previous_object_key = InputEventKey.new()
+	previous_object_key.physical_keycode = KEY_J
 
 func _on_joy_connection_changed(device_num: int, connected: bool):
 	if connected:
@@ -197,6 +215,10 @@ func _on_keyboard_joined():
 	InputMap.action_add_event("PlayerInteract"+player_num, interact_input_key.duplicate())
 	InputMap.action_add_event("PlayerAttack"+player_num, attack_input_key.duplicate())
 	InputMap.action_add_event("PlayerCancel"+player_num, cancel_input_key.duplicate())
+	InputMap.action_add_event("RotateClock"+player_num, rotate_clock_key.duplicate())
+	InputMap.action_add_event("RotateAntiClock"+player_num, rotate_anti_clock_key.duplicate())
+	InputMap.action_add_event("NextObject"+player_num, next_object_key.duplicate())
+	InputMap.action_add_event("PreviousObject"+player_num, previous_object_key.duplicate())
 	
 	print("Player %s joined on Device %s" % [player_num, -1])
 	device_joined.emit(device_players[-1], -1)
