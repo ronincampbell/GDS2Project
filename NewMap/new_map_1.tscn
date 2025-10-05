@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhv8kwqoj2w5r"]
+
+[ext_resource type="PackedScene" uid="uid://skoqtjljcovy" path="res://NewMap/NewMap1.glb" id="1_0tkeu"]
+
+[node name="NewMap1" instance=ExtResource("1_0tkeu")]
+
+[node name="Ground" parent="." index="0"]
+cast_shadow = 0
