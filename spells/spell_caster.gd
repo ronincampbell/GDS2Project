@@ -11,7 +11,6 @@ var current_spell: int = -1
 
 var _device_id: int = 0
 var _player: Node3D
-#var _player: CharacterBody3D
 @onready var _muzzle: Node3D = get_parent().get_node_or_null("Muzzle")
 
 var shield_active := false

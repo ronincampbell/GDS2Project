@@ -1,11 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://c7mgnajsfihvg"]
+[gd_scene load_steps=11 format=3 uid="uid://c7mgnajsfihvg"]
 
 [ext_resource type="PackedScene" uid="uid://dxijlxb8njrf0" path="res://spells/test/PlayerDummy.tscn" id="1_63d72"]
 [ext_resource type="Script" uid="uid://d3qbwed2crx8f" path="res://spells/test/sandbox.gd" id="1_j0h5b"]
-[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="2_f2qdg"]
 [ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="3_xvkqo"]
 [ext_resource type="Script" uid="uid://cptfnui6q75jl" path="res://spells/test/player_controller_test.gd" id="5_8550r"]
 [ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="5_xvkqo"]
+[ext_resource type="Script" path="res://spells/test/fireball_emitter.gd" id="6_8550r"]
+[ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="7_ifspy"]
 
 [sub_resource type="Environment" id="Environment_8550r"]
 
@@ -17,10 +18,8 @@ size = Vector3(50, 1, 50)
 
 [node name="Sandbox" type="Node3D"]
 script = ExtResource("1_j0h5b")
-fireball_scene = ExtResource("2_f2qdg")
-shield_scene = ExtResource("3_xvkqo")
-caster_a_path = NodePath("PlayerA/SpellCaster")
-caster_b_path = NodePath("PlayerB/SpellCaster")
+p2_path = NodePath("PlayerB")
+fallback_shield_scene = ExtResource("3_xvkqo")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_8550r")
@@ -43,9 +42,8 @@ mesh = SubResource("BoxMesh_vtaal")
 [node name="PlayerA" parent="." instance=ExtResource("1_63d72")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 0.428319, 0)
 script = ExtResource("5_8550r")
-move_speed = 7.0
-turn_speed_deg = 180.0
-gravity = 10.0
+move_force = 30.0
+max_speed = 10.0
 device_id = 0
 
 [node name="PlayerB" parent="." instance=ExtResource("1_63d72")]
@@ -56,6 +54,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38389, 0.35467, 1.03656)
 
 [node name="SpellPickup" parent="." instance=ExtResource("5_xvkqo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.11384, 0)
+fireball_scene = null
+shield_scene = null
 
 [node name="PlayerDummy2" parent="." instance=ExtResource("1_63d72")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.42938, 0.378003, -1.02896)
+
+[node name="FireballEmitter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.95023, 1.80041, -3.08008)
+script = ExtResource("6_8550r")
+fireball_scene = ExtResource("7_ifspy")
+rate_hz = 0.2
+
+[node name="Muzzle" type="Node3D" parent="FireballEmitter"]

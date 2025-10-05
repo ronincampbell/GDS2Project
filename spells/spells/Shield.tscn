@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://ben31qlfh5wt0"]
+[gd_scene load_steps=7 format=3 uid="uid://ben31qlfh5wt0"]
 
 [ext_resource type="Script" uid="uid://dlwyxsm5q4fu8" path="res://spells/spells/shield.gd" id="1_gfdem"]
+[ext_resource type="AudioStream" uid="uid://knkb7dcox2fl" path="res://sounds/cast_shield.wav" id="2_xqdnt"]
+[ext_resource type="AudioStream" uid="uid://cmyxa7marbvqd" path="res://sounds/shield_off.wav" id="3_suei7"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gfdem"]
 
@@ -15,6 +17,8 @@ height = 2.4
 
 [node name="Shield" type="Area3D"]
 script = ExtResource("1_gfdem")
+sfx_cast = ExtResource("2_xqdnt")
+sfx_expire = ExtResource("3_suei7")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_gfdem")
