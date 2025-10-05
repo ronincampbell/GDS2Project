@@ -51,8 +51,10 @@ func reset_incap_ind():
 	for indi in incap_indicators.get_children():
 		indi.hide()
 
-func enable_player_icons(players_in: Array[bool]):
-	print(players_in)
-	for p in players_in:
-		if p:
-			players.get(players_in.find(p)).show()
+func update_player_icons(players_in: Array[bool]):
+	for i in players_in.size():
+		var is_player_in: bool = players_in[i]
+		if is_player_in:
+			players[i].show()
+		else:
+			players[i].hide()

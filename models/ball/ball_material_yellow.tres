@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://81d27lw27wwy"]
+
+[ext_resource type="Texture2D" uid="uid://c8b7ye7ooxluk" path="res://models/ball/ball_0.png" id="1_7g3o6"]
+
+[resource]
+resource_name = "material_0"
+render_priority = 2
+transparency = 4
+cull_mode = 2
+albedo_color = Color(0.933333, 1, 0, 1)
+albedo_texture = ExtResource("1_7g3o6")
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.2
+texture_filter = 0
+texture_repeat = false

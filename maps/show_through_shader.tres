@@ -1,0 +1,81 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://dripy4b07e2eo"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_l82ej"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_w2spf"]
+constant = Color(1, 1, 1, 0)
+
+[sub_resource type="VisualShaderNodeSwitch" id="VisualShaderNodeSwitch_bij4m"]
+default_input_values = [0, false, 1, Quaternion(1, 1, 1, 1), 2, Quaternion(0, 0, 0, 0)]
+op_type = 5
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_2pqnl"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_4ngvm"]
+constant = Color(0, 1, 1, 1)
+
+[sub_resource type="VisualShaderNodeCompare" id="VisualShaderNodeCompare_8o7t1"]
+default_input_values = [0, 0.0, 1, 0.0, 2, 0.2]
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_mix;
+
+
+
+
+void fragment() {
+// ColorConstant:6
+	vec4 n_out6p0 = vec4(0.000000, 1.000000, 1.000000, 1.000000);
+
+
+// Input:2
+	vec4 n_out2p0 = COLOR;
+
+
+// Compare:7
+	float n_in7p2 = 0.20000;
+	bool n_out7p0 = (abs(n_out6p0.x - n_out2p0.x) < n_in7p2);
+
+// ColorConstant:3
+	vec4 n_out3p0 = vec4(1.000000, 1.000000, 1.000000, 0.000000);
+
+
+	vec4 n_out4p0;
+// Switch:4
+	n_out4p0 = mix(n_out2p0, n_out3p0, float(n_out7p0));
+
+
+// VectorDecompose:5
+	float n_out5p0 = n_out4p0.x;
+	float n_out5p1 = n_out4p0.y;
+	float n_out5p2 = n_out4p0.z;
+	float n_out5p3 = n_out4p0.w;
+
+
+// Output:0
+	COLOR.rgb = vec3(n_out4p0.xyz);
+	COLOR.a = n_out5p3;
+
+
+}
+"
+mode = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(660, 60)
+nodes/fragment/2/node = SubResource("VisualShaderNodeInput_l82ej")
+nodes/fragment/2/position = Vector2(-660, 220)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorConstant_w2spf")
+nodes/fragment/3/position = Vector2(-140, 180)
+nodes/fragment/4/node = SubResource("VisualShaderNodeSwitch_bij4m")
+nodes/fragment/4/position = Vector2(120, 120)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorDecompose_2pqnl")
+nodes/fragment/5/position = Vector2(380, 140)
+nodes/fragment/6/node = SubResource("VisualShaderNodeColorConstant_4ngvm")
+nodes/fragment/6/position = Vector2(-520, 20)
+nodes/fragment/7/node = SubResource("VisualShaderNodeCompare_8o7t1")
+nodes/fragment/7/position = Vector2(-300, -20)
+nodes/fragment/connections = PackedInt32Array(2, 0, 4, 2, 3, 0, 4, 1, 4, 0, 5, 0, 6, 0, 7, 0, 2, 0, 7, 1, 7, 0, 4, 0, 4, 0, 0, 0, 5, 3, 0, 1)

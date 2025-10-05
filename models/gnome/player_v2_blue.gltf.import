@@ -36,23 +36,23 @@ _subresources={
 "materials": {
 "material_0": {
 "use_external/enabled": true,
-"use_external/path": "uid://jb80sfm7t1uh"
+"use_external/path": "uid://cmdg5auab07pt"
 },
 "material_1": {
 "use_external/enabled": true,
-"use_external/path": "uid://jb80sfm7t1uh"
+"use_external/path": "uid://cmdg5auab07pt"
 },
 "material_2": {
 "use_external/enabled": true,
-"use_external/path": "uid://jb80sfm7t1uh"
+"use_external/path": "uid://cmdg5auab07pt"
 },
 "material_3": {
 "use_external/enabled": true,
-"use_external/path": "uid://jb80sfm7t1uh"
+"use_external/path": "uid://cmdg5auab07pt"
 },
 "material_4": {
 "use_external/enabled": true,
-"use_external/path": "uid://jb80sfm7t1uh"
+"use_external/path": "uid://cmdg5auab07pt"
 }
 },
 "nodes": {

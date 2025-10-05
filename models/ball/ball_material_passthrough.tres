@@ -1,0 +1,13 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://cysel3l44l1pr"]
+
+[ext_resource type="Material" uid="uid://jjqjwkfqkfly" path="res://models/ball/material_0.tres" id="1_j0rwr"]
+
+[resource]
+resource_name = "material_0"
+render_priority = 1
+next_pass = ExtResource("1_j0rwr")
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+texture_filter = 0
+texture_repeat = false
