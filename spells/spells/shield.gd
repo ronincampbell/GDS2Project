@@ -5,7 +5,7 @@ class_name Shield
 @export var radius: float = 1.2
 @export var absorb_knockback_scale: float = 0.2
 
-var owner_player: CharacterBody3D = null
+var owner_player: PhysicsBody3D = null
 var owner_caster: SpellCaster
 
 var _elapsed: float = 0.0
@@ -37,6 +37,7 @@ func _ready() -> void:
 	if owner_player != null:
 		owner_player.set("is_shielded", true)
 		owner_player.set("shield_absorb_scale", absorb_knockback_scale)
+		owner_player.add_to_group("shielded")
 
 func _physics_process(delta: float) -> void:
 	_elapsed += delta
@@ -56,4 +57,6 @@ func _on_body_entered(b: Node) -> void:
 func _cleanup_and_free() -> void:
 	if owner_caster != null:
 		owner_caster._on_shield_ended()
+	if owner_player and owner_player.is_in_group("shielded"):
+		owner_player.remove_from_group("shielded")
 	queue_free()
