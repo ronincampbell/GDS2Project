@@ -1,7 +1,9 @@
-[gd_scene load_steps=19 format=3 uid="uid://bffwna508cxnq"]
+[gd_scene load_steps=21 format=3 uid="uid://bffwna508cxnq"]
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
+[ext_resource type="Texture2D" uid="uid://bdap2nbf1umx7" path="res://spells/icons/fireball.png" id="2_10ibt"]
 [ext_resource type="Texture2D" uid="uid://ds85t07fvpvsl" path="res://placeholder_arrow.png" id="2_53dev"]
+[ext_resource type="Texture2D" uid="uid://nyb3v671bjyh" path="res://spells/icons/shield.png" id="3_3o8sq"]
 [ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="5_10ibt"]
@@ -115,6 +117,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yixhe")
+icon_fireball = ExtResource("2_10ibt")
+icon_shield = ExtResource("3_3o8sq")
 
 [node name="IncapIndicators" type="Control" parent="."]
 layout_mode = 1
@@ -348,6 +352,16 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Spell" type="Control" parent="PlayersContainer/TopRowContainer/Player1"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="PlayersContainer/TopRowContainer/Player1/Spell"]
+layout_mode = 0
+offset_left = -45.0
+offset_top = 55.0
+offset_right = -5.0
+offset_bottom = 95.0
+
 [node name="Player2" type="HBoxContainer" parent="PlayersContainer/TopRowContainer"]
 visible = false
 layout_mode = 2
@@ -408,6 +422,16 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="blockbench_export" parent="PlayersContainer/TopRowContainer/Player2/Player2Icon/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
+
+[node name="Spell" type="Control" parent="PlayersContainer/TopRowContainer/Player2"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="PlayersContainer/TopRowContainer/Player2/Spell"]
+layout_mode = 0
+offset_left = -144.0
+offset_top = 55.0
+offset_right = -104.0
+offset_bottom = 95.0
 
 [node name="BottomRowContainer" type="HBoxContainer" parent="PlayersContainer"]
 layout_mode = 2
@@ -473,6 +497,16 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Spell" type="Control" parent="PlayersContainer/BottomRowContainer/Player3"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="PlayersContainer/BottomRowContainer/Player3/Spell"]
+layout_mode = 0
+offset_left = -44.0
+offset_top = 1.0
+offset_right = -4.0
+offset_bottom = 41.0
+
 [node name="Player4" type="HBoxContainer" parent="PlayersContainer/BottomRowContainer"]
 visible = false
 layout_mode = 2
@@ -532,3 +566,13 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="blockbench_export" parent="PlayersContainer/BottomRowContainer/Player4/TextureRect2/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]
+
+[node name="Spell" type="Control" parent="PlayersContainer/BottomRowContainer/Player4"]
+layout_mode = 2
+
+[node name="Icon" type="TextureRect" parent="PlayersContainer/BottomRowContainer/Player4/Spell"]
+layout_mode = 0
+offset_left = -145.0
+offset_top = 3.0
+offset_right = -105.0
+offset_bottom = 43.0
