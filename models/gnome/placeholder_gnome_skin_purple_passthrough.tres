@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://2f3bobjcppnw"]
+
+[ext_resource type="Material" uid="uid://yg7d5ac4lfmy" path="res://models/gnome/placeholder_gnome_skin_purple.tres" id="1_yv70m"]
+
+[resource]
+next_pass = ExtResource("1_yv70m")
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.91, 0.1274, 0.883913, 1)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=21 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://bnaveyfa2eqtl" path="res://UI/prop placement/prop_placement.tscn" id="2_6b7mj"]
@@ -7,7 +7,6 @@
 [ext_resource type="ArrayMesh" uid="uid://1y361rlbimr" path="res://models/Maps/Map1.obj" id="5_k1jtb"]
 [ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
 [ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
-[ext_resource type="Script" uid="uid://2lrif2x4oxfs" path="res://scripts/camera_contoller.gd" id="6_wd2vj"]
 [ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
 [ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="8_6b7mj"]
 
@@ -20,7 +19,9 @@ sky_material = SubResource("ProceduralSkyMaterial_pwco0")
 
 [sub_resource type="Environment" id="Environment_cabd0"]
 background_mode = 2
+background_color = Color(0.501961, 0.25098, 0.501961, 1)
 sky = SubResource("Sky_42yok")
+ambient_light_source = 3
 tonemap_mode = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wd2vj"]
@@ -37,6 +38,20 @@ height = 0.1
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_b71ab"]
 height = 0.1
 radius = 0.15
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_svl6s"]
+top_radius = 0.025
+bottom_radius = 0.025
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fpxlb"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_u8v7t"]
+left_to_right = 0.0
+size = Vector3(0.2, 0.2, 0.025)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8pc84"]
+albedo_color = Color(1, 0, 0, 1)
 
 [node name="TestMap" type="Node3D"]
 script = ExtResource("1_cabd0")
@@ -77,9 +92,8 @@ shape = SubResource("ConcavePolygonShape3D_pbr4s")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, -2.82576e-05, 2.19154e-05, 8.32191e-06, 0.779913, 0.625888, -3.47782e-05, -0.625888, 0.779913, -0.0365372, 6.28287, 11.7465)
-script = ExtResource("6_wd2vj")
 
-[node name="GolfHole" type="MeshInstance3D" parent="." groups=["CameraTarget"]]
+[node name="GolfHole" type="MeshInstance3D" parent="."]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -3.11183, -0.0729234, -5.70722)
 mesh = SubResource("CylinderMesh_6slyc")
 skeleton = NodePath("")
@@ -89,6 +103,16 @@ collision_mask = 8
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="GolfHole/Area3D"]
 shape = SubResource("CylinderShape3D_b71ab")
+
+[node name="Flagpole" type="MeshInstance3D" parent="GolfHole"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.111, 0.5, -0.111)
+mesh = SubResource("CylinderMesh_svl6s")
+surface_material_override/0 = SubResource("StandardMaterial3D_fpxlb")
+
+[node name="Flag" type="MeshInstance3D" parent="GolfHole"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.884637, -0.111014)
+mesh = SubResource("PrismMesh_u8v7t")
+surface_material_override/0 = SubResource("StandardMaterial3D_8pc84")
 
 [node name="PlayerSpawnMarker" parent="." instance=ExtResource("5_pbr4s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29332, 0, 6.66432)

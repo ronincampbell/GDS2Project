@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dc0drnnruhema"]
 
 [ext_resource type="PackedScene" uid="uid://dke4k8svqfc7g" path="res://models/prop/watering_can/prop_wateringCan.gltf" id="1_ff7uc"]
-[ext_resource type="Material" uid="uid://de2sypkpgmr61" path="res://Props/prop_preview_material.tres" id="2_gv772"]
+[ext_resource type="Material" uid="uid://de2sypkpgmr61" path="res://Props/red_prop_preview_material.tres" id="2_gv772"]
 
 [node name="blockbench_export" instance=ExtResource("1_ff7uc")]
 

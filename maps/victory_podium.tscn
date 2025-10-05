@@ -1,0 +1,249 @@
+[gd_scene load_steps=22 format=3 uid="uid://bseh5fc1hs4s6"]
+
+[ext_resource type="Script" uid="uid://r5utoye1j3ny" path="res://maps/victory_podium.gd" id="1_jsakm"]
+[ext_resource type="PackedScene" uid="uid://u3y10121u23c" path="res://models/Maps/Fence.glb" id="1_usrpd"]
+[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jsakm"]
+[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_5olny"]
+[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_aqpk4"]
+[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_a2lcs"]
+[ext_resource type="AudioStream" uid="uid://cd37qbkju0h1b" path="res://sounds/laugh 1.wav" id="7_3emv0"]
+[ext_resource type="AudioStream" uid="uid://ci3a8appd47ui" path="res://sounds/laugh 2.wav" id="8_6frj5"]
+[ext_resource type="AudioStream" uid="uid://bmkixsbkshfif" path="res://sounds/laugh 3.wav" id="9_05tsl"]
+[ext_resource type="AudioStream" uid="uid://ckf01aja76pd2" path="res://sounds/laugh 7.mp3" id="10_hmqpp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3emv0"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_5xsys"]
+sky_material = SubResource("ProceduralSkyMaterial_3emv0")
+
+[sub_resource type="Environment" id="Environment_6frj5"]
+background_mode = 2
+sky = SubResource("Sky_5xsys")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05tsl"]
+albedo_color = Color(0, 0.694118, 0.0941176, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_hmqpp"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ncoko"]
+radius = 1.0
+height = 3.39563
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_w83jw"]
+viewport_path = NodePath("PhysicsP1/Player1Info/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_l4hbf"]
+viewport_path = NodePath("PhysicsP2/Player2Info/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_t146h"]
+viewport_path = NodePath("PhysicsP3/Player3Info/SubViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_tooky"]
+viewport_path = NodePath("PhysicsP4/Player4Info/SubViewport")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncoko"]
+streams_count = 4
+stream_0/stream = ExtResource("7_3emv0")
+stream_1/stream = ExtResource("8_6frj5")
+stream_2/stream = ExtResource("9_05tsl")
+stream_3/stream = ExtResource("10_hmqpp")
+
+[node name="VictoryPodium" type="Node3D"]
+script = ExtResource("1_jsakm")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_6frj5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Scene" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Fence" parent="Scene" instance=ExtResource("1_usrpd")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.30115, 0, 8.29791)
+
+[node name="Floor" type="CSGBox3D" parent="Scene"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, -0.4, 2.2)
+use_collision = true
+size = Vector3(20, 1, 8)
+material = SubResource("StandardMaterial3D_05tsl")
+
+[node name="Background Plane" type="MeshInstance3D" parent="Scene"]
+transform = Transform3D(207, 0, 0, 0, 0.965926, -15.2444, 0, 0.258819, 56.893, 1, -3, 0)
+mesh = SubResource("PlaneMesh_hmqpp")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_05tsl")
+
+[node name="PhysicsP1" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 11, 2)
+collision_layer = 0
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+gravity_scale = 2.0
+can_sleep = false
+freeze = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsP1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ncoko")
+
+[node name="Player1Info" type="Sprite3D" parent="PhysicsP1"]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_w83jw")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP1/Player1Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP1/Player1Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 1"
+horizontal_alignment = 1
+
+[node name="blockbench_export" parent="PhysicsP1" instance=ExtResource("2_jsakm")]
+
+[node name="PhysicsP2" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 11, 2)
+collision_layer = 0
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+gravity_scale = 2.0
+can_sleep = false
+freeze = true
+
+[node name="Player2Info" type="Sprite3D" parent="PhysicsP2"]
+transform = Transform3D(-0.866026, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866026, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_l4hbf")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP2/Player2Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP2/Player2Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 2"
+horizontal_alignment = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PhysicsP2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ncoko")
+
+[node name="blockbench_export" parent="PhysicsP2" instance=ExtResource("3_5olny")]
+
+[node name="PhysicsP3" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 11, 2)
+collision_layer = 0
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+gravity_scale = 2.0
+can_sleep = false
+freeze = true
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="PhysicsP3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
+shape = SubResource("CapsuleShape3D_ncoko")
+
+[node name="Player3Info" type="Sprite3D" parent="PhysicsP3"]
+transform = Transform3D(-0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, -0.965926, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_t146h")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP3/Player3Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP3/Player3Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 3"
+horizontal_alignment = 1
+
+[node name="blockbench_export" parent="PhysicsP3" instance=ExtResource("4_aqpk4")]
+
+[node name="PhysicsP4" type="RigidBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 11, 2)
+collision_layer = 0
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+gravity_scale = 2.0
+can_sleep = false
+freeze = true
+
+[node name="Player4Info" type="Sprite3D" parent="PhysicsP4"]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 0, 3, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_tooky")
+
+[node name="SubViewport" type="SubViewport" parent="PhysicsP4/Player4Info"]
+transparent_bg = true
+size = Vector2i(500, 500)
+
+[node name="PlayerNum" type="RichTextLabel" parent="PhysicsP4/Player4Info/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -113.58
+offset_right = -41.86
+offset_bottom = 40.0
+grow_horizontal = 2
+scale = Vector2(3.13, 3.13)
+text = "Player 4"
+horizontal_alignment = 1
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="PhysicsP4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000118256, 1.75029, 0.000126123)
+shape = SubResource("CapsuleShape3D_ncoko")
+
+[node name="blockbench_export" parent="PhysicsP4" instance=ExtResource("5_a2lcs")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
+
+[node name="Hud" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Hud"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -75.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Player X wins!"
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="GnomeLaugh" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_ncoko")

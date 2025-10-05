@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ctofnl8c6nef5"]
+
+[ext_resource type="Material" uid="uid://dlqcrfiqrg41j" path="res://models/ball/ball_material_blue.tres" id="1_5tm44"]
+
+[resource]
+resource_name = "material_0"
+render_priority = 1
+next_pass = ExtResource("1_5tm44")
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0, 0, 1, 1)
+texture_filter = 0
+texture_repeat = false

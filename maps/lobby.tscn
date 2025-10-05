@@ -15,12 +15,12 @@
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
 
-[sub_resource type="Sky" id="Sky_5xsys"]
+[sub_resource type="Sky" id="Sky_uug8p"]
 sky_material = SubResource("ProceduralSkyMaterial_ng2wx")
 
 [sub_resource type="Environment" id="Environment_scr03"]
 background_mode = 2
-sky = SubResource("Sky_5xsys")
+sky = SubResource("Sky_uug8p")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -303,3 +303,4 @@ text = "'Start' To Join
 'B' To Unready
 'Back' To Leave"
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
