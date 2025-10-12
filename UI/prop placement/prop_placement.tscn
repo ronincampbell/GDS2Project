@@ -1,6 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://bnaveyfa2eqtl"]
+[gd_scene load_steps=6 format=3 uid="uid://bnaveyfa2eqtl"]
 
 [ext_resource type="Script" uid="uid://cl1ea41yffhp6" path="res://UI/prop placement/prop_placement.gd" id="1_8oiy1"]
+[ext_resource type="Texture2D" uid="uid://c1g4b36gd66yt" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/xboxIconsBig.png" id="2_ce1e4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vsdkq"]
+atlas = ExtResource("2_ce1e4")
+region = Rect2(808, 360, 144, 80)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ce1e4"]
 bg_color = Color(0.537255, 0.635294, 0.490196, 1)
@@ -14,6 +19,10 @@ corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 corner_detail = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d4w6b"]
+atlas = ExtResource("2_ce1e4")
+region = Rect2(968, 360, 144, 80)
 
 [node name="PropPlacement" type="Control"]
 layout_mode = 3
@@ -37,20 +46,10 @@ offset_right = 63.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="L1Label" type="RichTextLabel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="L1Label" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/bold_italics_font_size = 30
-theme_override_font_sizes/italics_font_size = 30
-theme_override_font_sizes/mono_font_size = 30
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 30
-text = "L1"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_vsdkq")
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -69,20 +68,10 @@ layout_mode = 2
 theme_override_constants/h_separation = 10
 columns = 7
 
-[node name="R1Label" type="RichTextLabel" parent="HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
+[node name="R1Label" type="TextureRect" parent="HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/bold_italics_font_size = 30
-theme_override_font_sizes/italics_font_size = 30
-theme_override_font_sizes/mono_font_size = 30
-theme_override_font_sizes/normal_font_size = 30
-theme_override_font_sizes/bold_font_size = 30
-text = "R1"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
-horizontal_alignment = 1
-vertical_alignment = 1
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_d4w6b")
 
 [node name="Timer" type="PanelContainer" parent="."]
 layout_mode = 1
