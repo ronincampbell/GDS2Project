@@ -13,7 +13,6 @@ func _ready() -> void:
 func set_scoreboard():
 	#needs player dict
 	#for player in name_and_scores:
-		#player.get(0).text = "" 
 		#player.get(1).text = "" 
 	name_and_scores.sort_custom(sort_descending)
 	sort_scoreboard()

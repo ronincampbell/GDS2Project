@@ -1,12 +1,13 @@
-[gd_scene load_steps=27 format=3 uid="uid://bffwna508cxnq"]
+[gd_scene load_steps=30 format=3 uid="uid://bffwna508cxnq"]
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
-[ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_10ibt"]
+[ext_resource type="Texture2D" uid="uid://ojhjtjqgcgdj" path="res://Assets/crown.PNG" id="3_10ibt"]
 [ext_resource type="Script" uid="uid://cjphkt54sg4f5" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
 [ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="5_10ibt"]
 [ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="6_3o8sq"]
+[ext_resource type="PackedScene" uid="uid://u1ncvk7lwj7h" path="res://UI/HUD/Scoreboard.tscn" id="8_10ibt"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ktxb"]
 bg_color = Color(0.535397, 0.636131, 0.489567, 1)
@@ -78,6 +79,20 @@ corner_radius_bottom_left = 5
 corner_detail = 1
 shadow_size = 2
 shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y8qxg"]
+bg_color = Color(0, 0, 0, 0.321569)
+corner_radius_top_left = 50
+corner_radius_top_right = 50
+corner_radius_bottom_right = 50
+corner_radius_bottom_left = 50
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o30d6"]
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7v3yo"]
 bg_color = Color(0.537255, 0.635294, 0.490196, 1)
@@ -246,10 +261,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 3
-theme_override_constants/margin_top = 3
-theme_override_constants/margin_right = 3
-theme_override_constants/margin_bottom = 3
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="PlayersContainer" type="VBoxContainer" parent="PlayersMarginContainer"]
 layout_mode = 2
@@ -261,7 +274,7 @@ size_flags_vertical = 2
 [node name="Player1" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 script = ExtResource("3_q8dl0")
 
 [node name="CrownControlNode" type="Control" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
@@ -272,8 +285,11 @@ size_flags_vertical = 0
 visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
-offset_right = 24.0
-offset_bottom = 24.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 31.0
+offset_bottom = 28.0
+rotation = -0.139626
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
@@ -282,6 +298,8 @@ expand_mode = 1
 [node name="IconContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
 clip_children = 1
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_vb885")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer"]
@@ -328,14 +346,20 @@ custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_i5ryk")
 
-[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
-custom_minimum_size = Vector2(42, 47)
+[node name="OtherContainer" type="VBoxContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer"]
+custom_minimum_size = Vector2(42, 47)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
 
-[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/ScoreContainer"]
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer/ScoreContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/margin_left = 10
@@ -343,7 +367,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/ScoreContainer/ScoreMargin"]
+[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer/ScoreContainer/ScoreMargin"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -360,20 +384,46 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SpellContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer/SpellContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8qxg")
+
+[node name="SpellIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer/SpellContainer/PanelContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer/SpellContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_o30d6")
+stretch_mode = 5
+
 [node name="Player2" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 script = ExtResource("3_q8dl0")
 
-[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2"]
+[node name="OtherContainer" type="VBoxContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer"]
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_7v3yo")
 
-[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/ScoreContainer"]
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer/ScoreContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/margin_left = 10
@@ -381,7 +431,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/ScoreContainer/ScoreMargin"]
+[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer/ScoreContainer/ScoreMargin"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -398,9 +448,33 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SpellContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer/SpellContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_o30d6")
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer/SpellContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8qxg")
+
+[node name="SpellIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer/SpellContainer/PanelContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="IconContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2"]
 clip_children = 1
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_10ibt")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer"]
@@ -458,13 +532,16 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -24.0
+offset_left = -33.0
+offset_right = -9.0
 offset_bottom = 24.0
 grow_horizontal = 0
+rotation = 0.139626
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
 expand_mode = 1
+flip_h = true
 
 [node name="BottomRowContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer"]
 layout_mode = 2
@@ -473,7 +550,7 @@ size_flags_vertical = 10
 [node name="Player3" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 script = ExtResource("3_q8dl0")
 
 [node name="CrownControlNode" type="Control" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
@@ -484,8 +561,11 @@ size_flags_vertical = 0
 visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 1
-offset_right = 24.0
-offset_bottom = 24.0
+offset_left = 7.0
+offset_top = 4.0
+offset_right = 31.0
+offset_bottom = 28.0
+rotation = -0.139626
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
@@ -494,6 +574,8 @@ expand_mode = 1
 [node name="IconContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
 clip_children = 1
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_3o8sq")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer"]
@@ -540,13 +622,18 @@ custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_2y2n3")
 
-[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
+[node name="OtherContainer" type="VBoxContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer"]
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_gaqij")
 
-[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/ScoreContainer"]
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer/ScoreContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/margin_left = 10
@@ -554,7 +641,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/ScoreContainer/ScoreMargin"]
+[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer/ScoreContainer/ScoreMargin"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -570,20 +657,47 @@ scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="SpellContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer/SpellContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8qxg")
+
+[node name="SpellIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer/SpellContainer/PanelContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer/SpellContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_o30d6")
+stretch_mode = 5
 
 [node name="Player4" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
-theme_override_constants/separation = 10
+theme_override_constants/separation = 20
 script = ExtResource("3_q8dl0")
 
-[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4"]
+[node name="OtherContainer" type="VBoxContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="ScoreContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer"]
 custom_minimum_size = Vector2(42, 47)
 layout_mode = 2
+size_flags_horizontal = 8
 size_flags_vertical = 8
 theme_override_styles/panel = SubResource("StyleBoxFlat_dm5mv")
 
-[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/ScoreContainer"]
+[node name="ScoreMargin" type="MarginContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer/ScoreContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/margin_left = 10
@@ -591,7 +705,7 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 5
 
-[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/ScoreContainer/ScoreMargin"]
+[node name="ScoreText" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer/ScoreContainer/ScoreMargin"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -608,9 +722,33 @@ autowrap_mode = 0
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="SpellContainer" type="HBoxContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer/SpellContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = SubResource("AtlasTexture_o30d6")
+stretch_mode = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer/SpellContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_y8qxg")
+
+[node name="SpellIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer/SpellContainer/PanelContainer"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
 [node name="IconContainer" type="PanelContainer" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4"]
 clip_children = 1
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxFlat_gmunk")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer"]
@@ -668,10 +806,17 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -24.0
+offset_left = -33.0
+offset_right = -9.0
 offset_bottom = 24.0
 grow_horizontal = 0
+rotation = 0.139626
 size_flags_horizontal = 4
 size_flags_vertical = 0
 texture = ExtResource("3_10ibt")
 expand_mode = 1
+flip_h = true
+
+[node name="Scoreboard" parent="." instance=ExtResource("8_10ibt")]
+visible = false
+layout_mode = 1

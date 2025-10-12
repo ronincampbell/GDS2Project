@@ -3,9 +3,11 @@ extends HBoxContainer
 @onready var icon = $IconContainer/PlayerIcon
 @onready var viewport = $IconContainer/PlayerIcon/SubViewport
 @onready var timer = $IconContainer/IncapTimer
-@onready var score = $ScoreContainer/ScoreMargin/ScoreText
+@onready var score = $OtherContainer/ScoreContainer/ScoreMargin/ScoreText
 @onready var arrow = $IconContainer/Arrow
 @onready var crown = $CrownControlNode/GnomeCrown
+@onready var spell = $OtherContainer/SpellContainer/PanelContainer/SpellIcon
+@onready var spell_control = $OtherContainer/SpellContainer/ControlIcon
 
 var is_timer_active: bool = false
 var countdown: float = 0.0
@@ -57,3 +59,11 @@ func update_crown(is_holding_club: bool):
 		crown.show()
 	else:
 		crown.hide()
+
+func update_spell(held_spell):
+	if held_spell:
+		#spell.texture = held_spell.get_icon()
+		spell_control.show()
+	else:
+		spell.texture = null
+		spell_control.hide()

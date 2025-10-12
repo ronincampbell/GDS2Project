@@ -7,6 +7,7 @@ extends Control
 	$PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4
 ]
 @onready var score_announce = $ScoreAnnouncePanel/AnnounceMargin/ScoreAnnounceText
+@onready var scoreboard = $Scoreboard
 var current_scene: Node
 var players: Array
 
@@ -43,6 +44,10 @@ func init_hud():
 	reset_score_announce()
 	#hide incapicated indicators
 	reset_incap_ind()
+	#reset and hide scoreboard
+	reset_scoreboard()
+	#reset current spell icon
+	reset_spells_ui()
 
 func announce_score(player_id: int):
 	score_announce.get_parent().get_parent().show()
@@ -63,6 +68,14 @@ func reset_incap_ind():
 	for container in player_containers:
 		container.reset_timer()
 
+func reset_scoreboard():
+	scoreboard.set_scoreboard()
+	scoreboard.hide()
+
+func reset_spells_ui():
+	for container in player_containers:
+		container.update_spell(null)
+
 func update_player_icons(players_in: Array[bool]):
 	for i in players_in.size():
 		var is_player_in: bool = players_in[i]
@@ -76,3 +89,10 @@ func update_player_crown(player_id: int = -1):
 		container.update_crown(false)
 	if player_id > -1:
 		player_containers[clamp(player_id-1, 0, 3)].update_crown(true)
+
+func update_player_spell_icon(player_id: int = -1):
+	if player_id> -1:
+		player_containers[clamp(player_id-1, 0, 3)].update_spell() #pass players -> player_id -> held spell
+
+func show_scoreboard():
+	scoreboard.show()

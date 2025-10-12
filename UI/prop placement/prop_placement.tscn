@@ -47,9 +47,11 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="L1Label" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_vsdkq")
+expand_mode = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -69,9 +71,11 @@ theme_override_constants/h_separation = 10
 columns = 7
 
 [node name="R1Label" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_d4w6b")
+expand_mode = 3
 
 [node name="Timer" type="PanelContainer" parent="."]
 layout_mode = 1
