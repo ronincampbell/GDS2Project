@@ -54,8 +54,10 @@ func _physics_process(delta: float) -> void:
 			prop_placement_ui.visible = false
 			mode = "playing"
 			for marker in get_tree().get_nodes_in_group("BallSpawnMarkers"):
+				marker.set_visibility(false)
 				_place_object(golf_ball, marker.global_position+ball_spawn_offset)
 			for marker in get_tree().get_nodes_in_group("ClubSpawnMarkers"):
+				marker.set_visibility(false)
 				_place_object(golf_club, marker.global_position+club_spawn_offset)
 			var available_spawns: Array = get_tree().get_nodes_in_group("PlayerSpawnMarkers")
 			for player_num in ControllerManager.device_players.values():

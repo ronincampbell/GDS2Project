@@ -38,6 +38,7 @@ mesh = SubResource("BoxMesh_y15p2")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 2.06513, 0)
 light_color = Color(0.907263, 0, 0.175923, 1)
 light_energy = 16.0
+light_indirect_energy = 0.0
 light_projector = ExtResource("1_y15p2")
 light_size = 0.115
 shadow_enabled = true
