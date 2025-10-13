@@ -2,7 +2,7 @@ extends Camera3D
 
 const move_speed : float = 5
 const max_zoom : float = 15
-const min_zoom : float = 4
+const min_zoom : float = 6
 
 const camera_angle : float = 70
 const distance_from_targets : float = 0.14

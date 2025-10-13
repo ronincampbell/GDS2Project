@@ -63,6 +63,7 @@ func _physics_process(delta: float) -> void:
 				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
 				new_gnome.player_num = player_num
 				new_gnome.add_to_group("Players")
+				available_spawns[spawn_index].set_visibility(false)
 				available_spawns.remove_at(spawn_index)
 			
 			for marker in available_spawns:
