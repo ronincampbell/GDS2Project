@@ -80,7 +80,7 @@ func _physics_process(delta: float) -> void:
 		
 		for i in players_in_scene:
 			if !prop_preview_in_scene[i]:
-				_place_player_object(player_current_props[player_prop_index[i]], i+1)
+				_place_player_object(player_current_props[player_prop_index[i]], i+1, Vector3(0, 1.6, 0))
 			
 			var index_change = 0
 			if Input.is_action_just_pressed("NextObject"+str(i+1)):
@@ -89,6 +89,8 @@ func _physics_process(delta: float) -> void:
 				index_change -= 1
 			
 			if index_change != 0:
+				var pos : Vector3 = prop_preview_in_scene[i].position + Vector3(0, 1.6, 0)
+				
 				prop_preview_in_scene[i].queue_free()
 				
 				current_player_prop_index[i] += index_change
@@ -99,17 +101,14 @@ func _physics_process(delta: float) -> void:
 				
 				var new_prop = prop_index[current_player_prop_index[i]]
 				player_current_props[player_prop_index[i]] = new_prop
-				_place_player_object(new_prop, i+1)
+				_place_player_object(new_prop, i+1, pos)
 				prop_placement_ui.update_selected(i+1, new_prop)
 
-func _place_player_object(player_current_prop, player_num) -> void:
-	var new_prop = _place_object(placeable_props[player_current_prop], Vector3(0, 1.6, 0))
+func _place_player_object(player_current_prop, player_num, pos) -> void:
+	var new_prop = _place_object(placeable_props[player_current_prop], pos)
 	if new_prop.has_method("set_player"):
 		new_prop.set_player(player_num)
 	prop_preview_in_scene[player_num-1] = new_prop
-	
-	if camera_controller.has_method("update_targets"):
-		camera_controller.update_targets()
 
 func _on_golf_hole_entered(body: Node3D) -> void:
 	if body.name == "GolfBall":
@@ -127,6 +126,10 @@ func _place_object(object: PackedScene, pos: Vector3) -> Node:
 	var new_object = object.instantiate()
 	new_object.position = pos
 	add_child(new_object)
+	
+	if camera_controller.has_method("update_targets"):
+		camera_controller.update_targets()
+	
 	return new_object
 
 func prop_placed() -> void:
