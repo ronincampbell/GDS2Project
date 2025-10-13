@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xdudwh0e2byw"
+uid="uid://cjadbl0gnqf2j"
 path.s3tc="res://.godot/imported/bluePlayer_3.png-d9991fd9000ee635e94ebd36ca168567.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "285735c974f7c653ec86821ca73b0426"
 }
 
 [deps]

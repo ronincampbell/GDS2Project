@@ -65,6 +65,9 @@ func _physics_process(delta: float) -> void:
 				new_gnome.add_to_group("Players")
 				available_spawns.remove_at(spawn_index)
 			
+			for marker in available_spawns:
+				marker.set_visibility(false)
+			
 			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
 			#var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
 			#new_gnome.player_num = 1

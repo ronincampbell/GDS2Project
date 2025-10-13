@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbafsmkctb724"
-path.s3tc="res://.godot/imported/yellowPlayer_4.png-230a50062a9905c662aa74464a6e3332.s3tc.ctex"
+uid="uid://sj2bcdcr2j8l"
+path.s3tc="res://.godot/imported/marker_barrier.png-247b92638e241961acc50c9188784ab0.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "20fbf09621f01202f3f5e8e6ac23f150"
-}
 
 [deps]
 
-source_file="res://models/gnome/yellowGnome/yellowPlayer_4.png"
-dest_files=["res://.godot/imported/yellowPlayer_4.png-230a50062a9905c662aa74464a6e3332.s3tc.ctex"]
+source_file="res://models/marker/marker_barrier.png"
+dest_files=["res://.godot/imported/marker_barrier.png-247b92638e241961acc50c9188784ab0.s3tc.ctex"]
 
 [params]
 

@@ -2,14 +2,11 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dmwb0cd0wxygu"
+uid="uid://bf35ptltpj06k"
 path.s3tc="res://.godot/imported/purpleGnome_1.png-98675f193c39fe1f0716ce05f1c3cefd.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
-}
-generator_parameters={
-"md5": "e0d755fc97efa9b858af0f4abaf3ec73"
 }
 
 [deps]
