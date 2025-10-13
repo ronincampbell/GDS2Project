@@ -69,7 +69,7 @@ func move_camera(delta : float) -> void:
 	
 	position = position.lerp(move_to_pos, delta*move_speed)
 	
-	if Input.is_key_pressed(KEY_K):
-		print_debug("mid pos: "+str(mid_pos))
-		print_debug("distance_from_action: "+str(distance_from_action))
-		print_debug("amt of targets: "+str(targets.size()))
+	#if Input.is_key_pressed(KEY_K):
+		#print_debug("mid pos: "+str(mid_pos))
+		#print_debug("distance_from_action: "+str(distance_from_action))
+		#print_debug("amt of targets: "+str(targets.size()))
