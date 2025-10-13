@@ -1,12 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://cfr5kki42eooe"]
-
-[ext_resource type="Material" uid="uid://dy22ue18i08le" path="res://CoreObjects/spawn_marker_material.tres" id="1_ivv0k"]
+[gd_scene load_steps=5 format=3 uid="uid://cfr5kki42eooe"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_flt8v"]
 size = Vector3(2, 3.17885, 2)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_piuwt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_flt8v"]
+next_pass = SubResource("CanvasItemMaterial_piuwt")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.231373)
+backlight_enabled = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_cmdxs"]
-material = ExtResource("1_ivv0k")
+material = SubResource("StandardMaterial3D_flt8v")
 size = Vector3(2, 3.17885, 2)
 
 [node name="BallSpawnMarker" type="Marker3D" groups=["BallSpawnMarkers"]]
