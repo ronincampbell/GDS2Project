@@ -74,7 +74,7 @@ func reset_scoreboard():
 
 func reset_spells_ui():
 	for container in player_containers:
-		container.update_spell(null)
+		container.update_spell()
 
 func update_player_icons(players_in: Array[bool]):
 	for i in players_in.size():
@@ -90,9 +90,9 @@ func update_player_crown(player_id: int = -1):
 	if player_id > -1:
 		player_containers[clamp(player_id-1, 0, 3)].update_crown(true)
 
-func update_player_spell_icon(player_id: int = -1):
+func update_player_spell_icon(player_id: int = -1, spell: int = -1):
 	if player_id> -1:
-		player_containers[clamp(player_id-1, 0, 3)].update_spell() #pass players -> player_id -> held spell
+		player_containers[clamp(player_id-1, 0, 3)].update_spell(spell) #pass players -> player_id -> held spell
 
 func show_scoreboard():
 	scoreboard.show()

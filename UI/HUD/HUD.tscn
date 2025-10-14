@@ -1,10 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://bffwna508cxnq"]
+[gd_scene load_steps=31 format=3 uid="uid://bffwna508cxnq"]
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
 [ext_resource type="Texture2D" uid="uid://ojhjtjqgcgdj" path="res://Assets/crown.PNG" id="3_10ibt"]
 [ext_resource type="Script" uid="uid://cjphkt54sg4f5" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
 [ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
+[ext_resource type="Texture2D" uid="uid://b0h64taiy2s6u" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/icons_xbox_animated_buttons1.png" id="5_3o8sq"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="5_10ibt"]
 [ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="6_3o8sq"]
 [ext_resource type="PackedScene" uid="uid://u1ncvk7lwj7h" path="res://UI/HUD/Scoreboard.tscn" id="8_10ibt"]
@@ -92,7 +93,8 @@ expand_margin_right = 3.0
 expand_margin_bottom = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o30d6"]
-region = Rect2(0, 0, 16, 16)
+atlas = ExtResource("5_3o8sq")
+region = Rect2(1, 49, 13, 15)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7v3yo"]
 bg_color = Color(0.537255, 0.635294, 0.490196, 1)
@@ -399,6 +401,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/OtherContainer/SpellContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -453,6 +456,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/OtherContainer/SpellContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -673,6 +677,7 @@ expand_mode = 1
 stretch_mode = 5
 
 [node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/OtherContainer/SpellContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -727,6 +732,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="ControlIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/OtherContainer/SpellContainer"]
+visible = false
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 4

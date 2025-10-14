@@ -1,5 +1,8 @@
 extends HBoxContainer
 
+const spell_icons: Dictionary = {"fireball":preload("res://spells/icon/fireball.png"), "shield":preload("res://spells/icon/shield.png")}
+enum SpellID { FIREBALL, SHIELD }
+
 @onready var icon = $IconContainer/PlayerIcon
 @onready var viewport = $IconContainer/PlayerIcon/SubViewport
 @onready var timer = $IconContainer/IncapTimer
@@ -60,10 +63,14 @@ func update_crown(is_holding_club: bool):
 	else:
 		crown.hide()
 
-func update_spell(held_spell):
-	if held_spell:
-		#spell.texture = held_spell.get_icon()
-		spell_control.show()
+func update_spell(held_spell:int = -1):
+	if held_spell != -1:
+		if held_spell == SpellID.FIREBALL:
+			spell.texture = spell_icons.get("fireball")
+			spell_control.show()
+		if held_spell == SpellID.SHIELD:
+			spell.texture = spell_icons.get("shield")
+			spell_control.show()
 	else:
 		spell.texture = null
 		spell_control.hide()

@@ -43,6 +43,7 @@ func give_spell(id: int) -> bool:
 	if has_spell():
 		return false
 	current_spell = id
+	Hud.update_player_spell_icon(player_num, current_spell)
 	return true
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -56,6 +57,7 @@ func _cast_current() -> void:
 		SpellID.SHIELD:
 			_cast_shield()
 	current_spell = -1
+	Hud.update_player_spell_icon(player_num, current_spell)
 
 func _cast_fireball() -> void:
 	if fireball_scene == null or _player == null:
