@@ -23,7 +23,7 @@ func set_slot_prop(object: PackedScene):
 
 func clear_selections():
 	for panel in player_panels:
-		panel.hide()
+		panel.modulate = Color.TRANSPARENT
 
 func set_selections(player_index: int):
-	player_panels.get(player_index).show()
+	player_panels.get(player_index).modulate = Color.WHITE

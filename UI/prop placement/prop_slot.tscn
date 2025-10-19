@@ -59,13 +59,11 @@ size_flags_vertical = 4
 theme_override_constants/separation = -1
 
 [node name="Player1" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_llvrh")
 
 [node name="Player2" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k3s0n")
@@ -76,13 +74,11 @@ size_flags_vertical = 4
 theme_override_constants/separation = -1
 
 [node name="Player3" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5n30a")
 
 [node name="Player4" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7x2uc")

@@ -101,8 +101,8 @@ func _physics_process(delta: float) -> void:
 				
 				var new_prop = prop_index[current_player_prop_index[i]]
 				player_current_props[player_prop_index[i]] = new_prop
-				_place_player_object(new_prop, i+1, pos)
-				prop_placement_ui.update_selected(i+1, new_prop)
+				_place_player_object(new_prop, i, pos)
+				prop_placement_ui.update_selected(i, new_prop)
 
 func _place_player_object(player_current_prop, player_num, pos) -> void:
 	var new_prop = _place_object(placeable_props[player_current_prop], pos)
