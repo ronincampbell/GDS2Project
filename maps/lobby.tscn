@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://chpaih64nsj73"]
+[gd_scene load_steps=30 format=3 uid="uid://chpaih64nsj73"]
 
 [ext_resource type="PackedScene" uid="uid://u3y10121u23c" path="res://models/Maps/Fence.glb" id="1_62t3n"]
 [ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_qmmmc"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://bmkixsbkshfif" path="res://sounds/laugh 3.wav" id="9_xsajp"]
 [ext_resource type="AudioStream" uid="uid://ckf01aja76pd2" path="res://sounds/laugh 7.mp3" id="10_n1qbv"]
 [ext_resource type="Texture2D" uid="uid://c1g4b36gd66yt" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/xboxIconsBig.png" id="11_vwqo6"]
+[ext_resource type="PackedScene" uid="uid://dg6fdn5wc4x20" path="res://UI/setting_selector.tscn" id="12_xsajp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ng2wx"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -46,32 +47,36 @@ viewport_path = NodePath("PhysicsP3/Player3Info/SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_5xsys"]
 viewport_path = NodePath("PhysicsP4/Player4Info/SubViewport")
 
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_revcj"]
-streams_count = 4
-stream_0/stream = ExtResource("7_uug8p")
-stream_1/stream = ExtResource("8_vwqo6")
-stream_2/stream = ExtResource("9_xsajp")
-stream_3/stream = ExtResource("10_n1qbv")
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_s6qpm"]
 atlas = ExtResource("11_vwqo6")
 region = Rect2(1120, 336, 152, 120)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_revcj"]
 atlas = ExtResource("11_vwqo6")
-region = Rect2(648, 488, 144, 144)
+region = Rect2(640, 480, 160, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vwqo6"]
 atlas = ExtResource("11_vwqo6")
-region = Rect2(488, 488, 144, 144)
+region = Rect2(480, 480, 160, 160)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xsajp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxs3u"]
 atlas = ExtResource("11_vwqo6")
-region = Rect2(168, 808, 136, 152)
+region = Rect2(155, 805, 160, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n1qbv"]
 atlas = ExtResource("11_vwqo6")
-region = Rect2(328, 808, 136, 152)
+region = Rect2(315, 805, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34li1"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(1115, 1125, 160, 160)
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_revcj"]
+streams_count = 4
+stream_0/stream = ExtResource("7_uug8p")
+stream_1/stream = ExtResource("8_vwqo6")
+stream_2/stream = ExtResource("9_xsajp")
+stream_3/stream = ExtResource("10_n1qbv")
 
 [node name="Lobby" type="Node3D"]
 
@@ -300,12 +305,6 @@ shape = SubResource("CapsuleShape3D_ng2wx")
 
 [node name="blockbench_export" parent="PhysicsP4" instance=ExtResource("5_r7t2y")]
 
-[node name="PlayerDropInManager" type="Node" parent="."]
-script = ExtResource("3_ng2wx")
-
-[node name="GnomeLaugh" type="AudioStreamPlayer" parent="PlayerDropInManager"]
-stream = SubResource("AudioStreamRandomizer_revcj")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
 
@@ -400,7 +399,7 @@ size_flags_vertical = 4
 [node name="AButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Ready"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
-texture = SubResource("AtlasTexture_xsajp")
+texture = SubResource("AtlasTexture_uxs3u")
 expand_mode = 5
 
 [node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Ready"]
@@ -423,3 +422,80 @@ layout_mode = 2
 text = "Unready"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Row3" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+layout_mode = 2
+text = "Menu:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Select" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LeftStick" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Select"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_34li1")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Select"]
+layout_mode = 2
+text = "Select"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Update" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+layout_mode = 2
+
+[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Update"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_uxs3u")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Update"]
+layout_mode = 2
+text = "Update"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LobbySettings" type="VBoxContainer" parent="LobbyHud/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer"]
+layout_mode = 2
+text = "Map: "
+
+[node name="MapSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer" instance=ExtResource("12_xsajp")]
+layout_mode = 2
+text_values = Array[String](["PLACEHOLDER"])
+allow_wraparound = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer2"]
+layout_mode = 2
+text = "Point Limit: "
+
+[node name="PointLimitSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer2" instance=ExtResource("12_xsajp")]
+layout_mode = 2
+start_index = 2
+text_values = Array[String](["1", "2", "3", "4", "5"])
+
+[node name="PlayerDropInManager" type="Node" parent="."]
+script = ExtResource("3_ng2wx")
+
+[node name="GnomeLaugh" type="AudioStreamPlayer" parent="PlayerDropInManager"]
+stream = SubResource("AudioStreamRandomizer_revcj")
