@@ -1,129 +1,209 @@
 extends RigidBody3D
 class_name Fireball
 
-@export var speed: float = 10.0
-@export var strength: float = 150.0
+@export var speed: float = 24.0
+@export var strength: float = 25.0
+@export var splash_radius: float = 8.0
 @export var lifetime: float = 2.5
-@export var splash_radius: float = 5.0
-@export var destroy_on_world_hit: bool = true
-@export var hit_radius: float = 0.18
+@export var hit_radius: float = 0.2
+@export var ignore_self_time: float = 0.5
+@export var debug_mode: bool = true
+@export var arm_time: float = 0.5
+@export_flags_3d_physics var hit_mask: int = 0xFFFFFFFF
+@export var sfx_launch: AudioStream
+@export var sfx_explode: AudioStream
+@export var sfx_bus: StringName = &"SFX"
+@export var sfx_pitch_jitter: float = 0.05
+@export var sfx_volume_db: float = 0.0
 
 var shooter: Node = null
-var _age: float = 0.0
+var _age := 0.0
+var _prev_pos: Vector3
+var _last_dir: Vector3 = Vector3.FORWARD
 
 func _ready() -> void:
+	_play_sfx_3d(sfx_launch, global_position)
 	gravity_scale = 0.0
-	continuous_cd = true
 	axis_lock_angular_x = true
 	axis_lock_angular_y = true
 	axis_lock_angular_z = true
 
 	contact_monitor = true
 	max_contacts_reported = 8
+	body_entered.connect(_on_body_entered)
 
-	collision_layer = 1
-	collision_mask = 0
-	set_collision_mask_value(1, true)
-	set_collision_mask_value(2, true)
-	set_collision_mask_value(3, true)
+	collision_layer = 0
+	set_collision_layer_value(1, true)
+	collision_mask = 0xFFFFFFFF
 
-	linear_velocity = -global_transform.basis.z * speed
+	if shooter and shooter is PhysicsBody3D:
+		add_collision_exception_with(shooter)
+
+	var dir := -global_transform.basis.z
+	linear_velocity = dir * speed
 	sleeping = false
+
+	_prev_pos = global_position - dir * 0.2
 
 func _physics_process(delta: float) -> void:
 	_age += delta
 	if _age >= lifetime:
-		_explode_and_free(global_transform.origin)
+		_explode_and_free(global_position)
 		return
-
-	var from: Vector3 = global_transform.origin
-	var to: Vector3 = from + linear_velocity * delta
-
-	var params := PhysicsRayQueryParameters3D.create(from, to)
-	params.exclude = [self, shooter]
-	params.collision_mask = collision_mask
-	params.collide_with_areas = true
-	params.hit_from_inside = true
-
-	var hit := get_world_3d().direct_space_state.intersect_ray(params)
-	if hit.has("collider"):
-		_on_hit(hit["collider"], hit.get("position", to))
-		return
-
-	var ol := _overlap_any(from)
-	if ol.collider != null:
-		_on_hit(ol.collider, ol.position)
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	var count: int = state.get_contact_count()
-	for i in range(count):
-		var collider := state.get_contact_collider_object(i)
-		if collider != null:
-			var local_pos := state.get_contact_local_position(i)
-			var global_pos := global_transform * local_pos
-			_on_hit(collider, global_pos)
-			break
+	var from := _prev_pos
+	var to := global_position
+	var move := to - from
+	if move.length() > 0.0001:
+		_last_dir = move.normalized()
 
-func _overlap_any(at: Vector3) -> Dictionary:
-	var shape := SphereShape3D.new()
-	shape.radius = hit_radius
-	var q := PhysicsShapeQueryParameters3D.new()
-	q.shape = shape
-	q.transform = Transform3D(Basis(), at)
-	q.exclude = [self, shooter]
-	q.collide_with_bodies = true
-	q.collide_with_areas = true
-	q.collision_mask = collision_mask
-	var hits := get_world_3d().direct_space_state.intersect_shape(q, 8)
-	if hits.size() > 0:
-		var h := hits[0]
-		return {"collider": h.get("collider"), "position": at}
-	return {"collider": null, "position": at}
+	var space := get_world_3d().direct_space_state
+	var rq := PhysicsRayQueryParameters3D.create(from, to)
+	rq.exclude = [self, shooter]
+	rq.collide_with_areas = true
+	rq.collide_with_bodies = true
+	rq.collision_mask = hit_mask
+	rq.hit_from_inside = true
 
-func _on_hit(other: Object, hit_pos: Vector3) -> void:
-	if shooter != null and other == shooter:
+	var hit := space.intersect_ray(rq)
+	if hit.has("collider"):
+		if _age < arm_time:
+			_prev_pos = to
+			return
+		var p: Vector3 = hit.get("position", to)
+		var n: Vector3 = hit.get("normal", _last_dir)
+		_explode_and_free(p, n)
 		return
-	_explode_and_free(hit_pos)
 
-func explode(at: Vector3) -> void:
-	_explode_and_free(at)
+	var nose := SphereShape3D.new()
+	nose.radius = hit_radius
+	var sq := PhysicsShapeQueryParameters3D.new()
+	sq.shape = nose
+	sq.transform = Transform3D(Basis(), to)
+	sq.exclude = [self, shooter]
+	sq.collide_with_areas = true
+	sq.collide_with_bodies = true
+	sq.collision_mask = hit_mask
 
-func _explode_and_free(at: Vector3) -> void:
+	var overlaps := space.intersect_shape(sq, 8)
+	if overlaps.size() > 0:
+		if _age < arm_time:
+			_prev_pos = to
+			return
+		_explode_and_free(to, _last_dir)
+		return
+	_prev_pos = to
+
+func _on_body_entered(body: Node) -> void:
+	if _age < arm_time:
+		return
+	if body is Node and body.is_in_group("shielded"):
+		return
+	_explode_and_free(global_position)
+
+func _explode_and_free(at: Vector3, outward: Vector3 = Vector3.ZERO) -> void:
 	if splash_radius <= 0.0:
 		queue_free()
 		return
 
-	var space := get_world_3d().direct_space_state
-	var shape := SphereShape3D.new()
-	shape.radius = splash_radius
+	if outward != Vector3.ZERO:
+		at += outward.normalized() * 0.30
 
+	var sphere := SphereShape3D.new()
+	sphere.radius = splash_radius
 	var q := PhysicsShapeQueryParameters3D.new()
-	q.shape = shape
+	q.shape = sphere
 	q.transform = Transform3D(Basis(), at)
 	q.exclude = [self]
-	q.collide_with_bodies = true
 	q.collide_with_areas = true
-	q.collision_mask = 0x7FFFFFFF
+	q.collide_with_bodies = true
+	q.collision_mask = hit_mask
 
-	var hits: Array = space.intersect_shape(q, 64)
+	var hits := get_world_3d().direct_space_state.intersect_shape(q, 128)
+	var rigid_count := 0
+	var listed := 0
+
 	for h in hits:
-		var b: Object = h.get("collider")
-		if b == shooter:
+		var obj: Object = h.get("collider")
+		if obj == null:
 			continue
 
-		var node := b as Node
+		if obj == shooter and _age <= ignore_self_time:
+			continue
+		var node := obj as Node
+
 		if node != null and node.is_in_group("shielded"):
 			continue
+		var body := obj as RigidBody3D
 
-		if b is RigidBody3D:
-			var rb := b as RigidBody3D
-			var to_b: Vector3 = rb.global_transform.origin - at
-			var dist: float = max(0.001, to_b.length())
-			var dir: Vector3 = to_b / dist
-			var falloff: float = clamp(1.0 - (dist / splash_radius), 0.0, 1.0)
-			rb.apply_central_impulse(dir * strength * falloff)
-		elif b is CharacterBody3D:
-			if (b as CharacterBody3D).has_method("apply_knockback"):
-				(b as CharacterBody3D).apply_knockback(at, strength)
+		if body != null:
+			rigid_count += 1
+			if body.freeze:
+				body.freeze = false
+			body.sleeping = false
+			var delta := body.global_transform.origin - at
+			var dist  : float = max(0.001, delta.length())
+			var dir := _last_dir
+			if dist > 0.0001:
+				dir = delta / dist
+			var falloff : float = clamp(1.0 - (dist / splash_radius), 0.0, 1.0)
+			var mass    : float = max(0.01, body.mass)
+			var impulse := dir * strength * falloff * mass
+			body.apply_central_impulse(impulse)
+			body.linear_velocity += dir * (strength * falloff * 1.25)
 
+	if rigid_count == 0:
+		var pushed := 0
+		for n in get_tree().get_nodes_in_group("pushable"):
+			if not (n is RigidBody3D):
+				continue
+			var body2 := n as RigidBody3D
+			if body2 == shooter and _age <= ignore_self_time:
+				continue
+
+			var delta2 := body2.global_transform.origin - at
+			var dist2 := delta2.length()
+			if dist2 > splash_radius:
+				continue
+
+			if body2.freeze:
+				body2.freeze = false
+			body2.sleeping = false
+
+			var dir2 := _last_dir
+			if dist2 > 0.0001:
+				dir2 = delta2 / dist2
+
+			var falloff2 : Variant = clamp(1.0 - (dist2 / splash_radius), 0.0, 1.0)
+			var mass2    : float = max(0.01, body2.mass)
+			var impulse2 : Variant = dir2 * strength * falloff2 * mass2
+			body2.apply_central_impulse(impulse2)
+			body2.linear_velocity += dir2 * (strength * falloff2 * 1.25)
+			pushed += 1
+
+	_play_sfx_3d(sfx_explode, at)
 	queue_free()
+
+func _dbg(msg: String) -> void:
+	if debug_mode:
+		print_debug("Fireball: ", msg, " age=", _age, " pos=", global_position)
+
+func _play_sfx_3d(stream: AudioStream, at_pos: Vector3) -> void:
+	if stream == null:
+		return
+	var p := AudioStreamPlayer3D.new()
+	p.stream = stream
+	p.bus = sfx_bus
+	p.volume_db = sfx_volume_db
+	p.pitch_scale = randf_range(1.0 - sfx_pitch_jitter, 1.0 + sfx_pitch_jitter)
+	p.global_transform = Transform3D(Basis(), at_pos)
+	p.max_distance = 80.0
+	p.unit_size = 1.0
+
+	var host := get_tree().current_scene
+	if host == null:
+		host = get_tree().root
+	host.add_child(p)
+	p.finished.connect(Callable(p, "queue_free"))
+	p.play()

@@ -47,9 +47,11 @@ grow_horizontal = 2
 grow_vertical = 0
 
 [node name="L1Label" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_vsdkq")
+expand_mode = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -69,9 +71,11 @@ theme_override_constants/h_separation = 10
 columns = 7
 
 [node name="R1Label" type="TextureRect" parent="HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 size_flags_vertical = 4
 texture = SubResource("AtlasTexture_d4w6b")
+expand_mode = 3
 
 [node name="Timer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -93,7 +97,7 @@ theme_override_constants/margin_right = 6
 theme_override_constants/margin_bottom = 3
 
 [node name="TimerText" type="RichTextLabel" parent="Timer/MarginContainer"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(90, 32)
 layout_mode = 2
 theme_override_font_sizes/bold_italics_font_size = 30
 theme_override_font_sizes/italics_font_size = 30
@@ -101,7 +105,6 @@ theme_override_font_sizes/mono_font_size = 30
 theme_override_font_sizes/normal_font_size = 30
 theme_override_font_sizes/bold_font_size = 30
 text = "30.00"
-fit_content = true
 scroll_active = false
 autowrap_mode = 0
 horizontal_alignment = 1

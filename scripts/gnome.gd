@@ -66,6 +66,8 @@ var player_num: int = -1:
 		else:
 			player_num = value
 			_show_color_model(player_num-1)
+		if _caster:
+			_caster.player_num = player_num
 var device_id: int = 0
 
 @onready
@@ -95,14 +97,16 @@ var is_shielded: bool = false
 func _ready() -> void:
 	_caster = get_node_or_null("SpellCaster") as SpellCaster
 	if _caster:
-		if Engine.has_singleton("ControllerManager") and "device_players" in ControllerManager:
-			for dev in ControllerManager.device_players.keys():
-				if ControllerManager.device_players[dev] == player_num:
-					device_id = dev
-					break
-		_caster.attach(self, device_id)
-		#remove give_spell line later (only for testing)
-		_caster.give_spell(SpellPickup.SpellID.FIREBALL)
+		var tries := 0
+		while player_num < 1 and tries < 5:
+			await get_tree().process_frame
+			tries += 1
+		if player_num < 1:
+			player_num = 1
+		_caster.cast_action = &"PlayerCast"
+		if _caster.has_method("attach"):
+			_caster.attach(self)
+		#_caster.give_spell(SpellPickup.SpellID.FIREBALL)
 
 var prev_linear_velocity: Vector3
 var min_bonk_speed: float = 4.0
@@ -147,7 +151,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			rotation.z = 0.0
 		return
 	
-	Hud.indicate_player_incapicated(player_num-1, false)
+	Hud.indicate_player_incapicated(player_num-1, false, 0)
 	
 	if body_state == BodyState.CONTESTING:
 		interact_indicator.hide()
@@ -244,7 +248,7 @@ func start_stun(stun_time: float):
 	stun_timer = stun_time
 	body_state = BodyState.STUNNED
 	PlayerManager.notify_player_stunned(player_num)
-	Hud.indicate_player_incapicated(player_num-1, true)
+	Hud.indicate_player_incapicated(player_num-1, true, stun_time)
 
 func _show_color_model(index: int):
 	for i in color_models.size():
@@ -368,6 +372,7 @@ func try_pickup():
 		held_club.is_held = true
 		held_club.enable_held_damping()
 		arm_state = ArmState.CLUB
+		Hud.update_player_crown(player_num)
 		PlayerManager.notify_player_got_club(player_num)
 	elif closest_prop:
 		held_prop = closest_prop
@@ -422,6 +427,7 @@ func drop_club():
 	held_club.disable_held_damping()
 	held_club = null
 	arm_state = ArmState.EMPTY
+	Hud.update_player_crown()
 	PlayerManager.notify_player_lost_club(player_num)
 
 func cancel_aiming():
@@ -445,6 +451,7 @@ func swing():
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
+	Hud.update_player_crown()
 	PlayerManager.notify_player_lost_club(player_num)
 	ball_hit_sound.play()
 

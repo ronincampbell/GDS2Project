@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://r0qq4c5we7un"]
+[gd_scene load_steps=7 format=3 uid="uid://r0qq4c5we7un"]
 
 [ext_resource type="Script" uid="uid://buh6xkt1ctw6u" path="res://spells/spells/fireball.gd" id="1_mxssc"]
+[ext_resource type="AudioStream" uid="uid://cli8onpx314j6" path="res://sounds/cast_fireball.wav" id="2_fdkvu"]
+[ext_resource type="AudioStream" uid="uid://bhxiay6obaq0a" path="res://sounds/explosion.wav" id="3_uowgw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_m8byu"]
 radius = 0.3
@@ -22,6 +24,8 @@ axis_lock_angular_z = true
 gravity_scale = 0.0
 continuous_cd = true
 script = ExtResource("1_mxssc")
+sfx_launch = ExtResource("2_fdkvu")
+sfx_explode = ExtResource("3_uowgw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_m8byu")

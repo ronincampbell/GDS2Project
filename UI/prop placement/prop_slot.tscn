@@ -6,17 +6,17 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_hyoth"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3s0n"]
-bg_color = Color(0.521569, 0.360784, 0.392157, 0.235294)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2uc"]
-bg_color = Color(0.678431, 0.654902, 0.172549, 0.235294)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_llvrh"]
 bg_color = Color(0.0509804, 0.0666667, 0.431373, 0.235294)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3s0n"]
+bg_color = Color(0.521569, 0.360784, 0.392157, 0.772549)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5n30a"]
 bg_color = Color(0.858824, 0.0862745, 0.0862745, 0.352941)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7x2uc"]
+bg_color = Color(0.678431, 0.654902, 0.172549, 0.235294)
 
 [sub_resource type="Environment" id="Environment_k3s0n"]
 background_color = Color(0.478431, 0.74902, 0.4, 0.486275)
@@ -59,16 +59,14 @@ size_flags_vertical = 4
 theme_override_constants/separation = -1
 
 [node name="Player1" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
-visible = false
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_llvrh")
+
+[node name="Player2" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_k3s0n")
-
-[node name="Player2" type="PanelContainer" parent="VBoxContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_7x2uc")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
@@ -76,16 +74,14 @@ size_flags_vertical = 4
 theme_override_constants/separation = -1
 
 [node name="Player3" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
-visible = false
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_llvrh")
-
-[node name="Player4" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
-visible = false
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_5n30a")
+
+[node name="Player4" type="PanelContainer" parent="VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_7x2uc")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 own_world_3d = true
@@ -96,7 +92,7 @@ size = Vector2i(96, 96)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.388665, 1.2798)
 environment = SubResource("Environment_k3s0n")
 projection = 1
-size = 1.2
+size = 2.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.25822)
