@@ -71,7 +71,7 @@ script = ExtResource("1_cabd0")
 environment = SubResource("Environment_cabd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.589378, -0.498362, -0.635822, -0.470868, -0.427614, 0.771641, -0.656442, 0.754176, 0.0173634, 0, 3.71263, 0)
+transform = Transform3D(0.781049, -0.498745, -0.375788, -0.198869, -0.769095, 0.607407, -0.591958, -0.399682, -0.699886, 0, 3.71263, 0)
 shadow_enabled = true
 
 [node name="Barrier" parent="." instance=ExtResource("2_svl6s")]

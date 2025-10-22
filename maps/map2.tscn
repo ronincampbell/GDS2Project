@@ -110,8 +110,10 @@ script = ExtResource("1_64p5s")
 environment = SubResource("Environment_cabd0")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.589378, -0.498362, -0.635822, -0.470868, -0.427614, 0.771641, -0.656442, 0.754176, 0.0173634, 0, 3.71263, 0)
+transform = Transform3D(-0.00309786, -0.873867, -0.486156, -0.470869, -0.427614, 0.77164, -0.882197, 0.231307, -0.410154, 0, 3.71263, 0)
 shadow_enabled = true
+directional_shadow_fade_start = 1.0
+directional_shadow_max_distance = 8192.0
 
 [node name="Barrier" parent="." instance=ExtResource("3_lcwnw")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10)
@@ -268,7 +270,8 @@ transform = Transform3D(0.158106, 0, 0.987422, 0, 1, 0, -0.987422, 0, 0.158106, 
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8.43884, -0.451137, 30.3901)
 
 [node name="Map2" type="MeshInstance3D" parent="NewMap2"]
-transform = Transform3D(10.0141, 0, 0, 0, 10.0141, 0, 0, 0, 10.6966, -30.0973, 0.421734, 9)
+transform = Transform3D(10.0141, 0, 0, 0, 10.0141, 0, 0, 0, 10.0141, -30.0973, 0.421734, 9)
+layers = 3
 cast_shadow = 0
 mesh = SubResource("ArrayMesh_xvigg")
 skeleton = NodePath("")
@@ -276,7 +279,7 @@ skeleton = NodePath("")
 [node name="StaticBody3D" type="StaticBody3D" parent="NewMap2"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="NewMap2/StaticBody3D"]
-transform = Transform3D(10.0141, 0, 0, 0, 10.0141, 0, 0, 0, 10.6966, -30.0973, 0.421734, 9)
+transform = Transform3D(10.0141, 0, 0, 0, 10.0141, 0, 0, 0, 10.0141, -30.0973, 0.421734, 9)
 shape = SubResource("ConcavePolygonShape3D_xeelf")
 
 [connection signal="body_entered" from="GolfHole/Area3D" to="." method="_on_golf_hole_entered"]
