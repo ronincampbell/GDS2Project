@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://7it4fflr7mn2"]
+
+[ext_resource type="Texture2D" uid="uid://cscjw8kklmxr0" path="res://models/gnome/redGnome/redPlayer_4.png" id="1_3f6xu"]
+
+[resource]
+resource_name = "material_4"
+render_priority = 2
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_3f6xu")
+texture_filter = 0
+texture_repeat = false

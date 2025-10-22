@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b18xiue4yjdxr"]
+
+[ext_resource type="Material" uid="uid://5xjmltiwuco3" path="res://models/gnome/yellowGnome/materials/material_4.tres" id="1_366rs"]
+
+[resource]
+render_priority = 1
+next_pass = ExtResource("1_366rs")
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.88, 0.88, 0.0528, 1)

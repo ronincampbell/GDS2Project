@@ -1,0 +1,11 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bojnlsuln4k4r"]
+
+[ext_resource type="Material" uid="uid://bp0jauqxo7oi8" path="res://models/gnome/purpleGnome/materials/material_3.tres" id="1_bjb4p"]
+
+[resource]
+render_priority = 1
+next_pass = ExtResource("1_bjb4p")
+cull_mode = 2
+no_depth_test = true
+shading_mode = 0
+albedo_color = Color(0.91, 0.1274, 0.883913, 1)

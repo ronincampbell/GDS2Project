@@ -1833,6 +1833,28 @@ _subresources={
 "slice_99/start_frame": 0,
 "slices/amount": 0
 }
+},
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "uid://c0dutwgr4f1qr"
+},
+"material_1": {
+"use_external/enabled": true,
+"use_external/path": "uid://d2xvxscce1ipl"
+},
+"material_2": {
+"use_external/enabled": true,
+"use_external/path": "uid://bum3pj3ytv1ue"
+},
+"material_3": {
+"use_external/enabled": true,
+"use_external/path": "uid://bhx84jy2t1vju"
+},
+"material_4": {
+"use_external/enabled": true,
+"use_external/path": "uid://b18xiue4yjdxr"
+}
 }
 }
 gltf/naming_version=1

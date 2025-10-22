@@ -3632,6 +3632,28 @@ _subresources={
 "slice_99/start_frame": 0,
 "slices/amount": 0
 }
+},
+"materials": {
+"material_0": {
+"use_external/enabled": true,
+"use_external/path": "uid://c6i5ejsp4ie4m"
+},
+"material_1": {
+"use_external/enabled": true,
+"use_external/path": "uid://dk6uhrkkrm66n"
+},
+"material_2": {
+"use_external/enabled": true,
+"use_external/path": "uid://cav4hm1iujylx"
+},
+"material_3": {
+"use_external/enabled": true,
+"use_external/path": "uid://cth56sg1imuru"
+},
+"material_4": {
+"use_external/enabled": true,
+"use_external/path": "uid://dtv224axo76pf"
+}
 }
 }
 gltf/naming_version=1
