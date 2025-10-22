@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://bnaveyfa2eqtl" path="res://UI/prop placement/prop_placement.tscn" id="2_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
-[ext_resource type="Script" uid="uid://2lrif2x4oxfs" path="res://scripts/camera_contoller.gd" id="4_lqwt6"]
+[ext_resource type="Script" path="res://scripts/camera_contoller.gd" id="4_lqwt6"]
 [ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
 [ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_svl6s"]
