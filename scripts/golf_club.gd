@@ -11,6 +11,14 @@ var free_linear_damping: float = 0.3
 var held_angular_damping: float = 2.0
 var free_angular_damping: float = 0.3
 
+var spawn_pos: Vector3 = Vector3.ZERO
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if spawn_pos == Vector3.ZERO:
+		spawn_pos = global_position
+	if global_position.y < -10:
+		global_position = spawn_pos
+
 func get_handle_force_offset():
 	return handle_marker.global_position - global_position
 

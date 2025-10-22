@@ -17,9 +17,16 @@ var last_hit_player: int = -1
 @export
 var color_models: Array[Node3D]
 
+var spawn_pos: Vector3 = Vector3.ZERO
+
+
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	state.linear_velocity.limit_length(max_move_speed)
 	state.angular_velocity.limit_length(max_spin_speed)
+	if spawn_pos == Vector3.ZERO:
+		spawn_pos = global_position
+	if global_position.y < -10:
+		global_position = spawn_pos
 
 func show_aim_arrow():
 	showing_aim_arrow = true
