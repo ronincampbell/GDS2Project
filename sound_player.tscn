@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dq36uq4ustvkf"]
 
-[ext_resource type="Script" path="res://sound_player.gd" id="1_t28fc"]
+[ext_resource type="Script" uid="uid://crgl1vegbyx3c" path="res://sound_player.gd" id="1_t28fc"]
 [ext_resource type="AudioStream" uid="uid://dn2n3167tq472" path="res://sounds/Hole 1.mp3" id="2_fbbgd"]
 
 [node name="SoundPlayer" type="Node"]

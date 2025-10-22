@@ -1,7 +1,7 @@
 extends HBoxContainer
 
 @export
-var start_index: int
+var start_index: int = 0
 @export
 var text_values: Array[String]
 @export

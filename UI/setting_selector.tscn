@@ -7,6 +7,7 @@ script = ExtResource("1_8d5n7")
 
 [node name="PrevButton" type="Button" parent="."]
 layout_mode = 2
+focus_neighbor_right = NodePath("../NextButton")
 text = "<"
 
 [node name="SelectedLabel" type="Label" parent="."]
@@ -15,6 +16,7 @@ text = "PLACEHOLDER"
 
 [node name="NextButton" type="Button" parent="."]
 layout_mode = 2
+focus_neighbor_left = NodePath("../PrevButton")
 text = ">"
 
 [connection signal="pressed" from="PrevButton" to="." method="_on_prev_button_pressed"]
