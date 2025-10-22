@@ -4,7 +4,7 @@ extends RigidBody3D
 enum ArmState {EMPTY, PROP, CLUB, AIMING}
 enum BodyState {DISABLED, MOVING, STUNNED, CONTESTING}
 
-const move_force: float = 40.0
+const move_force: float = 100.0
 const max_walk_speed: float = 3.0
 
 var arm_state: ArmState = ArmState.EMPTY
