@@ -14,13 +14,14 @@ config/name="GnomeInOne"
 run/main_scene="uid://chpaih64nsj73"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
-<<<<<<<HEADrun/main_scene="uid://kf5auj8ixedm"
 
 [autoload]
 
 Hud="*res://UI/HUD/HUD.tscn"
 ControllerManager="*res://controller_manager.gd"
 SoundPlayer="*res://sound_player.tscn"
+VictoryHoldover="*res://victory_holdover.gd"
+PlayerManager="*res://player_manager.gd"
 
 [global_group]
 
