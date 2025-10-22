@@ -25,7 +25,8 @@ func next_scene():
 	Hud.show()
 	Hud.update_player_icons(players_in)
 	LobbyManager.point_limit = point_limit_selector.current_index + 1
-	get_tree().change_scene_to_file("res://maps/test_map.tscn")
+	var map_name: String = map_selector.get_text_value()
+	get_tree().change_scene_to_file("res://maps/"+map_name+".tscn")
 
 func all_ready() -> bool:
 	if players_in.all(func(value):return value == false):

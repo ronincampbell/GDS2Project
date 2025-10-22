@@ -1,11 +1,11 @@
 [gd_scene load_steps=41 format=3 uid="uid://chpaih64nsj73"]
 
 [ext_resource type="Texture2D" uid="uid://bogxbu0j7b24" path="res://Assets/Painterly Sky BGs (177).png" id="1_n1qbv"]
-[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_qmmmc"]
+[ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="3_bpwwb"]
 [ext_resource type="Script" uid="uid://dt3okoa4cn4mr" path="res://scripts/player_drop_in_manager.gd" id="3_ng2wx"]
-[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_q70mm"]
-[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_mj7ku"]
-[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_r7t2y"]
+[ext_resource type="PackedScene" uid="uid://dv1h1uv5xx0j2" path="res://models/gnome/blueGnome/bluePlayer.gltf" id="3_pnpyx"]
+[ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="4_bpwwb"]
+[ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="5_bpwwb"]
 [ext_resource type="AudioStream" uid="uid://cd37qbkju0h1b" path="res://sounds/laugh 1.wav" id="7_uug8p"]
 [ext_resource type="AudioStream" uid="uid://ci3a8appd47ui" path="res://sounds/laugh 2.wav" id="8_vwqo6"]
 [ext_resource type="AudioStream" uid="uid://bmkixsbkshfif" path="res://sounds/laugh 3.wav" id="9_xsajp"]
@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://d08vg1gg5md2m" path="res://NewMap/floorPlane.glb" id="10_vwqo6"]
 [ext_resource type="Texture2D" uid="uid://c1g4b36gd66yt" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/xboxIconsBig.png" id="11_vwqo6"]
 [ext_resource type="PackedScene" uid="uid://dl5cxytbdj1iq" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/house.gltf" id="12_uxs3u"]
-[ext_resource type="PackedScene" path="res://UI/setting_selector.tscn" id="12_xsajp"]
+[ext_resource type="PackedScene" uid="uid://dg6fdn5wc4x20" path="res://UI/setting_selector.tscn" id="12_xsajp"]
 [ext_resource type="PackedScene" uid="uid://bgvlxpihgflav" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/tree.gltf" id="13_u3wy4"]
 [ext_resource type="PackedScene" uid="uid://dhqq2lld05g8o" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/tree_large.gltf" id="14_4s8ni"]
 [ext_resource type="PackedScene" uid="uid://d0o8nwsisqs1w" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/mailbox.gltf" id="15_mv1j4"]
@@ -144,7 +144,7 @@ scale = Vector2(3.13, 3.13)
 text = "Not Ready"
 horizontal_alignment = 1
 
-[node name="blockbench_export" parent="PhysicsP1" instance=ExtResource("2_qmmmc")]
+[node name="blockbench_export2" parent="PhysicsP1" instance=ExtResource("3_pnpyx")]
 
 [node name="PhysicsP2" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
@@ -194,7 +194,7 @@ horizontal_alignment = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.73626, 0)
 shape = SubResource("CapsuleShape3D_ng2wx")
 
-[node name="blockbench_export" parent="PhysicsP2" instance=ExtResource("3_q70mm")]
+[node name="blockbench_export2" parent="PhysicsP2" instance=ExtResource("3_bpwwb")]
 
 [node name="PhysicsP3" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
@@ -244,7 +244,7 @@ scale = Vector2(3.13, 3.13)
 text = "Not Ready"
 horizontal_alignment = 1
 
-[node name="blockbench_export" parent="PhysicsP3" instance=ExtResource("4_mj7ku")]
+[node name="blockbench_export2" parent="PhysicsP3" instance=ExtResource("4_bpwwb")]
 
 [node name="PhysicsP4" type="RigidBody3D" parent="."]
 unique_name_in_owner = true
@@ -294,7 +294,7 @@ horizontal_alignment = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000118256, 1.75029, 0.000126123)
 shape = SubResource("CapsuleShape3D_ng2wx")
 
-[node name="blockbench_export" parent="PhysicsP4" instance=ExtResource("5_r7t2y")]
+[node name="blockbench_export2" parent="PhysicsP4" instance=ExtResource("5_bpwwb")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
@@ -470,7 +470,7 @@ text = "Map: "
 
 [node name="MapSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer" instance=ExtResource("12_xsajp")]
 layout_mode = 2
-text_values = Array[String](["PLACEHOLDER"])
+text_values = Array[String](["test_map", "map2", "map3"])
 allow_wraparound = true
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
