@@ -21,6 +21,7 @@ Hud="*res://UI/HUD/HUD.tscn"
 ControllerManager="*res://controller_manager.gd"
 SoundPlayer="*res://sound_player.tscn"
 VictoryHoldover="*res://victory_holdover.gd"
+PlayerManager="*res://player_manager.gd"
 
 [global_group]
 

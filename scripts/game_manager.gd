@@ -74,6 +74,7 @@ func _physics_process(delta: float) -> void:
 				new_gnome.player_num = player_num
 				new_gnome.start_disable(match_start_time)
 				active_players.append(new_gnome)
+				PlayerManager.player_nodes.assign(active_players)
 				available_spawns.remove_at(spawn_index)
 			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
 				marker.hide()
@@ -132,6 +133,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			for player in active_players:
 				player.queue_free()
 			active_players.clear()
+			PlayerManager.player_nodes.clear()
 			active_ball.queue_free()
 			active_club.queue_free()
 			mode = "obstacle placing"

@@ -117,6 +117,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		if disable_timer <= 0.0:
 			disable_time_text.hide()
 			body_state = BodyState.MOVING
+			PlayerManager.notify_player_enabled(player_num)
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
 			rotation.x = 0.0
@@ -139,6 +140,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		if stun_timer <= 0.0:
 			disable_time_text.hide()
 			body_state = BodyState.MOVING
+			PlayerManager.notify_player_unstunned(player_num)
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
 			rotation.x = 0.0
@@ -234,12 +236,14 @@ func rotate_to_face(target: Vector3):
 func start_disable(disable_time: float):
 	disable_timer = disable_time
 	body_state = BodyState.DISABLED
+	PlayerManager.notify_player_disabled(player_num)
 
 func start_stun(stun_time: float):
 	axis_lock_angular_x = false
 	axis_lock_angular_z = false
 	stun_timer = stun_time
 	body_state = BodyState.STUNNED
+	PlayerManager.notify_player_stunned(player_num)
 	Hud.indicate_player_incapicated(player_num-1, true)
 
 func _show_color_model(index: int):
@@ -292,6 +296,7 @@ func _input(event: InputEvent) -> void:
 				elif arm_state == ArmState.EMPTY:
 					held_club = contesting_gnome.held_club
 					arm_state = ArmState.CLUB
+					PlayerManager.notify_player_got_club(player_num)
 				body_state = BodyState.MOVING
 				contest_chain_counter += 1
 				contest_power = 0.0
@@ -363,6 +368,7 @@ func try_pickup():
 		held_club.is_held = true
 		held_club.enable_held_damping()
 		arm_state = ArmState.CLUB
+		PlayerManager.notify_player_got_club(player_num)
 	elif closest_prop:
 		held_prop = closest_prop
 		held_prop.start_holding()
@@ -399,6 +405,7 @@ func reduce_contest_power(contest_change: float):
 func lose_contest():
 	if arm_state == ArmState.CLUB:
 		arm_state = ArmState.EMPTY
+		PlayerManager.notify_player_lost_club(player_num)
 	body_state = BodyState.MOVING
 	start_stun(lose_contest_stun_length)
 	contest_chain_counter = 1
@@ -415,6 +422,7 @@ func drop_club():
 	held_club.disable_held_damping()
 	held_club = null
 	arm_state = ArmState.EMPTY
+	PlayerManager.notify_player_lost_club(player_num)
 
 func cancel_aiming():
 	aiming_ball.hide_aim_arrow()
@@ -437,6 +445,7 @@ func swing():
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
+	PlayerManager.notify_player_lost_club(player_num)
 	ball_hit_sound.play()
 
 func attack():
