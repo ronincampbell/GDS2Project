@@ -3,12 +3,12 @@
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
 [ext_resource type="Texture2D" uid="uid://ojhjtjqgcgdj" path="res://Assets/crown.PNG" id="3_10ibt"]
 [ext_resource type="Script" uid="uid://cjphkt54sg4f5" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
-[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
-[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
+[ext_resource type="PackedScene" uid="uid://dv1h1uv5xx0j2" path="res://models/gnome/blueGnome/bluePlayer.gltf" id="4_3o8sq"]
 [ext_resource type="Texture2D" uid="uid://b0h64taiy2s6u" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/icons_xbox_animated_buttons1.png" id="5_3o8sq"]
-[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="5_10ibt"]
-[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="6_3o8sq"]
+[ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="6_gmunk"]
+[ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="7_o30d6"]
 [ext_resource type="PackedScene" uid="uid://u1ncvk7lwj7h" path="res://UI/HUD/Scoreboard.tscn" id="8_10ibt"]
+[ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="8_i5ryk"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ktxb"]
 bg_color = Color(0.535397, 0.636131, 0.489567, 1)
@@ -326,7 +326,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("5_10ibt")]
+[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("4_3o8sq")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer"]
 visible = false
@@ -503,7 +503,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("3_vb885")]
+[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("6_gmunk")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer"]
 visible = false
@@ -604,7 +604,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("6_3o8sq")]
+[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("7_o30d6")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer"]
 visible = false
@@ -779,7 +779,7 @@ transform = Transform3D(1, 0, 0, 0, 0.713409, 0.700747, 0, -0.700747, 0.713409, 
 [node name="Node3D" type="Node3D" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
-[node name="blockbench_export2" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("4_q8dl0")]
+[node name="blockbench_export" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport/Node3D" instance=ExtResource("8_i5ryk")]
 
 [node name="IncapTimer" type="RichTextLabel" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer"]
 visible = false
