@@ -20,7 +20,8 @@ var body_state: BodyState = BodyState.MOVING
 @onready var ball_hit_sound: AudioStreamPlayer = $BallHitSound
 @onready var bonk_sound: AudioStreamPlayer = $BonkSound
 @onready var laugh_sound: AudioStreamPlayer = $LaughSound
-@onready var disable_time_text: Label3D = $DisableTimeText
+@onready var disable_time_sprite = $DisableTimeSprite
+@onready var disable_time_ring = $DisableTimeSprite/SubViewport/DisableTimeRing
 
 var stun_timer: float = 0.0
 var disable_timer: float = 0.0
@@ -66,6 +67,8 @@ var player_num: int = -1:
 		else:
 			player_num = value
 			_show_color_model(player_num-1)
+		if _caster:
+			_caster.player_num = player_num
 var device_id: int = 0
 
 @onready
@@ -95,32 +98,36 @@ var is_shielded: bool = false
 func _ready() -> void:
 	_caster = get_node_or_null("SpellCaster") as SpellCaster
 	if _caster:
-		if Engine.has_singleton("ControllerManager") and "device_players" in ControllerManager:
-			for dev in ControllerManager.device_players.keys():
-				if ControllerManager.device_players[dev] == player_num:
-					device_id = dev
-					break
-		_caster.attach(self, device_id)
-		#remove give_spell line later (only for testing)
-		_caster.give_spell(SpellPickup.SpellID.FIREBALL)
+		var tries := 0
+		while player_num < 1 and tries < 5:
+			await get_tree().process_frame
+			tries += 1
+		if player_num < 1:
+			player_num = 1
+		_caster.cast_action = &"PlayerCast"
+		if _caster.has_method("attach"):
+			_caster.attach(self)
+		#_caster.give_spell(SpellPickup.SpellID.FIREBALL)
 
 var prev_linear_velocity: Vector3
 var min_bonk_speed: float = 4.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED and disable_timer > 0.0:
-		disable_time_text.show()
-		disable_time_text.text = "%1.1f" % [disable_timer]
+		disable_time_sprite.show()
+		disable_time_ring.value = disable_timer
 		interact_indicator.hide()
 		attack_indicator.hide()
 		disable_timer -= get_physics_process_delta_time()
 		if disable_timer <= 0.0:
-			disable_time_text.hide()
+			disable_time_sprite.hide()
 			body_state = BodyState.MOVING
+			PlayerManager.notify_player_enabled(player_num)
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
 			rotation.x = 0.0
 			rotation.z = 0.0
+		_play_model_animation("idle_anim")
 		return
 	
 	if attack_cooldown_timer > 0.0:
@@ -131,21 +138,23 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	prev_linear_velocity = state.linear_velocity
 	
 	if body_state == BodyState.STUNNED and stun_timer > 0.0:
-		disable_time_text.show()
-		disable_time_text.text = "%1.1f" % [stun_timer]
+		disable_time_sprite.show()
+		disable_time_ring.value = stun_timer
 		interact_indicator.hide()
 		attack_indicator.hide()
 		stun_timer -= get_physics_process_delta_time()
 		if stun_timer <= 0.0:
-			disable_time_text.hide()
+			disable_time_sprite.hide()
 			body_state = BodyState.MOVING
+			PlayerManager.notify_player_unstunned(player_num)
 			axis_lock_angular_x = true
 			axis_lock_angular_z = true
 			rotation.x = 0.0
 			rotation.z = 0.0
+		_play_model_animation("idle_anim")
 		return
 	
-	Hud.indicate_player_incapicated(player_num-1, false)
+	Hud.indicate_player_incapicated(player_num-1, false, 0)
 	
 	if body_state == BodyState.CONTESTING:
 		interact_indicator.hide()
@@ -153,12 +162,17 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		rotate_to_face(contesting_gnome.global_position)
 		_pull_left_hand_towards(contesting_gnome.global_position)
 		_pull_right_hand_towards(contesting_gnome.global_position)
+		_play_model_animation("idle_anim")
 		return
 	
 	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft"+str(player_num),"PlayerRight"+str(player_num),"PlayerUp"+str(player_num),"PlayerDown"+str(player_num))
 	var move_dir: Vector3 = Vector3(flat_move_dir.x, 0.0, flat_move_dir.y)
 	
 	if arm_state != ArmState.AIMING:
+		if move_dir.is_zero_approx():
+			_play_model_animation("idle_anim")
+		else:
+			_play_model_animation("moving_anim")
 		var flat_speed: Vector3 = linear_velocity
 		flat_speed.y = 0.0
 		if move_dir.dot(flat_speed.normalized()) > 0.3:
@@ -196,6 +210,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			#_pull_left_hand_towards(prop_hold_marker.global_position)
 			#_pull_right_hand_towards(prop_hold_marker.global_position)
 	else:
+		_play_model_animation("idle_anim")
 		if increasing_force:
 			swing_force += get_physics_process_delta_time()*swing_force_speed
 			if swing_force > 1.0:
@@ -233,14 +248,18 @@ func rotate_to_face(target: Vector3):
 
 func start_disable(disable_time: float):
 	disable_timer = disable_time
+	disable_time_ring.max_value = disable_time
 	body_state = BodyState.DISABLED
+	PlayerManager.notify_player_disabled(player_num)
 
 func start_stun(stun_time: float):
 	axis_lock_angular_x = false
 	axis_lock_angular_z = false
 	stun_timer = stun_time
+	disable_time_ring.max_value = stun_time
 	body_state = BodyState.STUNNED
-	Hud.indicate_player_incapicated(player_num-1, true)
+	PlayerManager.notify_player_stunned(player_num)
+	Hud.indicate_player_incapicated(player_num-1, true, stun_time)
 
 func _show_color_model(index: int):
 	for i in color_models.size():
@@ -250,6 +269,12 @@ func _show_color_model(index: int):
 			color_models[i].hide()
 	left_arm_mesh.set_surface_override_material(0, color_materials[index])
 	right_arm_mesh.set_surface_override_material(0, color_materials[index])
+
+func _play_model_animation(anim_name: StringName):
+	for model in color_models:
+		var animation_player: AnimationPlayer = model.get_node("AnimationPlayer")
+		if animation_player.has_animation(anim_name):
+			animation_player.play(anim_name)
 
 func _pull_club_to_hand():
 	var handle_pos: Vector3 = held_club.get_handle_global_pos()
@@ -292,6 +317,7 @@ func _input(event: InputEvent) -> void:
 				elif arm_state == ArmState.EMPTY:
 					held_club = contesting_gnome.held_club
 					arm_state = ArmState.CLUB
+					PlayerManager.notify_player_got_club(player_num)
 				body_state = BodyState.MOVING
 				contest_chain_counter += 1
 				contest_power = 0.0
@@ -363,6 +389,8 @@ func try_pickup():
 		held_club.is_held = true
 		held_club.enable_held_damping()
 		arm_state = ArmState.CLUB
+		Hud.update_player_crown(player_num)
+		PlayerManager.notify_player_got_club(player_num)
 	elif closest_prop:
 		held_prop = closest_prop
 		held_prop.start_holding()
@@ -399,6 +427,7 @@ func reduce_contest_power(contest_change: float):
 func lose_contest():
 	if arm_state == ArmState.CLUB:
 		arm_state = ArmState.EMPTY
+		PlayerManager.notify_player_lost_club(player_num)
 	body_state = BodyState.MOVING
 	start_stun(lose_contest_stun_length)
 	contest_chain_counter = 1
@@ -415,6 +444,8 @@ func drop_club():
 	held_club.disable_held_damping()
 	held_club = null
 	arm_state = ArmState.EMPTY
+	Hud.update_player_crown()
+	PlayerManager.notify_player_lost_club(player_num)
 
 func cancel_aiming():
 	aiming_ball.hide_aim_arrow()
@@ -437,6 +468,8 @@ func swing():
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
+	Hud.update_player_crown()
+	PlayerManager.notify_player_lost_club(player_num)
 	ball_hit_sound.play()
 
 func attack():

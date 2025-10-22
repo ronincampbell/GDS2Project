@@ -1,15 +1,25 @@
-[gd_scene load_steps=4 format=3 uid="uid://dyoyq245t0u2w"]
+[gd_scene load_steps=7 format=3 uid="uid://dyoyq245t0u2w"]
 
-[ext_resource type="Material" uid="uid://dy22ue18i08le" path="res://CoreObjects/spawn_marker_material.tres" id="1_xywwi"]
+[ext_resource type="Texture2D" uid="uid://4twwll7ny37c" path="res://models/marker/marker_cookie.png" id="1_xywwi"]
+[ext_resource type="Script" uid="uid://1023xxdm1u11" path="res://scripts/player_spawn_marker.gd" id="1_yyu87"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_m1c6m"]
 size = Vector3(2, 3.17885, 2)
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_piuwt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1c6m"]
+next_pass = SubResource("CanvasItemMaterial_piuwt")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.231373)
+backlight_enabled = true
+
 [sub_resource type="BoxMesh" id="BoxMesh_yyu87"]
-material = ExtResource("1_xywwi")
+material = SubResource("StandardMaterial3D_m1c6m")
 size = Vector3(2, 3.17885, 2)
 
 [node name="ClubSpawnMarker" type="Marker3D" groups=["ClubSpawnMarkers"]]
+script = ExtResource("1_yyu87")
 
 [node name="PropDenialArea" type="Area3D" parent="."]
 collision_layer = 16
@@ -21,4 +31,16 @@ shape = SubResource("BoxShape3D_m1c6m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="PropDenialArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5939, 0)
+visible = false
 mesh = SubResource("BoxMesh_yyu87")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.1517, 0)
+light_color = Color(0.907263, 0, 0.175923, 1)
+light_energy = 16.0
+light_indirect_energy = 0.0
+light_projector = ExtResource("1_xywwi")
+light_size = 0.115
+shadow_enabled = true
+spot_range = 8.0
+spot_angle = 32.0

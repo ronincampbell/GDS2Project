@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dg6fdn5wc4x20"]
+
+[ext_resource type="Script" uid="uid://tgtr5nmb3ar4" path="res://UI/setting_selector.gd" id="1_8d5n7"]
+
+[node name="SettingSelector" type="HBoxContainer"]
+script = ExtResource("1_8d5n7")
+
+[node name="PrevButton" type="Button" parent="."]
+layout_mode = 2
+text = "<"
+
+[node name="SelectedLabel" type="Label" parent="."]
+layout_mode = 2
+text = "PLACEHOLDER"
+
+[node name="NextButton" type="Button" parent="."]
+layout_mode = 2
+text = ">"
+
+[connection signal="pressed" from="PrevButton" to="." method="_on_prev_button_pressed"]
+[connection signal="pressed" from="NextButton" to="." method="_on_next_button_pressed"]

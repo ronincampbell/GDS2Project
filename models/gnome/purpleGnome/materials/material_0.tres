@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dg41tsn003861"]
+
+[ext_resource type="Texture2D" uid="uid://vb0muat5gf8h" path="res://models/gnome/purpleGnome/purpleGnome_0.png" id="1_dpn8t"]
+
+[resource]
+resource_name = "material_0"
+render_priority = 2
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1_dpn8t")
+texture_filter = 0
+texture_repeat = false

@@ -74,6 +74,7 @@ func _physics_process(delta: float) -> void:
 				new_gnome.player_num = player_num
 				new_gnome.start_disable(match_start_time)
 				active_players.append(new_gnome)
+				PlayerManager.player_nodes.assign(active_players)
 				available_spawns.remove_at(spawn_index)
 			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
 				marker.hide()
@@ -123,7 +124,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 		scores[body.last_hit_player] += 1
 		Hud.update_score(body.last_hit_player-1, scores[body.last_hit_player])
 		SoundPlayer.play_ball_in_hole()
-		if(scores[body.last_hit_player] >= 3):
+		if(scores[body.last_hit_player] >= LobbyManager.point_limit):
 			VictoryHoldover.last_winner = body.last_hit_player
 			body.queue_free()
 			print_debug("Game won!")
@@ -132,6 +133,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			for player in active_players:
 				player.queue_free()
 			active_players.clear()
+			PlayerManager.player_nodes.clear()
 			active_ball.queue_free()
 			active_club.queue_free()
 			mode = "obstacle placing"

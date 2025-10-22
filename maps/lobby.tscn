@@ -51,6 +51,30 @@ viewport_path = NodePath("PhysicsP3/Player3Info/SubViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_5xsys"]
 viewport_path = NodePath("PhysicsP4/Player4Info/SubViewport")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_s6qpm"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(1120, 336, 152, 120)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_revcj"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(640, 480, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vwqo6"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(480, 480, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uxs3u"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(155, 805, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n1qbv"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(315, 805, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_34li1"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(1115, 1125, 160, 160)
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_revcj"]
 streams_count = 4
 stream_0/stream = ExtResource("7_uug8p")
@@ -290,12 +314,6 @@ shape = SubResource("CapsuleShape3D_ng2wx")
 
 [node name="blockbench_export" parent="PhysicsP4" instance=ExtResource("5_r7t2y")]
 
-[node name="PlayerDropInManager" type="Node" parent="."]
-script = ExtResource("3_ng2wx")
-
-[node name="GnomeLaugh" type="AudioStreamPlayer" parent="PlayerDropInManager"]
-stream = SubResource("AudioStreamRandomizer_revcj")
-
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
 
@@ -311,106 +329,35 @@ shape = SubResource("BoxShape3D_xsajp")
 
 [node name="LobbyHud" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="LobbyHud"]
-anchors_preset = 12
-anchor_top = 1.0
+[node name="MarginContainer" type="MarginContainer" parent="LobbyHud"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -75.0
 grow_horizontal = 2
-grow_vertical = 0
-text = "'S' To Join
+grow_vertical = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
 
-'A' To Ready
+[node name="MainContainer" type="VBoxContainer" parent="LobbyHud/MarginContainer"]
+layout_mode = 2
 
-'B' To Unready
+[node name="ControllerLabelContainer" type="VBoxContainer" parent="LobbyHud/MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 2
 
-'Y' To Leave"
-horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
-
-[node name="AButton" type="TextureRect" parent="LobbyHud"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -50.0
-offset_top = -129.0
-offset_right = 94.0
-offset_bottom = 31.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.16, 0.16)
-texture = SubResource("AtlasTexture_xsajp")
-
-[node name="BButton" type="TextureRect" parent="LobbyHud"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -57.0
-offset_top = -75.0
-offset_right = 87.0
-offset_bottom = 85.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.16, 0.16)
-texture = SubResource("AtlasTexture_n1qbv")
-
-[node name="StartButton" type="TextureRect" parent="LobbyHud"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -41.0
-offset_top = -179.0
-offset_right = 103.0
-offset_bottom = -19.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.16, 0.16)
-texture = SubResource("AtlasTexture_revcj")
-
-[node name="SSButton" type="TextureRect" parent="LobbyHud"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -49.0
-offset_top = -24.0
-offset_right = 95.0
-offset_bottom = 136.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(0.16, 0.16)
-texture = SubResource("AtlasTexture_vwqo6")
-
-[node name="Label2" type="Label" parent="LobbyHud"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
-grow_horizontal = 2
+[node name="Label2" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControllerLabelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 text = "This Game Is Designed To Be Played With a Controller"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Controller" type="TextureRect" parent="LobbyHud"]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -38.0
-offset_top = 25.0
-offset_right = 114.0
-offset_bottom = 145.0
-grow_horizontal = 2
-scale = Vector2(0.4, 0.4)
+[node name="Controller" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControllerLabelContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture = SubResource("AtlasTexture_s6qpm")
 
 [node name="Props" type="Node3D" parent="."]
@@ -450,3 +397,162 @@ transform = Transform3D(-0.105153, 0, -0.994456, 0, 1, 0, 0.994456, 0, -0.105153
 
 [node name="boots2" parent="Props" instance=ExtResource("21_afpqi")]
 transform = Transform3D(0.476545, 0, 0.87915, 0, 1, 0, -0.87915, 0, 0.476545, -7.36463, -2.38419e-07, 9.20337)
+expand_mode = 5
+
+[node name="ControlsContainer" type="VBoxContainer" parent="LobbyHud/MarginContainer/MainContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_constants/separation = 20
+
+[node name="Row1" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
+custom_minimum_size = Vector2(206, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Join" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="StartButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Join"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_revcj")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Join"]
+layout_mode = 2
+text = "Join"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Leave" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SSButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Leave"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_vwqo6")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Leave"]
+layout_mode = 2
+text = "Leave"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row2" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Ready" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="AButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Ready"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_uxs3u")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Ready"]
+layout_mode = 2
+text = "Ready"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Unready" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2"]
+layout_mode = 2
+
+[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Unready"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_n1qbv")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Unready"]
+layout_mode = 2
+text = "Unready"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Row3" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+layout_mode = 2
+text = "Menu:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Select" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LeftStick" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Select"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_34li1")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Select"]
+layout_mode = 2
+text = "Select"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Update" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+layout_mode = 2
+
+[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Update"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_uxs3u")
+expand_mode = 5
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Update"]
+layout_mode = 2
+text = "Update"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LobbySettings" type="VBoxContainer" parent="LobbyHud/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer"]
+layout_mode = 2
+text = "Map: "
+
+[node name="MapSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer" instance=ExtResource("12_xsajp")]
+layout_mode = 2
+text_values = Array[String](["PLACEHOLDER"])
+allow_wraparound = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer2"]
+layout_mode = 2
+text = "Point Limit: "
+
+[node name="PointLimitSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer2" instance=ExtResource("12_xsajp")]
+layout_mode = 2
+start_index = 2
+text_values = Array[String](["1", "2", "3", "4", "5"])
+
+[node name="PlayerDropInManager" type="Node" parent="."]
+script = ExtResource("3_ng2wx")
+
+[node name="GnomeLaugh" type="AudioStreamPlayer" parent="PlayerDropInManager"]
+stream = SubResource("AudioStreamRandomizer_revcj")

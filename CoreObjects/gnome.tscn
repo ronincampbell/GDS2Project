@@ -1,11 +1,11 @@
-[gd_scene load_steps=27 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=29 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
-[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
-[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_7j42c"]
+[ext_resource type="PackedScene" uid="uid://dv1h1uv5xx0j2" path="res://models/gnome/blueGnome/bluePlayer.gltf" id="2_d1q12"]
+[ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="3_d1q12"]
 [ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_k84ux"]
-[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_ptpxf"]
-[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_x56rg"]
+[ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="4_qwf6p"]
+[ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="5_jgpo3"]
 [ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
 [ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="8_2kfoo"]
 [ext_resource type="AudioStream" uid="uid://bob1melhxhfgd" path="res://sounds/golf ball hit 2.mp3" id="8_x56rg"]
@@ -18,6 +18,7 @@
 [ext_resource type="AudioStream" uid="uid://ci3a8appd47ui" path="res://sounds/laugh 2.wav" id="16_qwf6p"]
 [ext_resource type="AudioStream" uid="uid://bmkixsbkshfif" path="res://sounds/laugh 3.wav" id="17_jgpo3"]
 [ext_resource type="AudioStream" uid="uid://ckf01aja76pd2" path="res://sounds/laugh 7.mp3" id="18_7a58a"]
+[ext_resource type="Texture2D" uid="uid://b48xt6tqs18t0" path="res://UI/progress_ring.png" id="19_qwf6p"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cabd0"]
 radius = 0.4103
@@ -54,7 +55,10 @@ stream_1/stream = ExtResource("16_qwf6p")
 stream_2/stream = ExtResource("17_jgpo3")
 stream_3/stream = ExtResource("18_7a58a")
 
-[node name="Gnome" type="RigidBody3D"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jgpo3"]
+viewport_path = NodePath("DisableTimeSprite/SubViewport")
+
+[node name="Gnome" type="RigidBody3D" groups=["CameraTarget", "pushable"]]
 collision_layer = 2
 collision_mask = 5
 axis_lock_angular_x = true
@@ -75,15 +79,15 @@ shape = SubResource("SphereShape3D_7j42c")
 [node name="PropHoldMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62103, -0.565863)
 
-[node name="ModelBlue" parent="." instance=ExtResource("2_jegbx")]
+[node name="ModelBlue" parent="." instance=ExtResource("2_d1q12")]
 
-[node name="ModelPurple" parent="." instance=ExtResource("3_7j42c")]
+[node name="ModelPurple" parent="." instance=ExtResource("3_d1q12")]
 visible = false
 
-[node name="ModelRed" parent="." instance=ExtResource("4_ptpxf")]
+[node name="ModelRed" parent="." instance=ExtResource("4_qwf6p")]
 visible = false
 
-[node name="ModelYellow" parent="." instance=ExtResource("5_x56rg")]
+[node name="ModelYellow" parent="." instance=ExtResource("5_jgpo3")]
 visible = false
 
 [node name="LeftArmJoint" type="ConeTwistJoint3D" parent="."]
@@ -93,6 +97,7 @@ node_b = NodePath("../LeftArmBody")
 
 [node name="LeftArmBody" type="RigidBody3D" parent="."]
 transform = Transform3D(0.952772, -0.303685, 0, 0.303685, 0.952772, 0, 0, 0, 1, -0.315034, 1.78789, -0.0130813)
+visible = false
 collision_layer = 2
 collision_mask = 0
 mass = 0.2
@@ -115,6 +120,7 @@ node_b = NodePath("../RightArmBody")
 
 [node name="RightArmBody" type="RigidBody3D" parent="."]
 transform = Transform3D(-0.952661, -0.304033, 0, 0.304033, -0.952661, 0, 0, 0, 1, 0.315034, 1.78789, -0.0130813)
+visible = false
 collision_layer = 2
 collision_mask = 0
 mass = 0.2
@@ -185,12 +191,30 @@ stream = SubResource("AudioStreamRandomizer_moqlk")
 [node name="LaughSound" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_6rgyp")
 
-[node name="DisableTimeText" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33377, 0)
-visible = false
+[node name="DisableTimeSprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.27306, 0)
+pixel_size = 0.008
 billboard = 1
 no_depth_test = true
 render_priority = 3
-outline_render_priority = 2
-text = "30.0"
-font_size = 160
+texture = SubResource("ViewportTexture_jgpo3")
+
+[node name="SubViewport" type="SubViewport" parent="DisableTimeSprite"]
+transparent_bg = true
+size = Vector2i(256, 256)
+
+[node name="DisableTimeRing" type="TextureProgressBar" parent="DisableTimeSprite/SubViewport"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
+step = 0.01
+fill_mode = 5
+texture_progress = ExtResource("19_qwf6p")

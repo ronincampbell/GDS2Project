@@ -7,19 +7,34 @@ var current_spell: int = -1
 
 @export var fireball_scene: PackedScene
 @export var shield_scene: PackedScene
-@export var cast_action: StringName = &"CastSpell"
+@export var cast_action: StringName = &"PlayerCast"
+@export var player_num: int = 1
 
 var _device_id: int = 0
 var _player: Node3D
-#var _player: CharacterBody3D
 @onready var _muzzle: Node3D = get_parent().get_node_or_null("Muzzle")
 
 var shield_active := false
 var shield_absorb_scale := 0.9
 
-func attach(player: Node3D, device_id: int) -> void:
+func _ready() -> void:
+	set_process(true)
+
+func _process(_dt: float) -> void:
+	if Input.is_action_just_pressed(_cast_action_name()):
+		if has_spell():
+			_cast_current()
+
+func _cast_action_name() -> StringName:
+	var base := String(cast_action)
+	base = base.strip_edges().replace("-", "")
+	return StringName("%s%d" % [base, player_num])
+
+func _on_cast_input() -> void:
+	_cast_current()
+
+func attach(player: Node3D) -> void:
 	_player = player
-	_device_id = device_id
 
 func has_spell() -> bool:
 	return current_spell != -1
@@ -28,12 +43,11 @@ func give_spell(id: int) -> bool:
 	if has_spell():
 		return false
 	current_spell = id
+	Hud.update_player_spell_icon(player_num, current_spell)
 	return true
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.device != _device_id:
-		return
-	if event.is_action_pressed(cast_action) and has_spell():
+	if event.is_action_pressed(_cast_action_name(), true) and has_spell():
 		_cast_current()
 
 func _cast_current() -> void:
@@ -43,6 +57,7 @@ func _cast_current() -> void:
 		SpellID.SHIELD:
 			_cast_shield()
 	current_spell = -1
+	Hud.update_player_spell_icon(player_num, current_spell)
 
 func _cast_fireball() -> void:
 	if fireball_scene == null or _player == null:
