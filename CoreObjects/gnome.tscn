@@ -1,11 +1,11 @@
 [gd_scene load_steps=27 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
-[ext_resource type="PackedScene" uid="uid://ddn1d8fr8h6ps" path="res://models/gnome/player_v2_blue.gltf" id="2_jegbx"]
-[ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_7j42c"]
+[ext_resource type="PackedScene" uid="uid://dv1h1uv5xx0j2" path="res://models/gnome/blueGnome/bluePlayer.gltf" id="2_d1q12"]
+[ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="3_d1q12"]
 [ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_k84ux"]
-[ext_resource type="PackedScene" uid="uid://c487cjdtsi002" path="res://models/gnome/player_v2_red.gltf" id="4_ptpxf"]
-[ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="5_x56rg"]
+[ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="4_qwf6p"]
+[ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="5_jgpo3"]
 [ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
 [ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="8_2kfoo"]
 [ext_resource type="AudioStream" uid="uid://bob1melhxhfgd" path="res://sounds/golf ball hit 2.mp3" id="8_x56rg"]
@@ -75,15 +75,15 @@ shape = SubResource("SphereShape3D_7j42c")
 [node name="PropHoldMarker" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62103, -0.565863)
 
-[node name="ModelBlue" parent="." instance=ExtResource("2_jegbx")]
+[node name="ModelBlue" parent="." instance=ExtResource("2_d1q12")]
 
-[node name="ModelPurple" parent="." instance=ExtResource("3_7j42c")]
+[node name="ModelPurple" parent="." instance=ExtResource("3_d1q12")]
 visible = false
 
-[node name="ModelRed" parent="." instance=ExtResource("4_ptpxf")]
+[node name="ModelRed" parent="." instance=ExtResource("4_qwf6p")]
 visible = false
 
-[node name="ModelYellow" parent="." instance=ExtResource("5_x56rg")]
+[node name="ModelYellow" parent="." instance=ExtResource("5_jgpo3")]
 visible = false
 
 [node name="LeftArmJoint" type="ConeTwistJoint3D" parent="."]
@@ -93,6 +93,7 @@ node_b = NodePath("../LeftArmBody")
 
 [node name="LeftArmBody" type="RigidBody3D" parent="."]
 transform = Transform3D(0.952772, -0.303685, 0, 0.303685, 0.952772, 0, 0, 0, 1, -0.315034, 1.78789, -0.0130813)
+visible = false
 collision_layer = 2
 collision_mask = 0
 mass = 0.2
@@ -115,6 +116,7 @@ node_b = NodePath("../RightArmBody")
 
 [node name="RightArmBody" type="RigidBody3D" parent="."]
 transform = Transform3D(-0.952661, -0.304033, 0, 0.304033, -0.952661, 0, 0, 0, 1, 0.315034, 1.78789, -0.0130813)
+visible = false
 collision_layer = 2
 collision_mask = 0
 mass = 0.2

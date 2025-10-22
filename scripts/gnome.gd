@@ -126,6 +126,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			axis_lock_angular_z = true
 			rotation.x = 0.0
 			rotation.z = 0.0
+		_play_model_animation("idle_anim")
 		return
 	
 	if attack_cooldown_timer > 0.0:
@@ -149,6 +150,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			axis_lock_angular_z = true
 			rotation.x = 0.0
 			rotation.z = 0.0
+		_play_model_animation("idle_anim")
 		return
 	
 	Hud.indicate_player_incapicated(player_num-1, false, 0)
@@ -159,12 +161,17 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		rotate_to_face(contesting_gnome.global_position)
 		_pull_left_hand_towards(contesting_gnome.global_position)
 		_pull_right_hand_towards(contesting_gnome.global_position)
+		_play_model_animation("idle_anim")
 		return
 	
 	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft"+str(player_num),"PlayerRight"+str(player_num),"PlayerUp"+str(player_num),"PlayerDown"+str(player_num))
 	var move_dir: Vector3 = Vector3(flat_move_dir.x, 0.0, flat_move_dir.y)
 	
 	if arm_state != ArmState.AIMING:
+		if move_dir.is_zero_approx():
+			_play_model_animation("idle_anim")
+		else:
+			_play_model_animation("moving_anim")
 		var flat_speed: Vector3 = linear_velocity
 		flat_speed.y = 0.0
 		if move_dir.dot(flat_speed.normalized()) > 0.3:
@@ -202,6 +209,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			#_pull_left_hand_towards(prop_hold_marker.global_position)
 			#_pull_right_hand_towards(prop_hold_marker.global_position)
 	else:
+		_play_model_animation("idle_anim")
 		if increasing_force:
 			swing_force += get_physics_process_delta_time()*swing_force_speed
 			if swing_force > 1.0:
@@ -258,6 +266,12 @@ func _show_color_model(index: int):
 			color_models[i].hide()
 	left_arm_mesh.set_surface_override_material(0, color_materials[index])
 	right_arm_mesh.set_surface_override_material(0, color_materials[index])
+
+func _play_model_animation(anim_name: StringName):
+	for model in color_models:
+		var animation_player: AnimationPlayer = model.get_node("AnimationPlayer")
+		if animation_player.has_animation(anim_name):
+			animation_player.play(anim_name)
 
 func _pull_club_to_hand():
 	var handle_pos: Vector3 = held_club.get_handle_global_pos()
