@@ -20,7 +20,8 @@ var body_state: BodyState = BodyState.MOVING
 @onready var ball_hit_sound: AudioStreamPlayer = $BallHitSound
 @onready var bonk_sound: AudioStreamPlayer = $BonkSound
 @onready var laugh_sound: AudioStreamPlayer = $LaughSound
-@onready var disable_time_text: Label3D = $DisableTimeText
+@onready var disable_time_sprite = $DisableTimeSprite
+@onready var disable_time_ring = $DisableTimeSprite/SubViewport/DisableTimeRing
 
 var stun_timer: float = 0.0
 var disable_timer: float = 0.0
@@ -113,13 +114,13 @@ var min_bonk_speed: float = 4.0
 
 func _integrate_forces(state: PhysicsDirectBodyState3D):
 	if body_state == BodyState.DISABLED and disable_timer > 0.0:
-		disable_time_text.show()
-		disable_time_text.text = "%1.1f" % [disable_timer]
+		disable_time_sprite.show()
+		disable_time_ring.value = disable_timer
 		interact_indicator.hide()
 		attack_indicator.hide()
 		disable_timer -= get_physics_process_delta_time()
 		if disable_timer <= 0.0:
-			disable_time_text.hide()
+			disable_time_sprite.hide()
 			body_state = BodyState.MOVING
 			PlayerManager.notify_player_enabled(player_num)
 			axis_lock_angular_x = true
@@ -137,13 +138,13 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	prev_linear_velocity = state.linear_velocity
 	
 	if body_state == BodyState.STUNNED and stun_timer > 0.0:
-		disable_time_text.show()
-		disable_time_text.text = "%1.1f" % [stun_timer]
+		disable_time_sprite.show()
+		disable_time_ring.value = stun_timer
 		interact_indicator.hide()
 		attack_indicator.hide()
 		stun_timer -= get_physics_process_delta_time()
 		if stun_timer <= 0.0:
-			disable_time_text.hide()
+			disable_time_sprite.hide()
 			body_state = BodyState.MOVING
 			PlayerManager.notify_player_unstunned(player_num)
 			axis_lock_angular_x = true
@@ -247,6 +248,7 @@ func rotate_to_face(target: Vector3):
 
 func start_disable(disable_time: float):
 	disable_timer = disable_time
+	disable_time_ring.max_value = disable_time
 	body_state = BodyState.DISABLED
 	PlayerManager.notify_player_disabled(player_num)
 
@@ -254,6 +256,7 @@ func start_stun(stun_time: float):
 	axis_lock_angular_x = false
 	axis_lock_angular_z = false
 	stun_timer = stun_time
+	disable_time_ring.max_value = stun_time
 	body_state = BodyState.STUNNED
 	PlayerManager.notify_player_stunned(player_num)
 	Hud.indicate_player_incapicated(player_num-1, true, stun_time)
