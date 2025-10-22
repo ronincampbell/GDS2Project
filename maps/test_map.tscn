@@ -1,8 +1,9 @@
-[gd_scene load_steps=32 format=3 uid="uid://kf5auj8ixedm"]
+[gd_scene load_steps=33 format=3 uid="uid://kf5auj8ixedm"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_cabd0"]
 [ext_resource type="PackedScene" uid="uid://bnaveyfa2eqtl" path="res://UI/prop placement/prop_placement.tscn" id="2_6b7mj"]
 [ext_resource type="PackedScene" uid="uid://ch6w1xgoxkaho" path="res://CoreObjects/barrier.tscn" id="2_svl6s"]
+[ext_resource type="Texture2D" uid="uid://bogxbu0j7b24" path="res://Assets/Painterly Sky BGs (177).png" id="3_w0ppd"]
 [ext_resource type="Script" uid="uid://2lrif2x4oxfs" path="res://scripts/camera_contoller.gd" id="4_lqwt6"]
 [ext_resource type="PackedScene" uid="uid://dgixuogvq3cyc" path="res://CoreObjects/player_spawn_marker.tscn" id="5_pbr4s"]
 [ext_resource type="PackedScene" uid="uid://dyoyq245t0u2w" path="res://CoreObjects/club_spawn_marker.tscn" id="6_6b7mj"]
@@ -22,12 +23,11 @@
 [ext_resource type="PackedScene" uid="uid://dsaidte8i2x58" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/foliage_B.gltf" id="19_thrmo"]
 [ext_resource type="PackedScene" uid="uid://dvctkxhnhhler" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/cobblestones.gltf" id="20_8ciif"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pwco0"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_x0wvt"]
+panorama = ExtResource("3_w0ppd")
 
 [sub_resource type="Sky" id="Sky_42yok"]
-sky_material = SubResource("ProceduralSkyMaterial_pwco0")
+sky_material = SubResource("PanoramaSkyMaterial_x0wvt")
 
 [sub_resource type="Environment" id="Environment_cabd0"]
 background_mode = 2
@@ -128,7 +128,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.372958, 0.00472277, 9.06229
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.8223, -0.0662708, 5.02014)
 
 [node name="BallSpawnMarker" parent="." instance=ExtResource("7_svl6s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.488752, 0.0537291, 4.86293)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.4113, 0.88123, 4.86293)
 
 [node name="SpellPickup" parent="." instance=ExtResource("8_6b7mj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 0)
