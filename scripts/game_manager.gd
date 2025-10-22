@@ -124,7 +124,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 		scores[body.last_hit_player] += 1
 		Hud.update_score(body.last_hit_player-1, scores[body.last_hit_player])
 		SoundPlayer.play_ball_in_hole()
-		if(scores[body.last_hit_player] >= 3):
+		if(scores[body.last_hit_player] >= LobbyManager.point_limit):
 			VictoryHoldover.last_winner = body.last_hit_player
 			body.queue_free()
 			print_debug("Game won!")

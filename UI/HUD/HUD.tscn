@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
 [ext_resource type="Texture2D" uid="uid://ojhjtjqgcgdj" path="res://Assets/crown.PNG" id="3_10ibt"]
-[ext_resource type="Script" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
+[ext_resource type="Script" uid="uid://cjphkt54sg4f5" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
 [ext_resource type="PackedScene" uid="uid://dkupiyycodnpd" path="res://models/gnome/player_v2_purple.gltf" id="3_vb885"]
 [ext_resource type="PackedScene" uid="uid://fghij55uwpwm" path="res://models/gnome/player_v2_yellow.gltf" id="4_q8dl0"]
 [ext_resource type="Texture2D" uid="uid://b0h64taiy2s6u" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/icons_xbox_animated_buttons1.png" id="5_3o8sq"]
