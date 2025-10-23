@@ -3,12 +3,16 @@
 [ext_resource type="Script" uid="uid://dbqlqp67suwrf" path="res://UI/HUD/hud.gd" id="1_yixhe"]
 [ext_resource type="Texture2D" uid="uid://ojhjtjqgcgdj" path="res://Assets/crown.PNG" id="3_10ibt"]
 [ext_resource type="Script" uid="uid://cjphkt54sg4f5" path="res://UI/HUD/player_container.gd" id="3_q8dl0"]
+[ext_resource type="Texture2D" uid="uid://8eisoly05k5k" path="res://Assets/headBlue.jpg" id="4_2y2n3"]
 [ext_resource type="PackedScene" uid="uid://dv1h1uv5xx0j2" path="res://models/gnome/blueGnome/bluePlayer.gltf" id="4_3o8sq"]
 [ext_resource type="Texture2D" uid="uid://b0h64taiy2s6u" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/icons_xbox_animated_buttons1.png" id="5_3o8sq"]
 [ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="6_gmunk"]
 [ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="7_o30d6"]
+[ext_resource type="Texture2D" uid="uid://d0j5af11lxsts" path="res://Assets/headPurple.jpg" id="7_y8qxg"]
 [ext_resource type="PackedScene" uid="uid://u1ncvk7lwj7h" path="res://UI/HUD/Scoreboard.tscn" id="8_10ibt"]
 [ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="8_i5ryk"]
+[ext_resource type="Texture2D" uid="uid://bmgrshppvlu2c" path="res://Assets/headRed.jpg" id="9_cgpfr"]
+[ext_resource type="Texture2D" uid="uid://btgsgqpmjh5c4" path="res://Assets/headYellow.jpg" id="11_dwvm7"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0ktxb"]
 bg_color = Color(0.535397, 0.636131, 0.489567, 1)
@@ -31,9 +35,6 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 corner_detail = 20
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_gmunk"]
-viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon/SubViewport")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_o30d6"]
 sky_top_color = Color(0.0888046, 0.605597, 1, 1)
@@ -118,9 +119,6 @@ corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 corner_detail = 20
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_y8qxg"]
-viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon/SubViewport")
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o30d6"]
 bg_color = Color(0.796078, 0.188235, 0.964706, 1)
 border_width_left = 3
@@ -144,9 +142,6 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 corner_detail = 20
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_cgpfr"]
-viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2y2n3"]
 bg_color = Color(0.752941, 0.160784, 0.176471, 1)
@@ -186,9 +181,6 @@ corner_radius_top_right = 50
 corner_radius_bottom_right = 50
 corner_radius_bottom_left = 50
 corner_detail = 20
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_dwvm7"]
-viewport_path = NodePath("PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon/SubViewport")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8dl0"]
 bg_color = Color(0.768627, 0.901961, 0.160784, 1)
@@ -306,9 +298,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_vb885")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-texture = SubResource("ViewportTexture_gmunk")
+texture = ExtResource("4_2y2n3")
+expand_mode = 1
+flip_h = true
 
 [node name="SubViewport" type="SubViewport" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player1/IconContainer/PlayerIcon"]
 own_world_3d = true
@@ -483,9 +475,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_10ibt")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-texture = SubResource("ViewportTexture_y8qxg")
+texture = ExtResource("7_y8qxg")
+expand_mode = 1
 
 [node name="SubViewport" type="SubViewport" parent="PlayersMarginContainer/PlayersContainer/TopRowContainer/Player2/IconContainer/PlayerIcon"]
 own_world_3d = true
@@ -584,9 +575,9 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_3o8sq")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer"]
 layout_mode = 2
-size_flags_horizontal = 2
-size_flags_vertical = 4
-texture = SubResource("ViewportTexture_cgpfr")
+texture = ExtResource("9_cgpfr")
+expand_mode = 1
+flip_h = true
 
 [node name="SubViewport" type="SubViewport" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player3/IconContainer/PlayerIcon"]
 own_world_3d = true
@@ -759,9 +750,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_gmunk")
 
 [node name="PlayerIcon" type="TextureRect" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 4
-texture = SubResource("ViewportTexture_dwvm7")
+texture = ExtResource("11_dwvm7")
+expand_mode = 1
 
 [node name="SubViewport" type="SubViewport" parent="PlayersMarginContainer/PlayersContainer/BottomRowContainer/Player4/IconContainer/PlayerIcon"]
 own_world_3d = true
