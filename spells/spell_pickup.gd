@@ -9,6 +9,10 @@ enum SpellID { FIREBALL, SHIELD }
 @export var respawn_delay := 6.0
 @export var copy_spell_collider := true
 
+@export var fireball_pickup_model: PackedScene
+@export var shield_pickup_model: PackedScene
+@export var pickup_model_scale: float = 1.0
+
 @onready var _hitbox: CollisionShape3D = $Hitbox
 @onready var _visual: MeshInstance3D = $Visual
 @onready var _mystery: MeshInstance3D = $Mystery
@@ -40,15 +44,26 @@ func _apply_visual_for_roll() -> void:
 		var col := _find_first_collision_shape(fb)
 		if copy_spell_collider and col and _hitbox:
 			_hitbox.shape = col.shape.duplicate(true)
-		_set_visual_mesh(_get_mesh(fb))
+		#_set_visual_mesh(_get_mesh(fb))
 		if is_instance_valid(fb): fb.queue_free()
 	elif _rolled_spell == SpellID.SHIELD and shield_scene:
 		var sh := shield_scene.instantiate()
 		var col2 := _find_first_collision_shape(sh)
 		if copy_spell_collider and col2 and _hitbox:
 			_hitbox.shape = col2.shape.duplicate(true)
-		_set_visual_mesh(_get_mesh(sh))
+		#_set_visual_mesh(_get_mesh(sh))
 		if is_instance_valid(sh): sh.queue_free()
+	
+	var model_scene: PackedScene = null
+	if _rolled_spell == SpellID.FIREBALL:
+		model_scene = fireball_pickup_model
+	else:
+		model_scene = shield_pickup_model
+	
+	var mesh := _extract_first_mesh_from_scene(model_scene)
+	_set_visual_mesh(mesh)
+	if _visual:
+		_visual.scale = Vector3.ONE * pickup_model_scale
 
 func _on_body_entered(body: Node) -> void:
 	if not _revealed:
@@ -88,3 +103,22 @@ func _set_visual_mesh(mesh: Mesh) -> void:
 
 func _set_mystery_visible(v: bool) -> void:
 	if _mystery: _mystery.visible = v
+
+func _extract_first_mesh_from_scene(ps: PackedScene) -> Mesh:
+	if ps == null:
+		return null
+	var inst := ps.instantiate()
+	var mesh := _find_first_mesh(inst)
+	if is_instance_valid(inst): inst.queue_free()
+	return mesh
+
+func _find_first_mesh(root: Node) -> Mesh:
+	var stack: Array[Node] = [root]
+	while not stack.is_empty():
+		var n : Variant = stack.pop_back()
+		var mi := n as MeshInstance3D
+		if mi:
+			return mi.mesh
+		for c in n.get_children():
+			stack.push_back(c)
+	return null

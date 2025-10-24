@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://dj3u8q4047al8"]
+[gd_scene load_steps=38 format=4 uid="uid://dj3u8q4047al8"]
 
 [ext_resource type="Script" uid="uid://ctif1aiftooxf" path="res://scripts/game_manager.gd" id="1_64p5s"]
 [ext_resource type="PackedScene" uid="uid://bnaveyfa2eqtl" path="res://UI/prop placement/prop_placement.tscn" id="2_xeelf"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://cfr5kki42eooe" path="res://CoreObjects/ball_spawn_marker.tscn" id="7_10a8e"]
 [ext_resource type="PackedScene" uid="uid://bbmlir6a54ytl" path="res://spells/spell_pickup.tscn" id="8_ih6rs"]
 [ext_resource type="PackedScene" uid="uid://7n0qffixg5k3" path="res://NewMap/floor_plane.tscn" id="9_gtlnb"]
+[ext_resource type="PackedScene" uid="uid://dwnmcsgr3horw" path="res://models/spell/red/spell_red.gltf" id="10_4esdt"]
 [ext_resource type="PackedScene" uid="uid://dl5cxytbdj1iq" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/house.gltf" id="11_vdfk7"]
+[ext_resource type="PackedScene" uid="uid://cujikl2iwbie1" path="res://models/spell/blue/spell_blue.gltf" id="11_yri4f"]
 [ext_resource type="PackedScene" uid="uid://d0o8nwsisqs1w" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/mailbox.gltf" id="12_o3cqt"]
 [ext_resource type="PackedScene" uid="uid://bgvlxpihgflav" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/tree.gltf" id="13_fbhxk"]
 [ext_resource type="PackedScene" uid="uid://dhqq2lld05g8o" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/tree_large.gltf" id="14_5vyoo"]
@@ -176,6 +178,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 1, 0)
 
 [node name="SpellPickup2" parent="." instance=ExtResource("8_ih6rs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68381, 1, 0.063592)
+fireball_pickup_model = ExtResource("10_4esdt")
+shield_pickup_model = ExtResource("11_yri4f")
 
 [node name="floorPlane" parent="." instance=ExtResource("9_gtlnb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.784398, 0.561653, -27.8011)
