@@ -4,8 +4,8 @@ var players_ready :Array[bool] = [false, false, false, false]
 
 @onready var gnome_laugh: AudioStreamPlayer = $GnomeLaugh
 
-@onready var map_selector = $"../LobbyHud/MarginContainer/LobbySettings/HBoxContainer/MapSelector"
-@onready var point_limit_selector = $"../LobbyHud/MarginContainer/LobbySettings/HBoxContainer2/PointLimitSelector"
+@onready var map_selector = $"../LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer/MapSelector"
+@onready var point_limit_selector = $"../LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer2"
 
 func drop_in_player(player_num: int):
 	get_node("%PhysicsP" + str(player_num)).freeze = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://chpaih64nsj73"]
+[gd_scene load_steps=42 format=3 uid="uid://chpaih64nsj73"]
 
 [ext_resource type="Texture2D" uid="uid://bogxbu0j7b24" path="res://Assets/Painterly Sky BGs (177).png" id="1_n1qbv"]
 [ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="3_bpwwb"]
@@ -52,6 +52,17 @@ viewport_path = NodePath("PhysicsP3/Player3Info/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_5xsys"]
 viewport_path = NodePath("PhysicsP4/Player4Info/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bpwwb"]
+bg_color = Color(0, 0, 0, 0.270588)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s6qpm"]
 atlas = ExtResource("11_vwqo6")
@@ -321,6 +332,7 @@ size_flags_vertical = 2
 [node name="Label2" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControllerLabelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_bpwwb")
 text = "This Game Is Designed To Be Played With a Controller"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -333,154 +345,166 @@ size_flags_vertical = 4
 texture = SubResource("AtlasTexture_s6qpm")
 expand_mode = 5
 
-[node name="ControlsContainer" type="VBoxContainer" parent="LobbyHud/MarginContainer/MainContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="LobbyHud/MarginContainer/MainContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 8
+theme_override_constants/separation = 100
+
+[node name="ControlsContainer" type="VBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_constants/separation = 20
 
-[node name="Row1" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
+[node name="Row1" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer"]
 custom_minimum_size = Vector2(206, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Join" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1"]
+[node name="Join" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row1"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="StartButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Join"]
+[node name="StartButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row1/Join"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_revcj")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Join"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row1/Join"]
 layout_mode = 2
 text = "Join"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Leave" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1"]
+[node name="Leave" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row1"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SSButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Leave"]
+[node name="SSButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row1/Leave"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_vwqo6")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row1/Leave"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row1/Leave"]
 layout_mode = 2
 text = "Leave"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Row2" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
+[node name="Row2" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="Ready" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2"]
+[node name="Ready" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="AButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Ready"]
+[node name="AButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row2/Ready"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_uxs3u")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Ready"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row2/Ready"]
 layout_mode = 2
 text = "Ready"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Unready" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2"]
+[node name="Unready" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row2"]
 layout_mode = 2
 
-[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Unready"]
+[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row2/Unready"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_n1qbv")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row2/Unready"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/ControlsContainer/Row2/Unready"]
 layout_mode = 2
 text = "Unready"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Row3" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_constants/separation = 20
-
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
-layout_mode = 2
-text = "Menu:"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Select" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+[node name="LobbySettings" type="VBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="LeftStick" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Select"]
+[node name="Row3" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Select" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LeftStick" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3/Select"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_34li1")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Select"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3/Select"]
 layout_mode = 2
-text = "Select"
+text = "Select Map Menu"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Update" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3"]
+[node name="Update" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3"]
 layout_mode = 2
 
-[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Update"]
+[node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3/Update"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
 texture = SubResource("AtlasTexture_uxs3u")
 expand_mode = 5
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/ControlsContainer/Row3/Update"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3/Update"]
 layout_mode = 2
 text = "Update"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LobbySettings" type="VBoxContainer" parent="LobbyHud/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer"]
 layout_mode = 2
-
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
 text = "Map: "
 
-[node name="MapSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer" instance=ExtResource("12_xsajp")]
+[node name="MapSelector" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer" instance=ExtResource("12_xsajp")]
 layout_mode = 2
-text_values = Array[String](["test_map", "map2", "map3"])
+text_values = Array[String](["Map 1", "Map 2", "Map 3"])
 allow_wraparound = true
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="LobbyHud/MarginContainer/LobbySettings"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings"]
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer2"]
+[node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Point Limit: "
 
-[node name="PointLimitSelector" parent="LobbyHud/MarginContainer/LobbySettings/HBoxContainer2" instance=ExtResource("12_xsajp")]
+[node name="PointLimitSelector" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer2" instance=ExtResource("12_xsajp")]
 layout_mode = 2
 start_index = 2
 text_values = Array[String](["1", "2", "3", "4", "5"])
