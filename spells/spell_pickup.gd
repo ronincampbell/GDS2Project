@@ -11,7 +11,7 @@ enum SpellID { FIREBALL, SHIELD }
 
 @export var fireball_pickup_model: PackedScene
 @export var shield_pickup_model: PackedScene
-@export var pickup_model_scale: float = 1.0
+@export var pickup_model_scale: float = 0.5
 
 @onready var _hitbox: CollisionShape3D = $Hitbox
 @onready var _visual: MeshInstance3D = $Visual
@@ -27,7 +27,8 @@ func _ready() -> void:
 	_reveal_timer.timeout.connect(_on_reveal_timer)
 	set_collision_mask_value(2, true)
 	_set_mystery_visible(true)
-	_set_visual_mesh(null)
+	_clear_children(_visual)
+	_visual.visible = false
 	_revealed = false
 
 func _on_reveal_timer() -> void:
@@ -60,10 +61,8 @@ func _apply_visual_for_roll() -> void:
 	else:
 		model_scene = shield_pickup_model
 	
-	var mesh := _extract_first_mesh_from_scene(model_scene)
-	_set_visual_mesh(mesh)
-	if _visual:
-		_visual.scale = Vector3.ONE * pickup_model_scale
+	_set_visual_scene(model_scene)
+	_visual.visible = true
 
 func _on_body_entered(body: Node) -> void:
 	if not _revealed:
@@ -78,7 +77,8 @@ func _consume_or_respawn() -> void:
 	if respawn_after_pickup:
 		_revealed = false
 		_set_mystery_visible(true)
-		_set_visual_mesh(null)
+		_clear_children(_visual)
+		_visual.visible = false
 		_reveal_timer.start(respawn_delay)
 	else:
 		queue_free()
@@ -104,21 +104,19 @@ func _set_visual_mesh(mesh: Mesh) -> void:
 func _set_mystery_visible(v: bool) -> void:
 	if _mystery: _mystery.visible = v
 
-func _extract_first_mesh_from_scene(ps: PackedScene) -> Mesh:
+func _set_visual_scene(ps: PackedScene) -> void:
+	if _visual == null:
+		return
+	_clear_children(_visual)
 	if ps == null:
-		return null
+		return
+	
 	var inst := ps.instantiate()
-	var mesh := _find_first_mesh(inst)
-	if is_instance_valid(inst): inst.queue_free()
-	return mesh
+	_visual.add_child(inst)
+	inst.owner = _visual
+	_visual.scale = Vector3.ONE * pickup_model_scale
+	_visual.visible = true
 
-func _find_first_mesh(root: Node) -> Mesh:
-	var stack: Array[Node] = [root]
-	while not stack.is_empty():
-		var n : Variant = stack.pop_back()
-		var mi := n as MeshInstance3D
-		if mi:
-			return mi.mesh
-		for c in n.get_children():
-			stack.push_back(c)
-	return null
+func _clear_children(n: Node) -> void:
+	for c in n.get_children():
+		c.queue_free()
