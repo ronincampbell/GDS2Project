@@ -78,7 +78,7 @@ func _physics_process(delta: float) -> void:
 				available_spawns.remove_at(spawn_index)
 			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
 				marker.hide()
-			
+			Hud.init_hud(false)
 			#_place_object(golf_club, Vector3(-0.6, 1.6, 0.4))
 			#var new_gnome = _place_object(gnome, Vector3(0, 1.4, 0))
 			#new_gnome.player_num = 1
@@ -128,6 +128,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			VictoryHoldover.last_winner = body.last_hit_player
 			body.queue_free()
 			print_debug("Game won!")
+			Hud.hide_icons()
 			get_tree().change_scene_to_file.call_deferred("res://maps/victory_podium.tscn")
 		else:
 			for player in active_players:

@@ -4,7 +4,6 @@ const spell_icons: Dictionary = {"fireball":preload("res://spells/icon/fireball.
 enum SpellID { FIREBALL, SHIELD }
 
 @onready var icon = $IconContainer/PlayerIcon
-@onready var viewport = $IconContainer/PlayerIcon/SubViewport
 @onready var timer = $IconContainer/IncapTimer
 @onready var score = $OtherContainer/ScoreContainer/ScoreMargin/ScoreText
 @onready var arrow = $IconContainer/Arrow

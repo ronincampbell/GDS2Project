@@ -154,8 +154,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		_play_model_animation("idle_anim")
 		return
 	
-	Hud.indicate_player_incapicated(player_num-1, false, 0)
-	
 	if body_state == BodyState.CONTESTING:
 		interact_indicator.hide()
 		attack_indicator.show()
@@ -259,7 +257,6 @@ func start_stun(stun_time: float):
 	disable_time_ring.max_value = stun_time
 	body_state = BodyState.STUNNED
 	PlayerManager.notify_player_stunned(player_num)
-	Hud.indicate_player_incapicated(player_num-1, true, stun_time)
 
 func _show_color_model(index: int):
 	for i in color_models.size():
@@ -389,7 +386,6 @@ func try_pickup():
 		held_club.is_held = true
 		held_club.enable_held_damping()
 		arm_state = ArmState.CLUB
-		Hud.update_player_crown(player_num)
 		PlayerManager.notify_player_got_club(player_num)
 	elif closest_prop:
 		held_prop = closest_prop
@@ -444,7 +440,6 @@ func drop_club():
 	held_club.disable_held_damping()
 	held_club = null
 	arm_state = ArmState.EMPTY
-	Hud.update_player_crown()
 	PlayerManager.notify_player_lost_club(player_num)
 
 func cancel_aiming():
@@ -468,7 +463,6 @@ func swing():
 	aiming_ball.is_being_aimed = false
 	aiming_ball = null
 	arm_state = ArmState.EMPTY
-	Hud.update_player_crown()
 	PlayerManager.notify_player_lost_club(player_num)
 	ball_hit_sound.play()
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bseh5fc1hs4s6"]
+[gd_scene load_steps=34 format=3 uid="uid://bseh5fc1hs4s6"]
 
 [ext_resource type="Script" uid="uid://r5utoye1j3ny" path="res://maps/victory_podium.gd" id="1_jsakm"]
 [ext_resource type="PackedScene" uid="uid://d08vg1gg5md2m" path="res://NewMap/floorPlane.glb" id="2_6a857"]
@@ -50,6 +50,35 @@ viewport_path = NodePath("PhysicsP3/Player3Info/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_tooky"]
 viewport_path = NodePath("PhysicsP4/Player4Info/SubViewport")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6a857"]
+draw_center = false
+border_width_left = 8
+border_width_top = 8
+border_width_right = 8
+border_width_bottom = 8
+border_color = Color(0.321569, 0.364706, 0.333333, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+corner_detail = 2
+shadow_size = 2
+shadow_offset = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ieke6"]
+bg_color = Color(0.537255, 0.635294, 0.490196, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.322502, 0.364369, 0.335173, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 3
+shadow_offset = Vector2(1, 1)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ncoko"]
 streams_count = 4
@@ -294,19 +323,58 @@ shape = SubResource("CapsuleShape3D_ncoko")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 8)
 
-[node name="Hud" type="CanvasLayer" parent="."]
+[node name="VictoryHud" type="CanvasLayer" parent="."]
 
-[node name="Label" type="Label" parent="Hud"]
-anchors_preset = 12
+[node name="WinnerTextPanel" type="PanelContainer" parent="VictoryHud"]
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -75.0
+offset_left = -109.0
+offset_top = -110.0
+offset_right = 109.0
+offset_bottom = -27.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Player X wins!"
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_6a857")
+
+[node name="MarginContainer" type="MarginContainer" parent="VictoryHud/WinnerTextPanel"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="VictoryHud/WinnerTextPanel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ieke6")
+
+[node name="AnnounceMargin" type="MarginContainer" parent="VictoryHud/WinnerTextPanel/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="WinnerText" type="RichTextLabel" parent="VictoryHud/WinnerTextPanel/MarginContainer/PanelContainer/AnnounceMargin"]
+custom_minimum_size = Vector2(200, 20)
+layout_mode = 2
+theme_override_font_sizes/bold_italics_font_size = 25
+theme_override_font_sizes/italics_font_size = 25
+theme_override_font_sizes/mono_font_size = 25
+theme_override_font_sizes/normal_font_size = 25
+theme_override_font_sizes/bold_font_size = 25
+text = "Player # Wins!"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
 horizontal_alignment = 1
-metadata/_edit_use_anchors_ = true
+vertical_alignment = 1
 
 [node name="GnomeLaugh" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamRandomizer_ncoko")
