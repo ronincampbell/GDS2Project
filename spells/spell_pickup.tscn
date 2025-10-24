@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbmlir6a54ytl"]
+[gd_scene load_steps=9 format=3 uid="uid://bbmlir6a54ytl"]
 
 [ext_resource type="Script" uid="uid://dacawbsv50sw3" path="res://spells/spell_pickup.gd" id="1_0dckw"]
 [ext_resource type="PackedScene" uid="uid://r0qq4c5we7un" path="res://spells/spells/Fireball.tscn" id="2_ofs2q"]
 [ext_resource type="PackedScene" uid="uid://ben31qlfh5wt0" path="res://spells/spells/Shield.tscn" id="3_e1wh0"]
+[ext_resource type="PackedScene" uid="uid://dwnmcsgr3horw" path="res://models/spell/red/spell_red.gltf" id="4_7rc6m"]
+[ext_resource type="PackedScene" uid="uid://cujikl2iwbie1" path="res://models/spell/blue/spell_blue.gltf" id="5_0244x"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_i8kvt"]
 radius = 0.6
@@ -19,6 +21,8 @@ collision_mask = 3
 script = ExtResource("1_0dckw")
 fireball_scene = ExtResource("2_ofs2q")
 shield_scene = ExtResource("3_e1wh0")
+fireball_pickup_model = ExtResource("4_7rc6m")
+shield_pickup_model = ExtResource("5_0244x")
 
 [node name="Hitbox" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_i8kvt")

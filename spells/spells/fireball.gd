@@ -15,6 +15,7 @@ class_name Fireball
 @export var sfx_bus: StringName = &"SFX"
 @export var sfx_pitch_jitter: float = 0.05
 @export var sfx_volume_db: float = 0.0
+@export var destroy_on_world_hit: bool = true
 
 var shooter: Node = null
 var _age := 0.0
