@@ -2,10 +2,12 @@ extends Node
 var players_in :Array[bool] = [false, false, false, false]
 var players_ready :Array[bool] = [false, false, false, false]
 
+var maps: Dictionary = {0: "test_map", 1: "map2", 2: "map3"}
+
 @onready var gnome_laugh: AudioStreamPlayer = $GnomeLaugh
 
 @onready var map_selector = $"../LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer/MapSelector"
-@onready var point_limit_selector = $"../LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer2"
+@onready var point_limit_selector = $"../LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/HBoxContainer2/PointLimitSelector"
 
 func drop_in_player(player_num: int):
 	get_node("%PhysicsP" + str(player_num)).freeze = false
@@ -23,9 +25,10 @@ func remove_player(player_num: int):
 
 func next_scene():
 	Hud.show()
+	AudioManager.play_gameplay_music()
 	LobbyManager.point_limit = point_limit_selector.current_index + 1
-	var map_name: String = map_selector.get_text_value()
-	get_tree().change_scene_to_file("res://maps/"+map_name+".tscn")
+	var map_index: int = map_selector.current_index
+	get_tree().change_scene_to_file("res://maps/"+maps[map_index]+".tscn")
 
 func all_ready() -> bool:
 	if players_in.all(func(value):return value == false):

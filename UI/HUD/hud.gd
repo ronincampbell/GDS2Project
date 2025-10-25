@@ -42,7 +42,6 @@ func announce_score(player_id: int):
 	score_announce_text.text = "Player " + str(player_id) + " Scored!"
 
 func reset_score_announce():
-	print("score hidden")
 	score_announce_panel.hide()
 	score_announce_text.text = "Player # Scored!"
 
