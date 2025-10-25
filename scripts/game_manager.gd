@@ -129,6 +129,7 @@ func _on_golf_hole_entered(body: Node3D) -> void:
 			body.queue_free()
 			print_debug("Game won!")
 			Hud.hide_icons()
+			AudioManager.stop_gameplay_music()
 			get_tree().change_scene_to_file.call_deferred("res://maps/victory_podium.tscn")
 		else:
 			for player in active_players:
