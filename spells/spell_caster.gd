@@ -43,6 +43,7 @@ func give_spell(id: int) -> bool:
 	if has_spell():
 		return false
 	current_spell = id
+	SoundPlayer.play_spell_pickup()
 	Hud.update_player_spell_icon(player_num, current_spell)
 	return true
 
@@ -76,6 +77,7 @@ func _cast_fireball() -> void:
 	fb.global_transform = Transform3D(basis, origin)
 	fb.set("shooter", _player)
 	get_tree().current_scene.add_child(fb)
+	SoundPlayer.play_fireball_effect()
 
 func _cast_shield() -> void:
 	if shield_scene == null or _player == null:
@@ -90,9 +92,11 @@ func filter_knockback(strength: float) -> float:
 	return strength * clamp(shield_absorb_scale, 0.0, 1.0) if shield_active else strength
 
 func _on_shield_started(absorb_scale: float) -> void:
+	SoundPlayer.play_shield_effect()
 	shield_active = true
 	shield_absorb_scale = absorb_scale
 
 func _on_shield_ended() -> void:
+	SoundPlayer.play_shield_effect(false)
 	shield_active = false
 	shield_absorb_scale = 1.0
