@@ -105,6 +105,7 @@ func _on_body_entered(body: Node) -> void:
 
 func _explode_and_free(at: Vector3, outward: Vector3 = Vector3.ZERO) -> void:
 	if splash_radius <= 0.0:
+		SoundPlayer.play_fireball_effect(false)
 		queue_free()
 		return
 

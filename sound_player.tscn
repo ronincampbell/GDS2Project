@@ -1,10 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://dq36uq4ustvkf"]
+[gd_scene load_steps=7 format=3 uid="uid://dq36uq4ustvkf"]
 
-[ext_resource type="Script" path="res://sound_player.gd" id="1_t28fc"]
+[ext_resource type="Script" uid="uid://crgl1vegbyx3c" path="res://sound_player.gd" id="1_t28fc"]
 [ext_resource type="AudioStream" uid="uid://dn2n3167tq472" path="res://sounds/Hole 1.mp3" id="2_fbbgd"]
+[ext_resource type="AudioStream" uid="uid://cli8onpx314j6" path="res://sounds/cast_fireball.wav" id="3_26u48"]
+[ext_resource type="AudioStream" uid="uid://b8d60u305ti5k" path="res://sounds/point score.mp3" id="3_es52r"]
+[ext_resource type="AudioStream" uid="uid://knkb7dcox2fl" path="res://sounds/cast_shield.wav" id="4_ljf32"]
+[ext_resource type="AudioStream" uid="uid://cb4l2sb7qolus" path="res://sounds/spell pickup sound.mp3" id="6_4j7x8"]
 
 [node name="SoundPlayer" type="Node"]
 script = ExtResource("1_t28fc")
 
 [node name="BallInHole" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_fbbgd")
+
+[node name="Score" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_es52r")
+
+[node name="Fireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_26u48")
+max_polyphony = 4
+
+[node name="Shield" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_ljf32")
+max_polyphony = 4
+
+[node name="Spell" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_4j7x8")
