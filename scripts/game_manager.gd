@@ -7,7 +7,7 @@ var skip_placing: bool = false
 
 var mode : String = "obstacle placing"
 var obstacle_placing_timer : float = 0
-var obstacle_placing_time : float = 20                                                    
+var obstacle_placing_time : float = 10                                                    
 var player1_obstacle_in_scene : bool = false
 
 var match_start_time: float = 2.0
