@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://chpaih64nsj73"]
+[gd_scene load_steps=43 format=3 uid="uid://chpaih64nsj73"]
 
 [ext_resource type="Texture2D" uid="uid://bogxbu0j7b24" path="res://Assets/Painterly Sky BGs (177).png" id="1_n1qbv"]
 [ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="3_bpwwb"]
@@ -78,7 +78,7 @@ region = Rect2(480, 480, 160, 160)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uxs3u"]
 atlas = ExtResource("11_vwqo6")
-region = Rect2(155, 805, 160, 160)
+region = Rect2(487.055, 809.686, 136.603, 152.498)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n1qbv"]
 atlas = ExtResource("11_vwqo6")
@@ -87,6 +87,10 @@ region = Rect2(315, 805, 160, 160)
 [sub_resource type="AtlasTexture" id="AtlasTexture_34li1"]
 atlas = ExtResource("11_vwqo6")
 region = Rect2(1115, 1125, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bpwwb"]
+atlas = ExtResource("11_vwqo6")
+region = Rect2(155, 805, 160, 160)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_revcj"]
 streams_count = 4
@@ -472,7 +476,7 @@ layout_mode = 2
 [node name="BButton" type="TextureRect" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3/Update"]
 custom_minimum_size = Vector2(32, 0)
 layout_mode = 2
-texture = SubResource("AtlasTexture_uxs3u")
+texture = SubResource("AtlasTexture_bpwwb")
 expand_mode = 5
 
 [node name="Label" type="Label" parent="LobbyHud/MarginContainer/MainContainer/PanelContainer/MarginContainer/HBoxContainer/LobbySettings/Row3/Update"]
