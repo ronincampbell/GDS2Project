@@ -72,10 +72,10 @@ func _physics_process(delta: float) -> void:
 				var spawn_index: int = randi_range(0, available_spawns.size()-1)
 				var new_gnome = _place_object(gnome, available_spawns[spawn_index].global_position + gnome_spawn_offset)
 				new_gnome.player_num = player_num
-				new_gnome.start_disable(match_start_time)
 				active_players.append(new_gnome)
 				PlayerManager.player_nodes.assign(active_players)
 				available_spawns.remove_at(spawn_index)
+				new_gnome.start_disable(match_start_time)
 			for marker in get_tree().get_nodes_in_group("PlayerSpawnMarkers"):
 				marker.hide()
 			Hud.init_hud(false)

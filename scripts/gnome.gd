@@ -381,7 +381,7 @@ func _get_closest_body_in_area(area: Area3D):
 func try_pickup():
 	var golf_club: GolfClub = _get_golf_club()
 	var closest_prop: Node3D = _get_closest_body_in_area(prop_interact_area)
-	if golf_club and golf_club:
+	if golf_club and !golf_club.is_held:
 		held_club = golf_club
 		held_club.is_held = true
 		held_club.enable_held_damping()
