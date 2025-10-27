@@ -13,9 +13,11 @@ enum SpellID { FIREBALL, SHIELD }
 
 var is_timer_active: bool = false
 var countdown: float = 0.0
+var player_index: int
 
 func _ready() -> void:
 	arrow.pivot_offset = Vector2(48, 48)
+	player_index = get_index()
 
 func _process(delta: float) -> void:
 	if is_timer_active:
@@ -52,8 +54,10 @@ func update_arrow(gnome_pos: Vector3, camera: Camera3D):
 	if camera:
 		var gnome_pos_on_screen = camera.unproject_position(gnome_pos)
 		var angle_to_gnome = arrow.position.angle_to_point(gnome_pos_on_screen)
-		arrow.rotation = -45.0
-		#arrow.rotation = 0.0
+		if player_index == 0 or player_index == 2:
+			arrow.rotation = -45.0
+		if player_index == 1 or player_index == 3:
+			arrow.rotation = 45.0
 		arrow.rotation += angle_to_gnome
 
 func update_crown(is_holding_club: bool):
