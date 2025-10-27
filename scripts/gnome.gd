@@ -55,6 +55,8 @@ var contest_chain_counter: int = 1
 var lose_contest_stun_length: float = 1.0
 var contest_cooldown: float = 0.0
 var contest_lockout_length: float = 0.5
+var contest_timeout_timer: float = 0.0
+var contest_timeout_length: float = 5.0
 
 var attack_strength: float = 6.0
 var attack_stun_length: float = 1.5
@@ -164,6 +166,10 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	rotation.z = 0.0
 	
 	if body_state == BodyState.CONTESTING:
+		contest_timeout_timer -= get_physics_process_delta_time()
+		if contest_timeout_timer < 0.0:
+			body_state = BodyState.MOVING
+			return
 		interact_indicator.hide()
 		attack_indicator.show()
 		rotate_to_face(contesting_gnome.global_position)
@@ -203,16 +209,19 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			else:
 				attack_indicator.hide()
 		elif arm_state == ArmState.CLUB:
-			if _get_golf_ball():
-				interact_indicator.show()
+			if !held_club:
+				arm_state = ArmState.EMPTY
 			else:
-				interact_indicator.hide()
-			if attack_cooldown_timer <= 0.0 and _is_close_to_other_player():
-				attack_indicator.show()
-			else:
-				attack_indicator.hide()
-			
-			_pull_club_to_hand()
+				if _get_golf_ball():
+					interact_indicator.show()
+				else:
+					interact_indicator.hide()
+				if attack_cooldown_timer <= 0.0 and _is_close_to_other_player():
+					attack_indicator.show()
+				else:
+					attack_indicator.hide()
+				
+				_pull_club_to_hand()
 		elif arm_state == ArmState.PROP:
 			interact_indicator.hide()
 			attack_indicator.hide()
@@ -260,6 +269,9 @@ func start_disable(disable_time: float):
 	disable_timer = disable_time
 	disable_time_ring.max_value = disable_time
 	body_state = BodyState.DISABLED
+	if arm_state == ArmState.CLUB or arm_state == ArmState.AIMING:
+		held_club.is_held = false
+		arm_state = ArmState.EMPTY
 	PlayerManager.notify_player_disabled(player_num)
 
 func start_stun(stun_time: float):
@@ -268,6 +280,9 @@ func start_stun(stun_time: float):
 	stun_timer = stun_time
 	disable_time_ring.max_value = stun_time
 	body_state = BodyState.STUNNED
+	if arm_state == ArmState.CLUB or arm_state == ArmState.AIMING:
+		held_club.is_held = false
+		arm_state = ArmState.EMPTY
 	PlayerManager.notify_player_stunned(player_num)
 
 func _show_color_model(index: int):
@@ -419,12 +434,14 @@ func try_contest_club():
 	var club_holder: Gnome = _get_club_holder()
 	if club_holder:
 		contest_cooldown = contest_lockout_length
+		contest_timeout_timer = contest_timeout_length
 		contesting_gnome = club_holder
 		club_holder.start_being_contested_by(self)
 		body_state = BodyState.CONTESTING
 
 func start_being_contested_by(contester: Gnome):
 	contest_cooldown = contest_lockout_length
+	contest_timeout_timer = contest_timeout_length
 	contesting_gnome = contester
 	body_state = BodyState.CONTESTING
 	if arm_state == ArmState.AIMING:

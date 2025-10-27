@@ -1,7 +1,8 @@
-[gd_scene load_steps=34 format=3 uid="uid://bseh5fc1hs4s6"]
+[gd_scene load_steps=35 format=3 uid="uid://bseh5fc1hs4s6"]
 
 [ext_resource type="Script" uid="uid://r5utoye1j3ny" path="res://maps/victory_podium.gd" id="1_jsakm"]
 [ext_resource type="PackedScene" uid="uid://d08vg1gg5md2m" path="res://NewMap/floorPlane.glb" id="2_6a857"]
+[ext_resource type="Texture2D" uid="uid://bogxbu0j7b24" path="res://Assets/Painterly Sky BGs (177).png" id="2_ieke6"]
 [ext_resource type="PackedScene" uid="uid://dl5cxytbdj1iq" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/house.gltf" id="3_ieke6"]
 [ext_resource type="PackedScene" uid="uid://dhqq2lld05g8o" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/tree_large.gltf" id="4_ufstd"]
 [ext_resource type="PackedScene" uid="uid://bgvlxpihgflav" path="res://models/Tiny_Treats_Homely_House_1.0_FREE/Assets/gltf/tree.gltf" id="5_xmv2o"]
@@ -22,16 +23,15 @@
 [ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="16_ufstd"]
 [ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="17_xmv2o"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3emv0"]
-sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
-ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_ufstd"]
+panorama = ExtResource("2_ieke6")
 
-[sub_resource type="Sky" id="Sky_5xsys"]
-sky_material = SubResource("ProceduralSkyMaterial_3emv0")
+[sub_resource type="Sky" id="Sky_uug8p"]
+sky_material = SubResource("PanoramaSkyMaterial_ufstd")
 
-[sub_resource type="Environment" id="Environment_6frj5"]
+[sub_resource type="Environment" id="Environment_xmv2o"]
 background_mode = 2
-sky = SubResource("Sky_5xsys")
+sky = SubResource("Sky_uug8p")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -94,7 +94,7 @@ size = Vector3(27.8408, 1, 17.5483)
 script = ExtResource("1_jsakm")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_6frj5")
+environment = SubResource("Environment_xmv2o")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)

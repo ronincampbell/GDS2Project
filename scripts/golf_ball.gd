@@ -27,6 +27,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		spawn_pos = global_position
 	if global_position.y < -10:
 		global_position = spawn_pos
+	
+	if is_being_aimed:
+		for player in PlayerManager.player_nodes:
+			if player.arm_state == Gnome.ArmState.AIMING:
+				return
+		is_being_aimed = false
 
 func show_aim_arrow():
 	showing_aim_arrow = true

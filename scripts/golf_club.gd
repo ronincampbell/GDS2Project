@@ -18,6 +18,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		spawn_pos = global_position
 	if global_position.y < -10:
 		global_position = spawn_pos
+	if is_held:
+		for player in PlayerManager.player_nodes:
+			if player.arm_state == Gnome.ArmState.CLUB or player.arm_state == Gnome.ArmState.AIMING:
+				return
+		is_held = false
 
 func get_handle_force_offset():
 	return handle_marker.global_position - global_position
