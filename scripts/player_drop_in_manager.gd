@@ -25,6 +25,7 @@ func remove_player(player_num: int):
 
 func next_scene():
 	Hud.show()
+	AudioManager.stop_lobby_music()
 	AudioManager.play_gameplay_music()
 	LobbyManager.point_limit = point_limit_selector.current_index + 1
 	var map_index: int = map_selector.current_index
@@ -50,6 +51,7 @@ func unready_player(player_num: int):
 
 func _ready() -> void:
 	Hud.hide()
+	AudioManager.play_lobby_music()
 	ControllerManager.device_joined.connect(_on_device_joined)
 	ControllerManager.device_left.connect(_on_device_left)
 	map_selector.prev_button.grab_focus()

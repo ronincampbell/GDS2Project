@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ba0otjjvnnwlw"]
+[gd_scene load_steps=4 format=3 uid="uid://ba0otjjvnnwlw"]
 
 [ext_resource type="Script" uid="uid://r2xmvwdqh0lr" path="res://audio_manager.gd" id="1_d16gy"]
 [ext_resource type="AudioStream" uid="uid://bcyhep222xip2" path="res://Music/Folk Game play  loop.wav" id="2_er85w"]
+[ext_resource type="AudioStream" uid="uid://dqohaj5qx41yh" path="res://Music/Lobby Music final.wav" id="3_er85w"]
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_d16gy")
 
-[node name="Music" type="AudioStreamPlayer" parent="."]
+[node name="Gameplay" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_er85w")
+
+[node name="Lobby" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_er85w")
