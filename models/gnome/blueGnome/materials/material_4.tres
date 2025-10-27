@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://7jywckthkgfr"]
 
-[ext_resource type="Texture2D" uid="uid://bmm8fqoqfx8e0" path="res://models/gnome/blueGnome/bluePlayer_4.png" id="1_6iish"]
+[ext_resource type="Texture2D" uid="uid://dum4pq52a3rto" path="res://models/gnome/blueGnome/bluePlayer_4.png" id="1_6iish"]
 
 [resource]
 resource_name = "material_4"
