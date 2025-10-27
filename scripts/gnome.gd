@@ -53,6 +53,8 @@ var contest_power: float = 0.0
 var contest_step: float = 0.2
 var contest_chain_counter: int = 1
 var lose_contest_stun_length: float = 1.0
+var contest_cooldown: float = 0.0
+var contest_lockout_length: float = 0.5
 
 var attack_strength: float = 6.0
 var attack_stun_length: float = 1.5
@@ -169,6 +171,9 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		_pull_right_hand_towards(contesting_gnome.global_position)
 		_play_model_animation("idle_anim")
 		return
+	
+	if contest_cooldown > 0.0:
+		contest_cooldown -= get_physics_process_delta_time()
 	
 	var flat_move_dir: Vector2 = Input.get_vector("PlayerLeft"+str(player_num),"PlayerRight"+str(player_num),"PlayerUp"+str(player_num),"PlayerDown"+str(player_num))
 	var move_dir: Vector3 = Vector3(flat_move_dir.x, 0.0, flat_move_dir.y)
@@ -328,7 +333,7 @@ func _input(event: InputEvent) -> void:
 				contesting_gnome.lose_contest()
 				attack()
 		else:
-			if arm_state == ArmState.EMPTY:
+			if arm_state == ArmState.EMPTY and contest_cooldown <= 0.0:
 				try_contest_club()
 			elif arm_state == ArmState.CLUB:
 				if attack_cooldown_timer <= 0.0:
@@ -413,11 +418,13 @@ func try_start_aim():
 func try_contest_club():
 	var club_holder: Gnome = _get_club_holder()
 	if club_holder:
+		contest_cooldown = contest_lockout_length
 		contesting_gnome = club_holder
 		club_holder.start_being_contested_by(self)
 		body_state = BodyState.CONTESTING
 
 func start_being_contested_by(contester: Gnome):
+	contest_cooldown = contest_lockout_length
 	contesting_gnome = contester
 	body_state = BodyState.CONTESTING
 	if arm_state == ArmState.AIMING:
