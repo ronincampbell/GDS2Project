@@ -1,12 +1,12 @@
-[gd_scene load_steps=29 format=3 uid="uid://2mlsk3fuft5d"]
+[gd_scene load_steps=31 format=3 uid="uid://2mlsk3fuft5d"]
 
 [ext_resource type="Script" uid="uid://8kb4fo302gwj" path="res://scripts/gnome.gd" id="1_5g0f5"]
 [ext_resource type="PackedScene" uid="uid://dv1h1uv5xx0j2" path="res://models/gnome/blueGnome/bluePlayer.gltf" id="2_d1q12"]
 [ext_resource type="PackedScene" uid="uid://cxjsd5ke76w1d" path="res://models/gnome/purpleGnome/purpleGnome.gltf" id="3_d1q12"]
-[ext_resource type="Texture2D" uid="uid://brmsimcjjvfuj" path="res://icon.svg" id="3_k84ux"]
 [ext_resource type="PackedScene" uid="uid://dhb24xm11l14v" path="res://models/gnome/redGnome/redPlayer.gltf" id="4_qwf6p"]
 [ext_resource type="PackedScene" uid="uid://rff63hldpieu" path="res://models/gnome/yellowGnome/yellowPlayer.gltf" id="5_jgpo3"]
 [ext_resource type="Material" uid="uid://jb80sfm7t1uh" path="res://models/gnome/placeholder_gnome_skin_blue.tres" id="6_7j42c"]
+[ext_resource type="Texture2D" uid="uid://c1g4b36gd66yt" path="res://UI/Ps4_Xbox_Controller_Buttons_v1.0/Spritesheet/xboxIconsBig.png" id="7_jgpo3"]
 [ext_resource type="Script" uid="uid://cxw8b1uiy3nwx" path="res://spells/spell_caster.gd" id="8_2kfoo"]
 [ext_resource type="AudioStream" uid="uid://bob1melhxhfgd" path="res://sounds/golf ball hit 2.mp3" id="8_x56rg"]
 [ext_resource type="AudioStream" uid="uid://dyphv7oaihlnm" path="res://sounds/golf ball hit 3.mp3" id="9_2kfoo"]
@@ -35,6 +35,14 @@ size = Vector3(0.91, 0.21, 0.21)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_8pkva"]
 radius = 2.4
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7a58a"]
+atlas = ExtResource("7_jgpo3")
+region = Rect2(155, 805, 160, 160)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qwf6p"]
+atlas = ExtResource("7_jgpo3")
+region = Rect2(475, 805, 160, 160)
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_x7fgk"]
 playback_mode = 1
@@ -165,14 +173,13 @@ shape = SubResource("SphereShape3D_8pkva")
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.55587, 0)
 visible = false
 billboard = 1
-texture = ExtResource("3_k84ux")
+texture = SubResource("AtlasTexture_7a58a")
 
 [node name="AttackIndicator" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.1951, 0)
 visible = false
-modulate = Color(1, 0, 0, 1)
 billboard = 1
-texture = ExtResource("3_k84ux")
+texture = SubResource("AtlasTexture_qwf6p")
 
 [node name="SpellCaster" type="Node" parent="."]
 script = ExtResource("8_2kfoo")

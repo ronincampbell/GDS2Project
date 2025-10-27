@@ -1,6 +1,6 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://du63tst1cew1b"]
 
-[ext_resource type="Texture2D" uid="uid://cg31wagmvmw7f" path="res://models/gnome/yellowGnome/yellowPlayer_3.png" id="1_nim2b"]
+[ext_resource type="Texture2D" uid="uid://cdyqrdp71x541" path="res://models/gnome/yellowGnome/yellowPlayer_3.png" id="1_nim2b"]
 
 [resource]
 resource_name = "material_3"
