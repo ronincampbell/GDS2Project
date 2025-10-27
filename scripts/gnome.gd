@@ -119,14 +119,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 		interact_indicator.hide()
 		attack_indicator.hide()
 		disable_timer -= get_physics_process_delta_time()
+		axis_lock_angular_x = true
+		axis_lock_angular_z = true
+		rotation.x = 0.0
+		rotation.z = 0.0
 		if disable_timer <= 0.0:
 			disable_time_sprite.hide()
 			body_state = BodyState.MOVING
 			PlayerManager.notify_player_enabled(player_num)
-			axis_lock_angular_x = true
-			axis_lock_angular_z = true
-			rotation.x = 0.0
-			rotation.z = 0.0
 		_play_model_animation("idle_anim")
 		return
 	
@@ -138,6 +138,8 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 	prev_linear_velocity = state.linear_velocity
 	
 	if body_state == BodyState.STUNNED and stun_timer > 0.0:
+		axis_lock_angular_x = false
+		axis_lock_angular_z = false
 		disable_time_sprite.show()
 		disable_time_ring.value = stun_timer
 		interact_indicator.hide()
@@ -153,6 +155,11 @@ func _integrate_forces(state: PhysicsDirectBodyState3D):
 			rotation.z = 0.0
 		_play_model_animation("idle_anim")
 		return
+	
+	axis_lock_angular_x = true
+	axis_lock_angular_z = true
+	rotation.x = 0.0
+	rotation.z = 0.0
 	
 	if body_state == BodyState.CONTESTING:
 		interact_indicator.hide()
