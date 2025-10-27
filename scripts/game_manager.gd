@@ -55,8 +55,8 @@ func _physics_process(delta: float) -> void:
 		obstacle_placing_timer += delta
 		prop_placement_ui.update_timer_text(snappedf(obstacle_placing_time-obstacle_placing_timer, 0.1))
 		
-		if Input.is_action_just_pressed("ui_accept"):
-			skip_placing = true
+		#if Input.is_action_just_pressed("ui_accept"):
+		#	skip_placing = true
 		
 		if obstacle_placing_timer > obstacle_placing_time or skip_placing:
 			prop_placement_ui.visible = false
