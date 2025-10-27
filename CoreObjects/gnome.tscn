@@ -171,14 +171,14 @@ shape = SubResource("SphereShape3D_8pkva")
 
 [node name="InteractIndicator" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 3.55587, 0)
-visible = false
 billboard = 1
+render_priority = 2
 texture = SubResource("AtlasTexture_7a58a")
 
 [node name="AttackIndicator" type="Sprite3D" parent="."]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 4.1951, 0)
-visible = false
 billboard = 1
+render_priority = 2
 texture = SubResource("AtlasTexture_qwf6p")
 
 [node name="SpellCaster" type="Node" parent="."]
