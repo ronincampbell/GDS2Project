@@ -54,9 +54,9 @@ func update_arrow(gnome_pos: Vector3, camera: Camera3D):
 	if camera:
 		var gnome_pos_on_screen = camera.unproject_position(gnome_pos)
 		var angle_to_gnome = arrow.position.angle_to_point(gnome_pos_on_screen)
-		if player_index == 1 or player_index == 3:
+		if player_index == 0 or player_index == 2:
 			arrow.rotation = -45.0
-		if player_index == 2 or player_index == 4:
+		if player_index == 1 or player_index == 3:
 			arrow.rotation = 45.0
 		arrow.rotation += angle_to_gnome
 
