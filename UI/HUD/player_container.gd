@@ -53,12 +53,12 @@ func update_timer(stun_length: float = 0.0, is_active: bool = true):
 func update_arrow(gnome_pos: Vector3, camera: Camera3D):
 	if camera:
 		var gnome_pos_on_screen = camera.unproject_position(gnome_pos)
-		var angle_to_gnome = arrow.position.angle_to_point(gnome_pos_on_screen)
-		if player_index == 0 or player_index == 2:
-			arrow.rotation = -45.0
-		if player_index == 1 or player_index == 3:
-			arrow.rotation = 45.0
-		arrow.rotation += angle_to_gnome
+		var angle_to_gnome = arrow.global_position.angle_to_point(gnome_pos_on_screen)
+		#if player_index == 0 or player_index == 2:
+		#	arrow.rotation = 0.0
+		#if player_index == 1 or player_index == 3:
+		#	arrow.rotation = 0.0#45.0
+		arrow.rotation = angle_to_gnome - PI/4
 
 func update_crown(is_holding_club: bool):
 	if is_holding_club:
